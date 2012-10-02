@@ -9,7 +9,7 @@ public class Projektarbete {
 	
 	public static void print()
 	{
-		System.out.println("Test");
+		System.out.println("Test2");
 	}
 
 }
