@@ -7,6 +7,10 @@ import org.newdawn.slick.*;
  * WIP name might change.
  */
 public class CaveWars// extends BasicGame
-{
+{	
+	public CaveWars()
+	{
+		
+	}
 	
 }
