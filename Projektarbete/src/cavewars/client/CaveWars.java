@@ -10,7 +10,7 @@ public class CaveWars extends BasicGame
 {	
 	public CaveWars()
 	{
-		
+		super("Title");
 	}
 	
 	@Override
@@ -20,6 +20,11 @@ public class CaveWars extends BasicGame
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void update(GameContainer container, int delta) throws SlickException {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 }
