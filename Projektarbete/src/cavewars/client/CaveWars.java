@@ -13,4 +13,13 @@ public class CaveWars extends BasicGame
 		
 	}
 	
+	@Override
+	public void init(GameContainer container) throws SlickException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	@Override
+	public void render(GameContainer container, Graphics g) throws SlickException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 }
