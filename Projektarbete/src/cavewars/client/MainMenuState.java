@@ -1,22 +1,19 @@
 package cavewars.client;
 
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
-import org.newdawn.slick.state.GameState;
-import org.newdawn.slick.state.StateBasedGame;
+/*import org.newdawn.slick.*;*/
 
-public class MainMenuState implements GameState
+public class MainMenuState// implements GameState
 {
+	public static int id = 1;
+	
 	public MainMenuState()
 	{
 		
 	}
 
-	@Override
+	/*@Override
 	public int getID() {
-		return 0;//throw new UnsupportedOperationException("Not supported yet.");
+		return id;
 	}
 
 	@Override
@@ -44,6 +41,7 @@ public class MainMenuState implements GameState
 		//throw new UnsupportedOperationException("Not supported yet.");
 	}
 
+	
 	@Override
 	public void mouseWheelMoved(int i) {
 		//throw new UnsupportedOperationException("Not supported yet.");
@@ -153,5 +151,5 @@ public class MainMenuState implements GameState
 	@Override
 	public void controllerButtonReleased(int i, int i1) {
 		//throw new UnsupportedOperationException("Not supported yet.");
-	}
+	}*/
 }

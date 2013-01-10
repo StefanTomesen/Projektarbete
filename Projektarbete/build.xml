@@ -10,7 +10,11 @@
 <project name="Projektarbete" default="default" basedir=".">
     <description>Builds, tests, and runs the project Projektarbete.</description>
     <import file="nbproject/build-impl.xml"/>
-    <!--
+    <target name="-post-dist" description="Create jar file.">
+		<!-- 'basedir' should be the directory from which to jar the files -->
+		<jar destfile="C:/Users/Bertil/Dropbox/Projekt/Build/Stefan/app.jar" basedir="${build.dir}/myjarfiles"/>
+	</target>
+	<!--
 
     There exist several targets which are by default empty and which can be 
     used for execution of your tasks. These targets are usually executed 
