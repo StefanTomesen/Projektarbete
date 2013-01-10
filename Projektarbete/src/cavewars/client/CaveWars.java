@@ -1,30 +1,32 @@
 package cavewars.client;
 
+import cavewars.util.VersionTracker;
 import org.newdawn.slick.*;
+import org.newdawn.slick.state.StateBasedGame;
 
 /**
  * The base class responsible for starting the game.
  * WIP name might change.
  */
-public class CaveWars extends BasicGame
+public class CaveWars extends StateBasedGame
 {	
 	public CaveWars()
 	{
-		super("Title");
+		super("CaveWars - " + VersionTracker.getBuildID().getPrintable());
+	}
+
+	@Override
+	public void initStatesList(GameContainer gc) throws SlickException {
+		addState(new MainMenuState());
 	}
 	
-	@Override
-	public void init(GameContainer container) throws SlickException {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
+	public static void main(String[] args) throws SlickException
+    {
+		VersionTracker.updateVersionNumber();
+		
+		AppGameContainer app = new AppGameContainer(new ScalableGame(new CaveWars(), 800, 600));
 
-	@Override
-	public void render(GameContainer container, Graphics g) throws SlickException {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	@Override
-	public void update(GameContainer container, int delta) throws SlickException {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
+		app.setDisplayMode(800, 600, false);
+		app.start();
+    }
 }
