@@ -6,7 +6,7 @@ public class Shutdown
 {
 	public static void shutDown(String s)
 	{
-		JOptionPane.showMessageDialog(null, s);
+		Dialogs.showMessage(s);
 		System.exit(0);
 	}
 }
