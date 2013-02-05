@@ -1,4 +1,4 @@
-package cavewars.util;
+package cavewars.communication;
 
 public class Transmission
 {
