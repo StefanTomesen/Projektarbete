@@ -11,9 +11,11 @@ import org.newdawn.slick.state.*;
  */
 public class CaveWars extends StateBasedGame
 {
+    public static CaveWars caveWars;
 	public CaveWars()
 	{
 		super("CaveWars");
+                caveWars = this;
 	}
 
 	@Override
@@ -23,12 +25,14 @@ public class CaveWars extends StateBasedGame
 	
 	public static void main(String[] args) throws SlickException
     {
-		VersionTracker.generateMD5();
-		Dialogs.showMessage(VersionTracker.getMD5Sum());
+		//VersionTracker.generateMD5();
+		//Dialogs.showMessage(VersionTracker.getMD5Sum());
+                int width = 1000;
+                int height = 500;
+        
+		AppGameContainer app = new AppGameContainer(new ScalableGame(new CaveWars(), width, height));
 
-		AppGameContainer app = new AppGameContainer(new ScalableGame(new CaveWars(), 800, 600));
-
-		app.setDisplayMode(800, 600, false);
+		app.setDisplayMode(width, height, false);
 		app.start();
     }
 }

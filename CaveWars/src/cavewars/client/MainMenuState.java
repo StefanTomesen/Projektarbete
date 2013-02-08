@@ -6,10 +6,12 @@ import org.newdawn.slick.state.*;
 public class MainMenuState implements GameState
 {
 	public static int id = 1;
-	
+	public Menu menu;
+        
+        
 	public MainMenuState()
 	{
-		
+            
 	}
 
 	@Override
@@ -19,12 +21,12 @@ public class MainMenuState implements GameState
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		//throw new UnsupportedOperationException("Not supported yet.");
+		menu = new MainMenu();
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
-		//throw new UnsupportedOperationException("Not supported yet.");
+		menu.render(gc, sbg, grphcs);
 	}
 
 	@Override
@@ -49,19 +51,20 @@ public class MainMenuState implements GameState
 	}
 
 	@Override
-	public void mouseClicked(int i, int i1, int i2, int i3) {
-		//throw new UnsupportedOperationException("Not supported yet.");
+	public void mouseClicked(int button, int x, int y, int i3) {
+		
 	}
 
 	@Override
-	public void mousePressed(int i, int i1, int i2) {
-		//throw new UnsupportedOperationException("Not supported yet.");
+	public void mousePressed(int button, int x, int y) {
+		
 	}
 
 	@Override
-	public void mouseReleased(int i, int i1, int i2) {
-		//throw new UnsupportedOperationException("Not supported yet.");
-	}
+	public void mouseReleased(int button, int x, int y) {
+            menu.mouseReleased(button, x, y);
+            
+        }
 
 	@Override
 	public void mouseMoved(int i, int i1, int i2, int i3) {
@@ -70,7 +73,7 @@ public class MainMenuState implements GameState
 
 	@Override
 	public void mouseDragged(int i, int i1, int i2, int i3) {
-		//throw new UnsupportedOperationException("Not supported yet.");
+            //throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
@@ -80,7 +83,7 @@ public class MainMenuState implements GameState
 
 	@Override
 	public boolean isAcceptingInput() {
-		return false;
+		return true;
 		//throw new UnsupportedOperationException("Not supported yet.");
 	}
 
