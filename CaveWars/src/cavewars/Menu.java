@@ -1,4 +1,4 @@
-package cavewars.client;
+package cavewars;
 
 import java.util.ArrayList;
 import org.newdawn.slick.*;

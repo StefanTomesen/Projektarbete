@@ -1,4 +1,4 @@
-package cavewars.client;
+package cavewars;
 
 import java.io.*;
 import java.util.Scanner;
@@ -33,7 +33,8 @@ class MainMenu extends Menu {
                 meny.setVisible(true);
                 break;
             case "start":
-                break;
+                CaveWars.caveWars.enterState(CaveWars.GAME_PLAY_STATE);
+				break;
         }
     }
 }

@@ -1,4 +1,4 @@
-package cavewars.util;
+package cavewars;
 
 import javax.swing.JOptionPane;
 

@@ -1,30 +1,32 @@
-package cavewars.client;
+package cavewars;
 
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
 public class GamePlayState implements GameState
 {
-	public static int id = 2;
+	public World world;
 	
-	public GamePlayState()
-	{
-		
-	}
+	public int stateID;
 
+	public GamePlayState(int stateID) throws SlickException
+	{
+		this.stateID = stateID;
+	}
+	
 	@Override
 	public int getID() {
-		return id;
+		return stateID;
 	}
 
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		//throw new UnsupportedOperationException("Not supported yet.");
+		
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
-		//throw new UnsupportedOperationException("Not supported yet.");
+		world.render(gc, sbg, grphcs);
 	}
 
 	@Override
@@ -34,7 +36,7 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		//throw new UnsupportedOperationException("Not supported yet.");
+		world = new World();
 	}
 
 	@Override

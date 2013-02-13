@@ -1,4 +1,4 @@
-package cavewars.client;
+package cavewars;
 
 public class TileGrid
 {

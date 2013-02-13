@@ -1,4 +1,4 @@
-package cavewars.client;
+package cavewars;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
