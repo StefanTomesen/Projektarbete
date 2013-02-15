@@ -14,30 +14,24 @@ public abstract class Entity
 	/** The size of this entity counting in blocks. */
 	public float naturalScale;
 	
-	public float velocityX;
-	public float velocityY;
+	public float velocityX = 0.0F;
+	public float velocityY = 0.0F;
 	public float gravity = 9.82F;
 	
 	public SpriteSheet spritesheet;
 	public long animationTimer = 0;
-	public long animationFPS;
 	
-	public Entity(int entityID, float xPosition, float yPosition, float naturalScale, SpriteSheet spritesheet)
+	public Entity(int entityID, float xPosition, float yPosition, float naturalScale, String fileName, int xTiles, int yTiles)
 	{
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
 		this.naturalScale = naturalScale;
 		
-		this.spritesheet = spritesheet;
+		Image image = ImageLoader.getImage(fileName);
+		int tileWidth = image.getWidth() / xTiles;
+		int tileHeight = image.getHeight() / yTiles;
+		this.spritesheet = new SpriteSheet(image, tileWidth, tileHeight);
 		this.largestSide = getLargestSide(spritesheet);
-		
-		this.velocityX = 0;
-		this.velocityY = 0;
-	}
-	
-	public Entity(int entityID, float xPosition, float yPosition, float naturalScale, Image image)
-	{
-		this(entityID, xPosition, yPosition, naturalScale, new SpriteSheet(image, image.getWidth(), image.getHeight()));
 	}
 	
 	public void render(Camera camera, int windowWidth, int windowHeight)
@@ -53,30 +47,31 @@ public abstract class Entity
 		float yPos = yPosition * blockSize;
 		
 		Image image = spritesheet.getSprite(getSpriteXIndex(), getSpriteYIndex());
+		
 		image.setRotation(getRotation());
-		System.out.println("Scale" + scale);
 		image.draw(xPos + xOffset, yPos + yOffset, scale);
 	}
 	
 	/**
-	 * Returns the index of the current sprite in the spritesheet along the x axis. By default, it returns the first
-	 * sprite so this inly has to be specified when the entity actually switches sprites.
+	 * Returns the index of the current sprite in the spritesheet along the x axis.  If it is an image it should return 0.
 	 */
-	public int getSpriteXIndex()
-	{
-		return 0;
-	}
+	public abstract int getSpriteXIndex();
 	
 	/**
-	 * Returns the index of the current sprite in the spritesheet along the y axis. By default, it returns the first
-	 * sprite so this only has to be specified when the entity actually switches sprites.
+	 * Returns the index of the current sprite in the spritesheet along the y axis. If it is an image it should return 0.
 	 */
-	public int getSpriteYIndex()
-	{
-		return 0;
-	}
+	public abstract int getSpriteYIndex();
 	
-	public void updateAnimation(long delta){}
+	public abstract void updateAnimation(long delta);
+	
+	public abstract float getRotation();
+	
+	public void updateMovementAndPhysics(int delta)
+	{
+		float deltaX = delta * velocityX / 1000;
+		xPosition += deltaX;
+		System.out.println("Physics!");
+	}
 	
 	private int getLargestSide(SpriteSheet spritesheet)
 	{
@@ -94,10 +89,5 @@ public abstract class Entity
 		}
 		
 		return largestSide;
-	}
-	
-	public float getRotation()
-	{
-		return 0;
 	}
 }

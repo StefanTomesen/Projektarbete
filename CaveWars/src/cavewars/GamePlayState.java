@@ -22,7 +22,7 @@ public class GamePlayState implements GameState
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException 
     {
-		
+		ImageLoader.initiateImageList();
 	}
 
 	@Override
@@ -32,7 +32,7 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		
+		world.update(delta);
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class GamePlayState implements GameState
 
 	@Override
 	public boolean isAcceptingInput() {
-		return false;
+		return true;
 		//throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -101,17 +101,32 @@ public class GamePlayState implements GameState
 	public void keyPressed(int key, char character) {
 		if(key == Input.KEY_LEFT)
 		{
-			world.player.
+			world.localPlayer.doWalk(EntityPlayer.LEFT);
 		}
-		else if(key == Input.KEY_RIGHT)
+		if(key == Input.KEY_RIGHT)
 		{
-			world.player.
+			world.localPlayer.doWalk(EntityPlayer.RIGHT);
+		}
+		if(key == Input.KEY_A)
+		{
+			world.camera.scale /= 0.8;
+		}
+		if(key == Input.KEY_Z)
+		{
+			world.camera.scale *= 0.8;
 		}
 	}
 
 	@Override
-	public void keyReleased(int i, char c) {
-		//throw new UnsupportedOperationException("Not supported yet.");
+	public void keyReleased(int key, char character) {
+		if(key == Input.KEY_LEFT && world.localPlayer.direction == EntityPlayer.LEFT)
+		{
+			world.localPlayer.doStop();
+		}
+		else if(key == Input.KEY_RIGHT && world.localPlayer.direction == EntityPlayer.RIGHT)
+		{
+			world.localPlayer.doStop();
+		}
 	}
 
 	@Override

@@ -10,7 +10,8 @@ public class World
 	
 	public EntityFactory entityFactory;
 	public ArrayList<Entity> entityList = new ArrayList();
-	public Entity player;
+	//public ArrayList<EntityPlayer> playerList = new ArrayList();
+	public EntityPlayer localPlayer;
 	
 	public Camera camera;
 	
@@ -28,10 +29,16 @@ public class World
 	{
 		float gameScale = gc.getHeight() / tileGrid.ySize;
 		
-		player.render(camera, gc.getWidth(), gc.getHeight());
+		localPlayer.render(camera, gc.getWidth(), gc.getHeight());
 		for(Entity entity : entityList)
 		{	
 			entity.render(camera, gc.getWidth(), gc.getHeight());
 		}
+	}
+	
+	public void update(int delta)
+	{
+		localPlayer.updateAnimation(delta);
+		localPlayer.updateMovementAndPhysics(delta);
 	}
 }

@@ -17,7 +17,7 @@ public class Camera
 	/**
 	 * Updates the camera position based on where the player is.
 	 */
-	public void update(EntityPlayer player)
+	public void updatePositon(EntityPlayer player)
 	{
 		x = player.xPosition;
 		y = player.yPosition;

@@ -21,6 +21,7 @@ public class ImageLoader
 			catch(Exception e)
 			{
 				System.out.println("Invalid image path!");
+				e.printStackTrace();
 				continue;
 			}
 			
@@ -28,5 +29,8 @@ public class ImageLoader
 		}
 	}
 	
-	public getImage
+	public static Image getImage(String fileName)
+	{
+		return imageMap.get(fileName);
+	}
 }

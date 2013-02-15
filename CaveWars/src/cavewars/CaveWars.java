@@ -31,8 +31,6 @@ public class CaveWars extends StateBasedGame
 	
 	public static void main(String[] args) throws SlickException
     {
-		ImageLoader.initiateImageList();
-		
 		int width = 1000;
 		int height = 500;
         

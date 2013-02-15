@@ -16,35 +16,9 @@ public class EntityFactory
 		this.world = world;
 	}
 	
-	public void createPlayer(int id, float x, float y, int team) throws SlickException
-	{
-		Image image = getTeamSpritesheetImage(team);
-		SpriteSheet spritesheet = new SpriteSheet(image, 280, 500);
-		
-		EntityPlayer player = new EntityPlayer(id, x, y, spritesheet);
-		world.player = player;
-	}
-	
-	public static Image getTeamSpritesheetImage(int team)//throws SlickException
-	{
-		String fileName;
-		switch(team) 
-		{
-			case EntityPlayer.RED_TEAM: fileName = "spritesheet_player_red.png"; break;
-			case EntityPlayer.YELLOW_TEAM: fileName = "spritesheet_player_yellow.png"; break;
-			default: fileName = "spritesheet_player_yellow"; break;
-		}
-
-		Image image;
-		try {
-			image = new Image("./resources/" + fileName);
-		} 
-		catch (SlickException ex) 
-		{
-			image = null;
-			ex.printStackTrace();
-		}
-		
-		return image;
+	public void createPlayer(int id, float x, float y, String teamColorFileName) throws SlickException
+	{		
+		EntityPlayer player = new EntityPlayer(id, x, y, teamColorFileName, 4, 2);
+		world.localPlayer = player;
 	}
 }

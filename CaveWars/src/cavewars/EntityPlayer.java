@@ -4,25 +4,73 @@ import org.newdawn.slick.*;
 
 public class EntityPlayer extends Entity
 {
-	public static final String RED_TEAM;
-	public static final String YELLOW_TEAM;
+	public static final String RED_TEAM = "spritesheet_player_red.png";
+	public static final String YELLOW_TEAM = "spritesheet_player_yellow.png";
 	
-	public static final int LEFT = 0;
+	public static final int LEFT = -1;
 	public static final int RIGHT = 1;
 	
-	public EntityPlayer(int id, float x, float y, SpriteSheet spriteSheet)
+	public static final int animationFPS = 100; //Milliseconds
+	public static final float speed = 1.0F; // m/s
+	
+	public int direction = RIGHT;
+	
+	public EntityPlayer(int id, float x, float y, String filName, int xTiles, int yTiles)
 	{
-		super(id, x, y, 1.0F, spriteSheet);
-		animationFPS = 350;
+		super(id, x, y, 1.0F, filName, xTiles, yTiles);
 	}
 	
+	@Override
+	public float getRotation()
+	{
+		return 0;
+	}
+	
+	@Override
 	public void updateAnimation(long delta)
 	{
 		animationTimer += delta;
 	}
 	
-	public int getSpriteX()
+	@Override
+	public int getSpriteXIndex()
 	{
-		return 
+		if(Math.abs(velocityX) > 0)
+		{
+			return (int)(animationTimer / animationFPS) % 4;
+		}
+		else
+		{
+			return 0;
+		}
+	}
+	
+	@Override
+	public int getSpriteYIndex()
+	{
+		if(direction == LEFT)
+		{
+			return 0;
+		}
+		else
+		{
+			return 1;
+		}
+	}
+	
+	/**
+	 * Sets the player moving either to the left or right. This also shows in the animation
+	 * @param movementDirection 
+	 */
+	public void doWalk(int movementDirection)
+	{
+		System.out.println("Direction: " + movementDirection);
+		direction = movementDirection;
+		velocityX = movementDirection * speed;
+	}
+	
+	public void doStop()
+	{
+		velocityX = 0;
 	}
 }
