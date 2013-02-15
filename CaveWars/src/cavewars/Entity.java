@@ -1,5 +1,6 @@
 package cavewars;
 
+import converter.Camera;
 import org.newdawn.slick.*;
 
 public abstract class Entity
