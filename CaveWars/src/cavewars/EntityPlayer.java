@@ -59,16 +59,18 @@ public class EntityPlayer extends Entity
 	}
 	
 	/**
-	 * Sets the player moving either to the left or right. This also shows in the animation
+	 * Sets the player moving either to the left or right. This also shows in the animation.
 	 * @param movementDirection 
 	 */
 	public void doWalk(int movementDirection)
 	{
-		System.out.println("Direction: " + movementDirection);
 		direction = movementDirection;
 		velocityX = movementDirection * speed;
 	}
 	
+	/** 
+	 * Sets the velocity in the x axis to 0 while leaving the direction untouched.
+	 */
 	public void doStop()
 	{
 		velocityX = 0;

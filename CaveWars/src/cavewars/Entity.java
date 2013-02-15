@@ -70,7 +70,6 @@ public abstract class Entity
 	{
 		float deltaX = delta * velocityX / 1000;
 		xPosition += deltaX;
-		System.out.println("Physics!");
 	}
 	
 	private int getLargestSide(SpriteSheet spritesheet)

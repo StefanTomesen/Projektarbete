@@ -1,7 +1,5 @@
 package cavewars;
 
-import cavewars.EntityPlayer;
-
 public class Camera
 {
 	public float x;
@@ -23,5 +21,10 @@ public class Camera
 	{
 		x = player.xPosition;
 		y = player.yPosition;
+	}
+	
+	public void zoom(float multiplier)
+	{
+		scale *= multiplier;
 	}
 }

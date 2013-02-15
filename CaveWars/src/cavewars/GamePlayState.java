@@ -109,11 +109,11 @@ public class GamePlayState implements GameState
 		}
 		if(key == Input.KEY_A)
 		{
-			world.camera.scale /= 0.8;
+			world.camera.zoom(1/0.8F);
 		}
 		if(key == Input.KEY_Z)
 		{
-			world.camera.scale *= 0.8;
+			world.camera.zoom(0.8F);
 		}
 	}
 

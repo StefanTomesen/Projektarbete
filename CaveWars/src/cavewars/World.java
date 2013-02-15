@@ -26,9 +26,7 @@ public class World
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException 
-	{
-		float gameScale = gc.getHeight() / tileGrid.ySize;
-		
+	{	
 		localPlayer.render(camera, gc.getWidth(), gc.getHeight());
 		for(Entity entity : entityList)
 		{	
