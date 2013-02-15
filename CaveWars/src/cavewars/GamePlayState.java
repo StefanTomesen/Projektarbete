@@ -115,6 +115,11 @@ public class GamePlayState implements GameState
 		{
 			world.camera.zoom(0.8F);
 		}
+		
+		if(key == Input.KEY_SPACE)
+		{
+			world.localPlayer.velocityY = -5; // Negative values point up.
+		}
 	}
 
 	@Override
