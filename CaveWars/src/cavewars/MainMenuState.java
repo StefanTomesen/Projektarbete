@@ -6,8 +6,8 @@ import org.newdawn.slick.state.*;
 public class MainMenuState implements GameState
 {
 	public int stateID;
+	
 	public Menu menu;
-        
         
 	public MainMenuState(int stateID)
 	{

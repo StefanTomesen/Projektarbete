@@ -5,22 +5,23 @@ import org.newdawn.slick.state.*;
 
 public class GamePlayState implements GameState
 {
-	public World world;
-	
 	public int stateID;
+	
+	public World world;
 
 	public GamePlayState(int stateID) throws SlickException
 	{
 		this.stateID = stateID;
 	}
-	
+
 	@Override
 	public int getID() {
 		return stateID;
 	}
 
 	@Override
-	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {
+	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException 
+    {
 		
 	}
 
@@ -30,8 +31,8 @@ public class GamePlayState implements GameState
 	}
 
 	@Override
-	public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {
-		//throw new UnsupportedOperationException("Not supported yet.");
+	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
+		
 	}
 
 	@Override
@@ -97,8 +98,15 @@ public class GamePlayState implements GameState
 	}
 
 	@Override
-	public void keyPressed(int i, char c) {
-		//throw new UnsupportedOperationException("Not supported yet.");
+	public void keyPressed(int key, char character) {
+		if(key == Input.KEY_LEFT)
+		{
+			world.player.
+		}
+		else if(key == Input.KEY_RIGHT)
+		{
+			world.player.
+		}
 	}
 
 	@Override
@@ -151,8 +159,10 @@ public class GamePlayState implements GameState
 		//throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	@Override
-	public void controllerButtonReleased(int i, int i1) {
-		//throw new UnsupportedOperationException("Not supported yet.");
-	}
+    @Override
+    public void controllerButtonReleased(int i, int i1)
+    {
+        //throw new UnsupportedOperationException("Not supported yet.");
+    }
+
 }

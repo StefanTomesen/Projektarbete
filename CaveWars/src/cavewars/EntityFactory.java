@@ -18,18 +18,17 @@ public class EntityFactory
 	
 	public void createPlayer(int id, float x, float y, int team) throws SlickException
 	{
-		Image image = getTeamSpritesheet(team);
+		Image image = getTeamSpritesheetImage(team);
 		SpriteSheet spritesheet = new SpriteSheet(image, 280, 500);
-		Animation animation = new Animation(spritesheet, 1000);
 		
-		EntityPlayer player = new EntityPlayer(id, x, y, animation);
+		EntityPlayer player = new EntityPlayer(id, x, y, spritesheet);
 		world.player = player;
 	}
 	
-	public static Image getTeamSpritesheet(int team)//throws SlickException
+	public static Image getTeamSpritesheetImage(int team)//throws SlickException
 	{
 		String fileName;
-		switch(team)
+		switch(team) 
 		{
 			case EntityPlayer.RED_TEAM: fileName = "spritesheet_player_red.png"; break;
 			case EntityPlayer.YELLOW_TEAM: fileName = "spritesheet_player_yellow.png"; break;
@@ -39,9 +38,11 @@ public class EntityFactory
 		Image image;
 		try {
 			image = new Image("./resources/" + fileName);
-		} catch (SlickException ex) {
+		} 
+		catch (SlickException ex) 
+		{
 			image = null;
-			System.out.println("PANIC!");
+			ex.printStackTrace();
 		}
 		
 		return image;

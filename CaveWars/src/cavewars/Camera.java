@@ -4,7 +4,7 @@ public class Camera
 {
 	public float x;
 	public float y;
-	/** The number of tiles that can vertically fit the screen. */
+	/** The size of a single tile compared to the window height. */
 	public float scale;
 	
 	public Camera(float x, float y, float scale)
@@ -21,11 +21,5 @@ public class Camera
 	{
 		x = player.xPosition;
 		y = player.yPosition;
-	}
-	
-	
-	public float getPhysicalXPosition(int windowWidth, int windowHeight, int gridWidth, int gridHeight)
-	{
-		return 0;
 	}
 }
