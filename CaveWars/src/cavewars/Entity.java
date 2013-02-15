@@ -16,7 +16,9 @@ public abstract class Entity
 	
 	public float velocityX = 0.0F;
 	public float velocityY = 0.0F;
-	public float gravity = 9.82F;
+	public float gravity = 2.0F;//9.82F;
+	
+	public boolean falling = false;
 	
 	public SpriteSheet spritesheet;
 	public long animationTimer = 0;
@@ -68,8 +70,12 @@ public abstract class Entity
 	
 	public void updateMovementAndPhysics(int delta)
 	{
-		float deltaX = delta * velocityX / 1000;
-		xPosition += deltaX;
+		float deltaSeconds = delta / 1000F;
+		
+		xPosition += velocityX * deltaSeconds;;
+		
+		yPosition += velocityY * deltaSeconds + gravity * deltaSeconds * deltaSeconds;
+		velocityY += gravity * deltaSeconds; 
 	}
 	
 	private int getLargestSide(SpriteSheet spritesheet)
