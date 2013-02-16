@@ -1,0 +1,6 @@
+Resolution: 1000 500
+Player_movement_jump: space
+Player_movement_left: left_key
+Player_movement_right: right_key
+Player_movement_up: up_key
+Player_movement_down: down_key

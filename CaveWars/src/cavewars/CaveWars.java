@@ -1,6 +1,8 @@
 package cavewars;
 
-import java.io.File;
+import java.io.*;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
@@ -29,9 +31,17 @@ public class CaveWars extends StateBasedGame
 		addState(new GamePlayState(GAME_PLAY_STATE));
 	}
 	
-	public static void main(String[] args) throws SlickException
+	public static void main(String[] args) throws SlickException, IOException
     {
-		int width = 1000;
+        
+        PrintWriter settings = new PrintWriter(new BufferedWriter(new FileWriter("Settings.txt", true))); //Skapar filen el. öppnar filen
+        File setting = new File("Settings.txt");
+        Scanner setS = new Scanner(setting);
+        Settings fill = new Settings();
+        if (setS.hasNext() == false) {  //Kollar om filen har innehåll
+            fill.Fill();
+        }
+		int width = 500;
 		int height = 500;
         
 		AppGameContainer app = new AppGameContainer(new ScalableGame(new CaveWars(), width, height));

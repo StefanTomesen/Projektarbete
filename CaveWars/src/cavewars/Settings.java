@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.*;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -50,5 +51,33 @@ class Settings extends JFrame{
                     }
                 });
         add(ok);
+    }
+
+    public void Fill() throws IOException {
+        PrintWriter settings = new PrintWriter(new BufferedWriter(new FileWriter("Settings.txt", true))); //Skapar filen el. öppnar filen
+        settings.print("Resolution: ");
+        settings.print("1000 500");
+        settings.println();
+        
+        settings.print("Player_movement_jump: ");
+        settings.print("space");
+        settings.println();
+        
+        settings.print("Player_movement_left: ");
+        settings.print("left_key");
+        settings.println();
+        
+        settings.print("Player_movement_right: ");
+        settings.print("right_key");
+        settings.println();
+        
+        settings.print("Player_movement_up: ");
+        settings.print("up_key");
+        settings.println();
+        
+        settings.print("Player_movement_down: ");
+        settings.print("down_key");
+        settings.println();
+        settings.close();
     }
 }
