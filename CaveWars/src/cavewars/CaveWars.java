@@ -40,7 +40,7 @@ public class CaveWars extends StateBasedGame
         Settings fill = new Settings();
         if (setS.hasNext() == false) {  //Kollar om filen har innehåll
             System.out.println("Filil");
-            fill.Fill();
+            fill.Fill(-1);
         }
         settings.close();
 		int width = 500;
