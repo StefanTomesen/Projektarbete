@@ -6,6 +6,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.io.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -32,32 +34,81 @@ class Settings extends JFrame{
                     }
                 });
         add(resolutionMenu);
-        
+
         ok.addActionListener(
                 new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent event) {
-                        if(x == 0){
-                            
-                        }else if(x == 1){
-                            
-                        }else if(x == 2){
-                            
-                        }else if(x ==3){
-                            
-                        }else if(x == 4){
-                            
-                        }
+                        switch(x){
+                            case 0:try {
+                                    Fill(x);
+                                } catch (IOException ex) {
+                                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            break;
+                                
+                            case 1:try {
+                                    Fill(x);
+                                } catch (IOException ex) {
+                                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                            break;
+                                
+                            case 2:try {
+                                    Fill(x);
+                                } catch (IOException ex) {
+                                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                break;
+                                
+                            case 3:try {
+                                    Fill(x);
+                                } catch (IOException ex) {
+                                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                break;
+                                
+                            case 4:try {
+                                    Fill(x);
+                                } catch (IOException ex) {
+                                    Logger.getLogger(Settings.class.getName()).log(Level.SEVERE, null, ex);
+                                }
+                                break;
+                        }     
                     }
                 });
         add(ok);
     }
 
-    public void Fill() throws IOException {
-        PrintWriter settings = new PrintWriter(new BufferedWriter(new FileWriter("Settings.txt", true))); //Skapar filen el. öppnar filen
-        settings.print("Resolution: ");
-        settings.print("1000 500");
-        settings.println();
+    public void Fill(int y) throws IOException {
+        PrintWriter settings = new PrintWriter(new BufferedWriter(new FileWriter("Settings.txt"))); //Skapar filen el. öppnar filen. Kommer tömma och sedan fylla igen.
+        System.out.println(y);
+        switch(y){
+            case -1:settings.print("Resolution: ");
+                    settings.print("1000 500");
+                    settings.println();
+                    break;
+            case 0:settings.print("Resolution: ");
+                    settings.print("400 200");
+                    settings.println();
+                    break;
+            case 1:settings.print("Resolution: ");
+                    settings.print("600 300");
+                    settings.println();
+                    break;
+            case 2:settings.print("Resolution: ");
+                    settings.print("800 400");
+                    settings.println();
+                    break;
+            case 3:settings.print("Resolution: ");
+                    settings.print("1000 500");
+                    settings.println();
+                    break;
+            case 4:settings.print("Resolution: ");
+                    settings.print("1500 750");
+                    settings.println();
+                    break;
+        }
         
         settings.print("Player_movement_jump: ");
         settings.print("space");

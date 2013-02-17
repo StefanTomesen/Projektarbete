@@ -21,8 +21,8 @@ public class CaveWars extends StateBasedGame
 	
 	public CaveWars()
 	{
-		super("CaveWars");
-        caveWars = this;
+            super("CaveWars");
+            caveWars = this;
 	}
 
 	@Override
@@ -30,7 +30,7 @@ public class CaveWars extends StateBasedGame
 		addState(new MainMenuState(MAIN_MENU_STATE));
 		addState(new GamePlayState(GAME_PLAY_STATE));
 	}
-	
+        
 	public static void main(String[] args) throws SlickException, IOException
     {
         
@@ -39,11 +39,22 @@ public class CaveWars extends StateBasedGame
         Scanner setS = new Scanner(setting);
         Settings fill = new Settings();
         if (setS.hasNext() == false) {  //Kollar om filen har innehåll
-            fill.Fill();
+            System.out.println("Filil");
+            fill.Fill(-1);
         }
+        settings.close();
 		int width = 500;
 		int height = 500;
-        
+
+                while(setS.hasNext()){            
+                    if(setS.hasNextInt()){
+                        width = setS.nextInt();
+                        height = setS.nextInt();
+                        break;
+                    }
+                    setS.next();
+                }
+                
 		AppGameContainer app = new AppGameContainer(new ScalableGame(new CaveWars(), width, height));
 
 		app.setDisplayMode(width, height, false);

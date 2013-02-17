@@ -8,12 +8,25 @@ import javax.swing.JOptionPane;
  * @author Mattias Stenqvist, 2B Portalens Gymnasium
  */
 class MainMenu extends Menu {
+    private int width = 0;
+    private int height = 0;
 
-    public MainMenu() 
+    public MainMenu() throws FileNotFoundException 
     {
-        MenuButton start = new MenuButton("start", "Start", 200, 200);
-        MenuButton options = new MenuButton("options","Inställningar", 200, 300);
-        MenuButton exit = new MenuButton("exit","Avsluta", 200, 400);
+        File setting = new File("Settings.txt");
+        Scanner setS = new Scanner(setting);
+        while(setS.hasNext()){            
+                    if(setS.hasNextInt()){
+                        width = setS.nextInt();
+                        height = setS.nextInt();
+                        break;
+                    }
+                    setS.next();
+                }
+        
+        MenuButton start = new MenuButton("start", "Start", width/2, height/3);
+        MenuButton options = new MenuButton("options","Inställningar", width/2, height/2);
+        MenuButton exit = new MenuButton("exit","Avsluta", width/2, (height/3)*2);
         
         buttonList.add(start);
         buttonList.add(options);
