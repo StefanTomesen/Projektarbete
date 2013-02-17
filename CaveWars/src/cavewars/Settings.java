@@ -32,7 +32,7 @@ class Settings extends JFrame{
                     }
                 });
         add(resolutionMenu);
-        
+
         ok.addActionListener(
                 new ActionListener() {
                     @Override

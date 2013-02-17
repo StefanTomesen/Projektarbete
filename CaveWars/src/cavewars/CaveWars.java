@@ -39,19 +39,21 @@ public class CaveWars extends StateBasedGame
         Scanner setS = new Scanner(setting);
         Settings fill = new Settings();
         if (setS.hasNext() == false) {  //Kollar om filen har innehåll
+            System.out.println("Filil");
             fill.Fill();
         }
         settings.close();
 		int width = 500;
 		int height = 500;
 
-                /*while(setS.hasNext()){
+                while(setS.hasNext()){            
                     if(setS.hasNextInt()){
                         width = setS.nextInt();
                         height = setS.nextInt();
                         break;
                     }
-                }*/
+                    setS.next();
+                }
                 
 		AppGameContainer app = new AppGameContainer(new ScalableGame(new CaveWars(), width, height));
 
