@@ -34,7 +34,7 @@ public class CaveWars extends StateBasedGame
 	public static void main(String[] args) throws SlickException, IOException
     {
         
-        // Gör inget? - PrintWriter settings = new PrintWriter(new BufferedWriter(new FileWriter("Settings.txt", true))); //Skapar filen el. öppnar filen
+        PrintWriter settings = new PrintWriter(new BufferedWriter(new FileWriter("Settings.txt", true))); //Skapar filen el. öppnar filen
         File setting = new File("Settings.txt");
         Scanner setS = new Scanner(setting);
         Settings fill = new Settings();
