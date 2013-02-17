@@ -1,4 +1,4 @@
-Resolution: 1000 500
+Resolution: 1500 750
 Player_movement_jump: space
 Player_movement_left: left_key
 Player_movement_right: right_key
