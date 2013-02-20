@@ -4,7 +4,7 @@ public class Camera
 {
 	public float x;
 	public float y;
-	/** The size of a single tile compared to the window height. */
+	/** The number of tiles visible vertically across the screen. */
 	public float scale;
 	
 	public Camera(float x, float y, float scale)
@@ -17,10 +17,27 @@ public class Camera
 	/**
 	 * Updates the camera position based on where the player is.
 	 */
-	public void updatePositon(EntityPlayer player)
+	public void updatePositon(World world, EntityPlayer player)
 	{
-		x = player.xPosition;
-		y = player.yPosition;
+		float scale = world.camera.scale / 3;
+		
+		if(player.xPosition - scale > x)
+		{
+			x = player.xPosition - scale;
+		}
+		if(player.xPosition + scale < x)
+		{
+			x = player.xPosition + scale;
+		}
+		
+		if(player.yPosition - scale > y)
+		{
+			y = player.yPosition - scale;
+		}
+		if(player.yPosition + scale < y)
+		{
+			y = player.yPosition + scale;
+		}
 	}
 	
 	public void zoom(float multiplier)

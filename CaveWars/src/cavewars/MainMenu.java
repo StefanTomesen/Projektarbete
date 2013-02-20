@@ -16,13 +16,13 @@ class MainMenu extends Menu {
         File setting = new File("Settings.txt");
         Scanner setS = new Scanner(setting);
         while(setS.hasNext()){            
-                    if(setS.hasNextInt()){
-                        width = setS.nextInt();
-                        height = setS.nextInt();
-                        break;
-                    }
-                    setS.next();
-                }
+			if(setS.hasNextInt()){
+				width = setS.nextInt();
+				height = setS.nextInt();
+				break;
+			}
+			setS.next();
+		}
         
         MenuButton start = new MenuButton("start", "Start", width/2, height/3);
         MenuButton options = new MenuButton("options","Inställningar", width/2, height/2);

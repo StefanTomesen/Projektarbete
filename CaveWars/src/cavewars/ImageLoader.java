@@ -10,7 +10,8 @@ public class ImageLoader
 	public static void initiateImageList()
 	{
 		String[] imageNames = { "spritesheet_player_red.png",
-								"spritesheet_player_yellow.png"};
+								"spritesheet_player_yellow.png",
+								"Aerials0022_L.jpg"};
 		for(String name : imageNames)
 		{
 			Image image;

@@ -1,5 +1,7 @@
 package cavewars;
 
+import java.io.FileNotFoundException;
+import java.util.logging.*;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
@@ -23,7 +25,10 @@ public class MainMenuState implements GameState
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException 
 	{
-		menu = new MainMenu();
+		try
+		{
+			menu = new MainMenu();
+		} catch (FileNotFoundException ex) {}
 	}
 
 	@Override

@@ -11,7 +11,7 @@ public class EntityPlayer extends Entity
 	public static final int RIGHT = 1;
 	
 	public static final int animationFPS = 100; //Milliseconds
-	public static final float speed = 1.0F; // m/s
+	public static final float speed = 10.0F; // m/s
 	
 	public int direction = RIGHT;
 	

@@ -16,7 +16,7 @@ public abstract class Entity
 	
 	public float velocityX = 0.0F;
 	public float velocityY = 0.0F;
-	public float gravity = 2.0F;//9.82F;
+	public float gravity = 9.82F;
 	
 	public boolean falling = false;
 	
@@ -38,20 +38,26 @@ public abstract class Entity
 	
 	public void render(Camera camera, int windowWidth, int windowHeight)
 	{
-		float blockSize = camera.scale * windowHeight;
+		float blockSize = windowHeight / camera.scale;
 		float blockScale = blockSize / largestSide;
 		float scale = blockScale * naturalScale;
 		
-		float xOffset = windowWidth / 2;
-		float yOffset = windowHeight / 2;
+		float xPos = (xPosition - naturalScale/2) * blockSize;
+		float yPos = (yPosition - naturalScale/2) * blockSize;
 		
-		float xPos = xPosition * blockSize;
-		float yPos = yPosition * blockSize;
+		float xCenterOffset = windowWidth / 2;
+		float yCenterOffset = windowHeight / 2;
+		
+		float xCameraOffset = camera.x * blockSize;
+		float yCameraOffset = camera.y * blockSize;
+		
+		float finalXPos = xPos + xCenterOffset - xCameraOffset;
+		float finalYPos = yPos + yCenterOffset - yCameraOffset;
 		
 		Image image = spritesheet.getSprite(getSpriteXIndex(), getSpriteYIndex());
 		
 		image.setRotation(getRotation());
-		image.draw(xPos + xOffset, yPos + yOffset, scale);
+		image.draw(finalXPos, finalYPos, scale);
 	}
 	
 	/**
@@ -68,7 +74,7 @@ public abstract class Entity
 	
 	public abstract float getRotation();
 	
-	public void updateMovementAndPhysics(int delta)
+	public void updateMovementAndPhysics(World world, int delta)
 	{
 		float deltaSeconds = delta / 1000F;
 		
@@ -76,6 +82,12 @@ public abstract class Entity
 		
 		yPosition += velocityY * deltaSeconds + gravity * deltaSeconds * deltaSeconds;
 		velocityY += gravity * deltaSeconds; 
+		
+		if(yPosition >= world.tileGrid.ySize - 1)
+		{
+			velocityY = 0;
+			yPosition = world.tileGrid.ySize - 1;
+		}
 	}
 	
 	private int getLargestSide(SpriteSheet spritesheet)
