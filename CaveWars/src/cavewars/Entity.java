@@ -42,8 +42,8 @@ public abstract class Entity
 		float blockScale = blockSize / largestSide;
 		float scale = blockScale * naturalScale;
 		
-		float xPos = (xPosition - naturalScale/2) * blockSize;
-		float yPos = (yPosition - naturalScale/2) * blockSize;
+		float xPos = (xPosition) * blockSize;
+		float yPos = (yPosition) * blockSize;
 		
 		float xCenterOffset = windowWidth / 2;
 		float yCenterOffset = windowHeight / 2;
