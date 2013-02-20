@@ -19,7 +19,7 @@ public class World
 	{
 		entityFactory = new EntityFactory(this);
 		entityFactory.createPlayer(0, 0.0F, 0.0F, EntityPlayer.RED_TEAM);
-		Entity background = new Entity(1, 50F, 30F, 100, "Aerials0022_L.jpg", 1, 1)
+		Entity background = new Entity(1, 0, 0, 100, "Aerials0022_L.jpg", 1, 1)
 		{
 
 			@Override
