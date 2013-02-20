@@ -99,39 +99,12 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void keyPressed(int key, char character) {
-		if(key == Input.KEY_LEFT)
-		{
-			world.localPlayer.doWalk(EntityPlayer.LEFT);
-		}
-		if(key == Input.KEY_RIGHT)
-		{
-			world.localPlayer.doWalk(EntityPlayer.RIGHT);
-		}
-		if(key == Input.KEY_A)
-		{
-			world.camera.zoom(1/0.8F);
-		}
-		if(key == Input.KEY_Z)
-		{
-			world.camera.zoom(0.8F);
-		}
-		
-		if(key == Input.KEY_SPACE)
-		{
-			world.localPlayer.velocityY = -5; // Negative values point up.
-		}
+		world.keyPressed(key, character);
 	}
 
 	@Override
 	public void keyReleased(int key, char character) {
-		if(key == Input.KEY_LEFT && world.localPlayer.direction == EntityPlayer.LEFT)
-		{
-			world.localPlayer.doStop();
-		}
-		else if(key == Input.KEY_RIGHT && world.localPlayer.direction == EntityPlayer.RIGHT)
-		{
-			world.localPlayer.doStop();
-		}
+		world.keyReleased(key, character);
 	}
 
 	@Override

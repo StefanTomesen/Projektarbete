@@ -2,7 +2,9 @@ package cavewars;
 
 public class Camera
 {
+	/** The position along the x axis. */
 	public float x;
+	/** The position along the y axis. */
 	public float y;
 	/** The number of tiles visible vertically across the screen. */
 	public float scale;
@@ -17,27 +19,26 @@ public class Camera
 	/**
 	 * Updates the camera position based on where the player is.
 	 */
-	public void updatePositon(World world, EntityPlayer player)
+	public void updatePositon(EntityPlayer player, int leveWidth, int levelHeight)
 	{
-		float scale = world.camera.scale / 3;
+		float scale = this.scale / 2;
 		
-		if(player.xPosition - scale > x)
-		{
-			x = player.xPosition - scale;
-		}
-		if(player.xPosition + scale < x)
-		{
-			x = player.xPosition + scale;
-		}
+		float playerHeight = player.spritesheet.getHeight();
 		
-		if(player.yPosition - scale > y)
-		{
+		if(player.xPosition - scale * 2 >= x)
+			x = player.xPosition - scale * 2;
+		
+		if(player.xPosition + scale * 2 <= x)
+			x = player.xPosition + scale * 2;
+		
+		if(player.yPosition - scale >= y)
 			y = player.yPosition - scale;
-		}
+		
 		if(player.yPosition + scale < y)
-		{
 			y = player.yPosition + scale;
-		}
+		
+		
+		//if(y + scale)
 	}
 	
 	public void zoom(float multiplier)

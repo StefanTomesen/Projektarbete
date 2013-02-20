@@ -10,8 +10,11 @@ public class EntityPlayer extends Entity
 	public static final int LEFT = -1;
 	public static final int RIGHT = 1;
 	
-	public static final int animationFPS = 100; //Milliseconds
+	public static final int animationFPS = 300; //Milliseconds
 	public static final float speed = 10.0F; // m/s
+	
+	/** Whether the entity is standing in the ground. This determines if it is allowed to jump. */
+	public boolean onGround = false;
 	
 	public int direction = RIGHT;
 	

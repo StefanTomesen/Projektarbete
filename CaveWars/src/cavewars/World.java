@@ -10,7 +10,7 @@ public class World
 	
 	public EntityFactory entityFactory;
 	public ArrayList<Entity> entityList = new ArrayList();
-	//public ArrayList<EntityPlayer> playerList = new ArrayList();
+	public ArrayList<EntityPlayer> playerList = new ArrayList();
 	public EntityPlayer localPlayer;
 	
 	public Camera camera;
@@ -18,7 +18,7 @@ public class World
 	public World() throws SlickException
 	{
 		entityFactory = new EntityFactory(this);
-		entityFactory.createPlayer(0, 0.0F, 0.0F, EntityPlayer.RED_TEAM);
+		entityFactory.createPlayer(0, 50F, 25F, EntityPlayer.RED_TEAM);
 		Entity background = new Entity(1, 0, 0, 100, "Aerials0022_L.jpg", 1, 1)
 		{
 
@@ -44,7 +44,7 @@ public class World
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException 
 	{	
-		camera.updatePositon(this, localPlayer);
+		camera.updatePositon(localPlayer, tileGrid.ySize, tileGrid.ySize);
 		
 		for(Entity entity : entityList)
 		{	
@@ -58,6 +58,47 @@ public class World
 	public void update(int delta)
 	{
 		localPlayer.updateAnimation(delta);
-		localPlayer.updateMovementAndPhysics(this, delta);
+		localPlayer.update(this, delta);
+	}
+	
+	public void keyPressed(int key, char character) {
+		if(key == Input.KEY_LEFT)
+		{
+			localPlayer.doWalk(EntityPlayer.LEFT);
+		}
+		if(key == Input.KEY_RIGHT)
+		{
+			localPlayer.doWalk(EntityPlayer.RIGHT);
+		}
+		if(key == Input.KEY_A)
+		{
+			if(camera.scale < tileGrid.ySize)
+			{
+				camera.zoom(2F);
+			}
+		}
+		if(key == Input.KEY_Z)
+		{
+			if(camera.scale > 8)
+			{
+				camera.zoom(1 / 2F);
+			}
+		}
+		
+		if(key == Input.KEY_SPACE)
+		{
+			localPlayer.velocityY = -5; // Negative values point up.
+		}
+	}
+
+	public void keyReleased(int key, char character) {
+		if(key == Input.KEY_LEFT && localPlayer.direction == EntityPlayer.LEFT)
+		{
+			localPlayer.doStop();
+		}
+		else if(key == Input.KEY_RIGHT && localPlayer.direction == EntityPlayer.RIGHT)
+		{
+			localPlayer.doStop();
+		}
 	}
 }

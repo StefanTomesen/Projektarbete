@@ -11,36 +11,46 @@ public abstract class Entity
 	
 	/** The number of pixels of the largest side of the image. It is used to scale all entities independent of resolution. */
 	public int largestSide;
-	/** The size of this entity counting in blocks. */
-	public float naturalScale;
+
+	/** The height of this entity in blocks. */
+	public float height;
+	/** The width of this entity in blocks. */
+	public float width;
 	
+	/** The horizontal velocity of the entity counting in m/s. */
 	public float velocityX = 0.0F;
+	/** The vertical velocity of the entity counting in m/s. */
 	public float velocityY = 0.0F;
+	/** The force of gravity counting in m/s^2 */
 	public float gravity = 9.82F;
-	
-	public boolean falling = false;
 	
 	public SpriteSheet spritesheet;
 	public long animationTimer = 0;
 	
-	public Entity(int entityID, float xPosition, float yPosition, float naturalScale, String fileName, int xTiles, int yTiles)
+	public Entity(int entityID, float xPosition, float yPosition, float naturalHeight, String fileName, int xTiles, int yTiles)
 	{
-		this.xPosition = xPosition;
-		this.yPosition = yPosition;
-		this.naturalScale = naturalScale;
+		this.entityID = entityID;
 		
 		Image image = ImageLoader.getImage(fileName);
 		int tileWidth = image.getWidth() / xTiles;
 		int tileHeight = image.getHeight() / yTiles;
 		this.spritesheet = new SpriteSheet(image, tileWidth, tileHeight);
-		this.largestSide = getLargestSide(spritesheet);
+		
+		this.xPosition = xPosition;
+		this.yPosition = yPosition;
+		
+		int imageWidth = spritesheet.getWidth();
+		int imageHeight = spritesheet.getHeight();
+		
+		this.height = naturalHeight;
+		this.width = (int)(((double)imageWidth / imageHeight) * naturalHeight);
 	}
 	
 	public void render(Camera camera, int windowWidth, int windowHeight)
 	{
 		float blockSize = windowHeight / camera.scale;
-		float blockScale = blockSize / largestSide;
-		float scale = blockScale * naturalScale;
+		float blockScale = blockSize / height;
+		float scale = blockScale * height;
 		
 		float xPos = (xPosition) * blockSize;
 		float yPos = (yPosition) * blockSize;
@@ -74,7 +84,7 @@ public abstract class Entity
 	
 	public abstract float getRotation();
 	
-	public void updateMovementAndPhysics(World world, int delta)
+	public void update(World world, int delta)
 	{
 		float deltaSeconds = delta / 1000F;
 		
@@ -88,23 +98,5 @@ public abstract class Entity
 			velocityY = 0;
 			yPosition = world.tileGrid.ySize - 1;
 		}
-	}
-	
-	private int getLargestSide(SpriteSheet spritesheet)
-	{
-		int width = spritesheet.getWidth();
-		int height = spritesheet.getHeight();
-		
-		int largestSide;
-		if(height > width)
-		{
-			largestSide = height;
-		}
-		else
-		{
-			largestSide = width;
-		}
-		
-		return largestSide;
 	}
 }
