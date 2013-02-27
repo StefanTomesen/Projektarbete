@@ -13,13 +13,21 @@ public class World
 	public ArrayList<EntityPlayer> playerList = new ArrayList();
 	public EntityPlayer localPlayer;
 	
+	public Renderable background;
+	
 	public Camera camera;
+	public static float zoomSteps = 1.2F;
 	
 	public World() throws SlickException
 	{
 		entityFactory = new EntityFactory(this);
 		entityFactory.createPlayer(0, 50F, 25F, EntityPlayer.RED_TEAM);
-		Entity background = new Entity(1, 0, 0, 100, "Aerials0022_L.jpg", 1, 1)
+		tileGrid = new TileGrid(100, 60);
+		System.out.println(tileGrid.ySize);
+		camera = new Camera(tileGrid.xSize / 2, tileGrid.ySize / 2, tileGrid.ySize);
+		System.out.println(1.0F / tileGrid.ySize);
+		
+		background = new Renderable(0, 0, 100, "stonetexture.jpg")
 		{
 
 			@Override
@@ -30,25 +38,32 @@ public class World
 
 			@Override
 			public void updateAnimation(long delta){}
-
-			@Override
-			public float getRotation(){return 0;}
 			
 		};
-		entityList.add(background);
-		tileGrid = new TileGrid(100, 60);
-		System.out.println(tileGrid.ySize);
-		camera = new Camera(tileGrid.xSize / 2, tileGrid.ySize / 2, tileGrid.ySize);
-		System.out.println(1.0F / tileGrid.ySize);
+		
+		tileGrid = TileLoader.loadTiles();
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException 
 	{	
 		camera.updatePositon(localPlayer, tileGrid.ySize, tileGrid.ySize);
 		
+		background.render(camera, gc.getWidth(), gc.getHeight());
+		
 		for(Entity entity : entityList)
 		{	
 			entity.render(camera, gc.getWidth(), gc.getHeight());
+		}
+		for(int x = 0; x < tileGrid.xSize; x++)
+		{
+			for(int y = 0; y < tileGrid.ySize; y++)
+			{
+				Tile tile = tileGrid.get(x, y);
+				if(tile != null)
+				{
+					tile.render(camera, gc.getWidth(), gc.getHeight());
+				}
+			}
 		}
 		
 		localPlayer.render(camera, gc.getWidth(), gc.getHeight());
@@ -74,14 +89,14 @@ public class World
 		{
 			if(camera.scale < tileGrid.ySize)
 			{
-				camera.zoom(2F);
+				camera.zoom(zoomSteps);
 			}
 		}
 		if(key == Input.KEY_Z)
 		{
-			if(camera.scale > 8)
+			if(camera.scale > 0)
 			{
-				camera.zoom(1 / 2F);
+				camera.zoom(1 / zoomSteps);
 			}
 		}
 		
