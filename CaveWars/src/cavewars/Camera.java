@@ -19,11 +19,11 @@ public class Camera
 	/**
 	 * Updates the camera position based on where the player is.
 	 */
-	public void updatePositon(EntityPlayer player, int leveWidth, int levelHeight)
+	public void updatePositon(EntityPlayer player, int levelWidth, int levelHeight)
 	{
 		float scale = this.scale / 2;
 		
-		float playerHeight = player.spritesheet.getHeight();
+		/*float playerHeight = player.spritesheet.getHeight();
 		
 		if(player.xPosition - scale * 2 >= x)
 			x = player.xPosition - scale * 2;
@@ -36,7 +36,9 @@ public class Camera
 		
 		if(player.yPosition + scale < y)
 			y = player.yPosition + scale;
-		
+		*/
+		x = player.xPosition;
+		y = player.yPosition;
 		
 		//if(y + scale)
 	}

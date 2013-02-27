@@ -11,7 +11,8 @@ public class ImageLoader
 	{
 		String[] imageNames = { "spritesheet_player_red.png",
 								"spritesheet_player_yellow.png",
-								"Aerials0022_L.jpg"};
+								"stonetexture.jpg",
+								"Tiles/Brevid.png"};
 		for(String name : imageNames)
 		{
 			Image image;
