@@ -10,8 +10,8 @@ public class EntityPlayer extends Entity
 	public static final int LEFT = -1;
 	public static final int RIGHT = 1;
 	
-	public static final int animationFPS = 300; //Milliseconds
-	public static final float speed = 10.0F; // m/s
+	public static final int animationFPS = 100; //Milliseconds
+	public static final float speed = 5.0F; // m/s
 	
 	/** Whether the entity is standing in the ground. This determines if it is allowed to jump. */
 	public boolean onGround = false;
@@ -65,7 +65,7 @@ public class EntityPlayer extends Entity
 	 * Sets the player moving either to the left or right. This also shows in the animation.
 	 * @param movementDirection 
 	 */
-	public void doWalk(int movementDirection)
+	public void setWalking(int movementDirection)
 	{
 		direction = movementDirection;
 		velocityX = movementDirection * speed;
@@ -74,8 +74,16 @@ public class EntityPlayer extends Entity
 	/** 
 	 * Sets the velocity in the x axis to 0 while leaving the direction untouched.
 	 */
-	public void doStop()
+	public void setStop()
 	{
 		velocityX = 0;
+	}
+	
+	/**
+	 * Alters the current vertical velocity so that the player jumps.
+	 */
+	public void jump()
+	{
+		velocityY = -5; // Negative values point up.
 	}
 }

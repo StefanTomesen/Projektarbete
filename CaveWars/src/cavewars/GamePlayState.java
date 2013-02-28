@@ -3,6 +3,9 @@ package cavewars;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
+/**
+ * @author Stefan Tomesen, 3B Portalens Gymnasium
+ */
 public class GamePlayState implements GameState
 {
 	public int stateID;
@@ -100,6 +103,11 @@ public class GamePlayState implements GameState
 	@Override
 	public void keyPressed(int key, char character) {
 		world.keyPressed(key, character);
+		
+		if(key == Input.KEY_ESCAPE)
+		{
+			CaveWars.caveWars.enterState(CaveWars.MAIN_MENU_STATE);
+		}
 	}
 
 	@Override

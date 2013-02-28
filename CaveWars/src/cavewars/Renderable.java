@@ -3,6 +3,9 @@ package cavewars;
 import java.awt.image.BufferedImage;
 import org.newdawn.slick.*;
 
+/**
+ * @author Stefan Tomesen, 3B Portalens Gymnasium
+ */
 public abstract class Renderable
 {
 	public float xPosition;
@@ -25,33 +28,16 @@ public abstract class Renderable
 	
 	public Image image;
 	public SpriteSheet spritesheet;
+	
 	public long animationTimer = 0;
 	
-	private Renderable(float xPosition, float yPosition, float naturalHeight, boolean tiledImage)
+	private Renderable(float xPosition, float yPosition, float naturalHeight, String fileName, int xTiles, int yTiles, boolean tiledImage)
 	{
 		this.tiledImage = tiledImage;
 		
 		this.xPosition = xPosition;
 		this.yPosition = yPosition;
 		
-		this.height = naturalHeight;
-		this.width = (int)(((double)imageWidth / imageHeight) * naturalHeight);
-	}
-	
-	public Renderable(float xPosition, float yPosition, float naturalHeight, String fileName)
-	{
-		this(xPosition, yPosition, naturalHeight, true);
-		loadImage(fileName);
-		
-		this.imageWidth = image.getWidth();
-		this.imageHeight = image.getHeight();
-		
-		tiledImage = false;
-	}
-	
-	public Renderable(float xPosition, float yPosition, float naturalHeight, String fileName, int xTiles, int yTiles)
-	{
-		this(xPosition, yPosition, naturalHeight, true);
 		loadImage(fileName);
 		
 		int tileWidth = image.getWidth() / xTiles;
@@ -61,7 +47,18 @@ public abstract class Renderable
 		this.imageWidth = tileWidth;
 		this.imageHeight = tileHeight;
 		
-		tiledImage = true;
+		this.height = naturalHeight;
+		this.width = (float)(((double)imageWidth / imageHeight) * naturalHeight);
+	}
+	
+	public Renderable(float xPosition, float yPosition, float naturalHeight, String fileName)
+	{
+		this(xPosition, yPosition, naturalHeight, fileName, 1, 1, false);
+	}
+	
+	public Renderable(float xPosition, float yPosition, float naturalHeight, String fileName, int xTiles, int yTiles)
+	{
+		this(xPosition, yPosition, naturalHeight, fileName, xTiles, yTiles, true);
 	}
 	
 	public final void render(Camera camera, int windowWidth, int windowHeight)

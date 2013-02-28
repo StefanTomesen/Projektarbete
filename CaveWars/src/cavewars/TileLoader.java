@@ -3,6 +3,9 @@ package cavewars;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.tiled.TiledMap;
 
+/**
+ * @author Mattias Stenqvist, 3B Portalens Gymnasium
+ */
 public class TileLoader
 {
 	public static TileGrid loadTiles() throws SlickException

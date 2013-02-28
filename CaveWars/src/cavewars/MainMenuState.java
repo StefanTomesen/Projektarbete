@@ -83,7 +83,13 @@ public class MainMenuState implements GameState
 	public void inputStarted() {}
 
 	@Override
-	public void keyPressed(int i, char c) {}
+	public void keyPressed(int key, char c) 
+	{
+		if(key == Input.KEY_ESCAPE)
+		{
+			System.exit(0);
+		}
+	}
 
 	@Override
 	public void keyReleased(int i, char c) {}

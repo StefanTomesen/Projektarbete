@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.StateBasedGame;
 
+/**
+ * @author Stefan Tomesen, 3B Portalens Gymnasium
+ */
 public class World
 {
 	public TileGrid tileGrid;
@@ -22,12 +25,10 @@ public class World
 	{
 		entityFactory = new EntityFactory(this);
 		entityFactory.createPlayer(0, 50F, 25F, EntityPlayer.RED_TEAM);
-		tileGrid = new TileGrid(100, 60);
-		System.out.println(tileGrid.ySize);
-		camera = new Camera(tileGrid.xSize / 2, tileGrid.ySize / 2, tileGrid.ySize);
-		System.out.println(1.0F / tileGrid.ySize);
+		tileGrid = new TileGrid(100, 50);
+		camera = new Camera(tileGrid.xSize / 2, tileGrid.ySize / 2, tileGrid.ySize / 5);
 		
-		background = new Renderable(0, 0, 100, "stonetexture.jpg")
+		background = new Renderable(0, 0, 50, "stonetexture.jpg")
 		{
 
 			@Override
@@ -76,14 +77,38 @@ public class World
 		localPlayer.update(this, delta);
 	}
 	
+	public ArrayList<CollisionBox> getNearbyTiles(Entity entity)
+	{
+		ArrayList<CollisionBox> tiles = new ArrayList();
+		
+		int x = (int)Math.round(entity.xPosition);
+		int y = (int)Math.round(entity.yPosition);
+		
+		for(int i = x - 2; i <= x + 2; i++)
+		{
+			for(int j = y - 2; j <= y + 2; j++)
+			{	
+				Tile tile = tileGrid.get(i, j);
+				if(tile == null)
+				{
+					continue;
+				}
+				
+				tiles.add(new CollisionBox(tile));
+			}
+		}
+		
+		return tiles;
+	}
+	
 	public void keyPressed(int key, char character) {
 		if(key == Input.KEY_LEFT)
 		{
-			localPlayer.doWalk(EntityPlayer.LEFT);
+			localPlayer.setWalking(EntityPlayer.LEFT);
 		}
 		if(key == Input.KEY_RIGHT)
 		{
-			localPlayer.doWalk(EntityPlayer.RIGHT);
+			localPlayer.setWalking(EntityPlayer.RIGHT);
 		}
 		if(key == Input.KEY_A)
 		{
@@ -102,18 +127,18 @@ public class World
 		
 		if(key == Input.KEY_SPACE)
 		{
-			localPlayer.velocityY = -5; // Negative values point up.
+			localPlayer.jump();
 		}
 	}
 
 	public void keyReleased(int key, char character) {
 		if(key == Input.KEY_LEFT && localPlayer.direction == EntityPlayer.LEFT)
 		{
-			localPlayer.doStop();
+			localPlayer.setStop();
 		}
 		else if(key == Input.KEY_RIGHT && localPlayer.direction == EntityPlayer.RIGHT)
 		{
-			localPlayer.doStop();
+			localPlayer.setStop();
 		}
 	}
 }

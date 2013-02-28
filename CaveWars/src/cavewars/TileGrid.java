@@ -12,7 +12,7 @@ public class TileGrid
 	private Tile[][] grid;
 	
 	/**
-	 * Initializes the tile grid with a fixed size and 
+	 * Initializes the tile grid with a fixed size and with all slots empty.
 	 * @param x The number of tiles horizontally across the grid.
 	 * @param y The number of tiles vertically across the grid.
 	 */
@@ -57,6 +57,11 @@ public class TileGrid
 	 */
 	public Tile get(int x, int y)
 	{
+		if((x < 0 || x >= xSize) || (y < 0 || y >= ySize))
+		{
+			return null;
+		}
+		
 		return grid[x][y];
 	}
 	

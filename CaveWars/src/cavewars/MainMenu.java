@@ -5,7 +5,7 @@ import java.util.Scanner;
 import javax.swing.JOptionPane;
 
 /**
- * @author Mattias Stenqvist, 2B Portalens Gymnasium
+ * @author Mattias Stenqvist, 3B Portalens Gymnasium
  */
 class MainMenu extends Menu {
     private int width = 0;

@@ -9,6 +9,9 @@ import org.newdawn.slick.state.*;
 /**
  * The base class responsible for starting the game.
  * WIP name might change.
+ * 
+ * @author Mattias Stenqvist, 3B Portalens Gymnasium
+ * @author Stefan Tomesen, 3B Portalens Gymnasium
  */
 public class CaveWars extends StateBasedGame
 {
