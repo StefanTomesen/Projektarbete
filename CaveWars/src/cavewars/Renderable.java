@@ -72,14 +72,11 @@ public abstract class Renderable
 		float xLevelCenterOffset = windowWidth / 2;
 		float yLevelCenterOffset = windowHeight / 2;
 		
-		float xImageCenterOffset = imageWidth / 2;
-		float yImageCenterOffset = imageHeight / 2;
-		
 		float xCameraOffset = camera.x * blockSize;
 		float yCameraOffset = camera.y * blockSize;
 		
-		float finalXPos = xPos + xLevelCenterOffset - xCameraOffset;// - xImageCenterOffset;
-		float finalYPos = yPos + yLevelCenterOffset - yCameraOffset;// - yImageCenterOffset;
+		float finalXPos = xPos + xLevelCenterOffset - xCameraOffset;
+		float finalYPos = yPos + yLevelCenterOffset - yCameraOffset;
 		
 		Image image;
 		if(tiledImage)

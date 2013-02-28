@@ -9,7 +9,7 @@ public abstract class Menu
 	public ArrayList<MenuButton> buttonList = new ArrayList<>();
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics) throws SlickException {
-            graphics.setColor(new Color(Color.red));
+            graphics.setColor(new Color(0x404040));
             graphics.fillRect(0, 0, gc.getWidth(), gc.getHeight());
             for(MenuButton button : buttonList)
 		{

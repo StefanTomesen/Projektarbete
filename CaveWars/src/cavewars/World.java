@@ -16,7 +16,7 @@ public class World
 	public ArrayList<EntityPlayer> playerList = new ArrayList();
 	public EntityPlayer localPlayer;
 	
-	public Renderable background;
+	public Image background;
 	
 	public Camera camera;
 	public static float zoomSteps = 1.2F;
@@ -28,19 +28,7 @@ public class World
 		tileGrid = new TileGrid(100, 50);
 		camera = new Camera(tileGrid.xSize / 2, tileGrid.ySize / 2, tileGrid.ySize / 5);
 		
-		background = new Renderable(0, 0, 50, "stonetexture.jpg")
-		{
-
-			@Override
-			public int getSpriteXIndex(){return 0;}
-
-			@Override
-			public int getSpriteYIndex(){return 0;}
-
-			@Override
-			public void updateAnimation(long delta){}
-			
-		};
+		background = ImageLoader.getImage("Deep Cave.jpg");
 		
 		tileGrid = TileLoader.loadTiles();
 	}
@@ -49,7 +37,8 @@ public class World
 	{	
 		camera.updatePositon(localPlayer, tileGrid.ySize, tileGrid.ySize);
 		
-		background.render(camera, gc.getWidth(), gc.getHeight());
+		drawBackground(camera, gc.getWidth(), gc.getHeight());
+		
 		
 		for(Entity entity : entityList)
 		{	
@@ -99,6 +88,43 @@ public class World
 		}
 		
 		return tiles;
+	}
+	
+	public void drawBackground(Camera camera, int windowWidth, int windowHeight)
+	{
+		float backgroundTileSize = 10.0F;
+		float panSpeed = 0.7F;
+		
+		float deltaCameraX = ((camera.x * panSpeed) % backgroundTileSize);
+		float deltaCameraY = ((camera.y * panSpeed) % backgroundTileSize);
+		
+		int numberOfTilesX = (int)Math.ceil(camera.scale * ((float)windowWidth / windowHeight) / backgroundTileSize) + 1;
+		int numberOfTilesY = (int)Math.ceil(camera.scale / backgroundTileSize) + 1;
+
+		for(int x = -numberOfTilesX / 2; x < numberOfTilesX / 2 + 1; x++)
+		{
+			for(int y = -numberOfTilesY / 2; y < numberOfTilesY / 2 + 1; y++)
+			{
+				float blockSize = windowHeight / camera.scale;
+				float tileSize = blockSize * backgroundTileSize;
+				
+				float entityScale = backgroundTileSize * blockSize / background.getHeight();
+
+				float xPos = x * tileSize;
+				float yPos = y * tileSize;
+				
+				float xCameraOffset = deltaCameraX * blockSize;
+				float yCameraOffset = deltaCameraY * blockSize;
+
+				float xScreenCenterOffset = windowWidth / 2;
+				float yScreenCenterOffset = windowHeight / 2;
+				
+				float finalXPos = xPos - xCameraOffset + xScreenCenterOffset;
+				float finalYPos = yPos - yCameraOffset + yScreenCenterOffset;
+
+				background.draw(finalXPos, finalYPos, entityScale);
+			}
+		}
 	}
 	
 	public void keyPressed(int key, char character) {

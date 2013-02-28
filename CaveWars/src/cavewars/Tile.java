@@ -14,7 +14,7 @@ public class Tile extends Renderable
 	@Override
 	public int getSpriteXIndex()
 	{
-		return 0;
+		return id - 1;
 	}
 
 	@Override

@@ -30,7 +30,7 @@ public class MenuButton {
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics) throws SlickException {
 		// Draw button background
-		graphics.setColor(new Color(Color.black));
+		graphics.setColor(new Color(new Color(0x808080)));
 		graphics.fillRect(x - width / 2, y - height / 2, width, height);
 
 		// Draw button text
