@@ -45,7 +45,7 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		//throw new UnsupportedOperationException("Not supported yet.");
+		world = null;
 	}
 
 	
@@ -60,8 +60,8 @@ public class GamePlayState implements GameState
 	}
 
 	@Override
-	public void mousePressed(int i, int i1, int i2) {
-		//throw new UnsupportedOperationException("Not supported yet.");
+	public void mousePressed(int button, int x, int y) {
+		world.mousePressed(button, x, y);
 	}
 
 	@Override

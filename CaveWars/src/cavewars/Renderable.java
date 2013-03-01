@@ -8,12 +8,12 @@ import org.newdawn.slick.*;
  */
 public abstract class Renderable
 {
+	/** The position along the x axis in meters. */
 	public float xPosition;
+	/** The position along the y axis in meters. */
 	public float yPosition;
+	/** The rotation of the entity in degrees. */
 	public float rotation;
-	
-	/** The number of pixels of the largest side of the image. It is used to scale all entities independent of resolution. */
-	public int largestSide;
 
 	/** The height of this entity in blocks. */
 	public float height;
@@ -26,7 +26,10 @@ public abstract class Renderable
 	
 	public boolean tiledImage;
 	
+	/** If the entity only uses a single image, this is it. */
 	public Image image;
+	/** If the entity animates of has different variants, such as with the tiles, they are stored
+	 *  in this spritesheet */
 	public SpriteSheet spritesheet;
 	
 	public long animationTimer = 0;

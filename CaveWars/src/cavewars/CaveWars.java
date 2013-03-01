@@ -18,6 +18,9 @@ public class CaveWars extends StateBasedGame
 	public static final int MAIN_MENU_STATE = 0;
 	public static final int GAME_PLAY_STATE = 1;
 	
+	public static int windowWidth = 500; // Default settings.
+	public static int windowHeight = 500; 
+	
     public static CaveWars caveWars;
 	
 	public boolean server;
@@ -45,21 +48,18 @@ public class CaveWars extends StateBasedGame
             fill.Fill(-1);
         }
         settings.close();
-		int width = 500;
-		int height = 500;
-
-                while(setS.hasNext()){            
-                    if(setS.hasNextInt()){
-                        width = setS.nextInt();
-                        height = setS.nextInt();
-                        break;
-                    }
-                    setS.next();
-                }
+		while(setS.hasNext()){            
+			if(setS.hasNextInt()){
+				windowWidth = setS.nextInt();
+				windowHeight = setS.nextInt();
+				break;
+			}
+			setS.next();
+		}
                 
-		AppGameContainer app = new AppGameContainer(new ScalableGame(new CaveWars(), width, height));
+		AppGameContainer app = new AppGameContainer(new ScalableGame(new CaveWars(), windowWidth, windowHeight));
 
-		app.setDisplayMode(width, height, false);
+		app.setDisplayMode(windowWidth, windowHeight, false);
 		app.start();
     }
 }

@@ -39,8 +39,6 @@ public class Camera
 		*/
 		x = player.xPosition;
 		y = player.yPosition;
-		
-		//if(y + scale)
 	}
 	
 	public void zoom(float multiplier)

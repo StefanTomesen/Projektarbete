@@ -30,21 +30,17 @@ public abstract class Entity extends Renderable
 	{
 		float deltaSeconds = delta / 1000F;
 		
-		ArrayList<CollisionBox> nearbyTiles = world.getNearbyTiles(this);
+		ArrayList<Tile> nearbyTiles = world.getNearbyTiles(this);
 		CollisionBox entityCollision = new CollisionBox(this);
 		
-		System.out.print("Player: ");
-		entityCollision.print();
-		
 		Vector movement = getMovementVector(deltaSeconds);
-		for(CollisionBox tile : nearbyTiles)
+		for(Tile tile : nearbyTiles)
 		{
-			boolean collided = entityCollision.collidesWith(tile, movement);
+			CollisionBox tileBox = new CollisionBox(tile);
+			boolean collided = entityCollision.collidesWith(tileBox, movement);
 			if(collided)
 			{
-				System.out.print("Tile: ");
-				tile.print();
-				movement = entityCollision.getMotionVectorAfterCollision(tile, movement);
+				movement = entityCollision.getMotionVectorAfterCollision(tileBox, movement);
 			}
 		}
 		

@@ -32,39 +32,20 @@ public class CollisionBox
 		return horizontalCollision && verticalCollision;
 	}
 	
-	public Vector getMotionVectorAfterCollision(CollisionBox cb, Vector motionVector)
+	public Vector getMotionVectorAfterCollision(CollisionBox otherObject, Vector motionVector)
 	{
 		float x = motionVector.x;
 		float y = motionVector.y;
-		System.out.println("Before... X: " + x + ", Y: " + y);
 		
-		if(this.collidesWith(cb, new Vector(motionVector.x, 0)))
+		if(this.collidesWith(otherObject, new Vector(motionVector.x, 0)))
 		{
 			x = 0;
-			System.out.println("x");
 		}
-		if(this.collidesWith(cb, new Vector(0, motionVector.y)))
+		if(this.collidesWith(otherObject, new Vector(0, motionVector.y)))
 		{
 			y = 0;
-			System.out.println("y");
 		}
 		
-		// If we know that the entity has collided, but neither axis alone is responsible for the
-		// collision, it means the we're at a corner and both axes are responsible.
-		if(x != 0 && y != 0) 
-		{
-			//x = 0;
-			//y = 0;
-			System.out.println("both");
-			System.out.println("Really? :" + this.collidesWith(cb, new Vector(0, motionVector.y)) + ", motionY = " + motionVector.y);
-		}
-		
-		System.out.println("After... X: " + x + ", Y: " + y);
 		return new Vector(x, y);
-	}
-	
-	public void print()
-	{
-		System.out.println("Collision Bounds: x, " + x + " -> " + (x + width) + " y, " + y + " -> " + (y + height));
 	}
 }
