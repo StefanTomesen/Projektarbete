@@ -26,6 +26,7 @@ public class GamePlayState implements GameState
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException 
     {
 		ImageLoader.initiateImageList();
+		TileLoader.initTileSet();
 	}
 
 	@Override

@@ -40,7 +40,7 @@ public class World
 		entityFactory = new EntityFactory(this);
 		
 		background = ImageLoader.getImage("Deep Cave.jpg");
-		entityFactory.createPlayer(0, 50F, 25F, EntityPlayer.RED_TEAM);
+		entityFactory.createPlayer(0, tileGrid.xSize/2, tileGrid.ySize/2, EntityPlayer.RED_TEAM);
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException 
@@ -244,7 +244,7 @@ public class World
 			direction = -1;
 		}
 		
-		int newTile = (((currentTile + direction) % Tile.NUMBER_OF_TILES) + Tile.NUMBER_OF_TILES) % Tile.NUMBER_OF_TILES; // Modulus that also works properly with negative numbers.
+		int newTile = (((currentTile + direction) % Tile.getNumberOfTiles()) + Tile.getNumberOfTiles()) % Tile.getNumberOfTiles(); // Modulus that also works properly with negative numbers.
 		
 		currentBrushTile = newTile + 1;
 	}

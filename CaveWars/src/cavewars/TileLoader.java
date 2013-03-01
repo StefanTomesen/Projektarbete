@@ -1,7 +1,7 @@
 package cavewars;
 
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.tiled.TiledMap;
+import org.newdawn.slick.tiled.*;
 
 /**
  * @author Mattias Stenqvist, 3B Portalens Gymnasium
@@ -18,6 +18,7 @@ public class TileLoader
 		// Tilesen placeras alla in i ett TileGrid objekt som sedan returneras.
 		TileGrid tileGrid = new TileGrid(karta.getWidth(), karta.getHeight());
 		
+		
 		for(int x = 0; x < tileGrid.xSize; x++)
 		{
 			for(int y = 0; y < tileGrid.ySize; y++)
@@ -30,5 +31,16 @@ public class TileLoader
 			}
 		}
 		return tileGrid;
+	}
+	
+	public static void initTileSet() throws SlickException
+	{
+		System.out.println("init");
+		// Ladda in tmxfilen med tiles.
+		TiledMap karta = new TiledMap("resources/karta_2_1.tmx");
+		TileSet tileset = karta.getTileSet(0);
+		
+		Tile.numberOfTileColumns = tileset.tilesAcross;
+		Tile.numberOfTileRows = tileset.tilesDown;
 	}
 }

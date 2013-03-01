@@ -2,14 +2,16 @@ package cavewars;
 
 public class Tile extends Renderable
 {
-	public static final int NUMBER_OF_TILES = 4;
-	public static final int LADDER_ID = 2;
+	public static int numberOfTileColumns;
+	public static int numberOfTileRows;
+	
+	public static int LADDER_ID = 2;
 	
 	public int id;
 	
 	public Tile(int id, int xPos, int yPos)
 	{
-		super(xPos, yPos, 1.0F, "Tiles/Brevid.png", NUMBER_OF_TILES, 1);
+		super(xPos, yPos, 1.0F, "Tiles/Brevid.png", numberOfTileColumns, numberOfTileRows);
 		
 		this.id = id;
 	}
@@ -17,13 +19,13 @@ public class Tile extends Renderable
 	@Override
 	public int getSpriteXIndex()
 	{
-		return id - 1;
+		return getColumn(id);
 	}
 
 	@Override
 	public int getSpriteYIndex()
 	{
-		return 0;
+		return getRow(id);
 	}
 
 	@Override
@@ -39,6 +41,23 @@ public class Tile extends Renderable
 		if(id == LADDER_ID) return false;
 		
 		return true;
+	}
+	
+	private static int getColumn(int id)
+	{
+		id -= 1;
+		return id % numberOfTileColumns;
+	}
+	
+	private static int getRow(int id)
+	{
+		id -= 1;
+		return id / numberOfTileColumns;
+	}
+	
+	public static int getNumberOfTiles()
+	{
+		return numberOfTileColumns * numberOfTileRows;
 	}
 	
 }
