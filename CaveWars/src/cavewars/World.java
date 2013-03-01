@@ -26,20 +26,21 @@ public class World
 	public Image background;
 	
 	public int currentBrushTile = 2; // The current tile we're painting.
-	public int numberOfBrushes;
+	
+	public boolean isRightPressed = false;
+	public boolean isLeftPressed = false;
+	public boolean isJumping = false;
 	
 	public World() throws SlickException
 	{	
+		tileGrid = new TileGrid(100, 50);
+		tileGrid = TileLoader.loadTiles();
+		
+		camera = new Camera(tileGrid.xSize / 2,tileGrid.ySize / 2, tileGrid.ySize / 5);
 		entityFactory = new EntityFactory(this);
 		
 		background = ImageLoader.getImage("Deep Cave.jpg");
-		
-		tileGrid = TileLoader.loadTiles();
-		
-		
 		entityFactory.createPlayer(0, 50F, 25F, EntityPlayer.RED_TEAM);
-		tileGrid = new TileGrid(100, 50);
-		camera = new Camera(tileGrid.xSize / 2, tileGrid.ySize / 2, tileGrid.ySize / 5);
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException 
@@ -71,8 +72,14 @@ public class World
 	
 	public void update(int delta)
 	{
-		localPlayer.updateAnimation(delta);
+		if(isJumping)
+		{
+			localPlayer.jump();
+		}
+		localPlayer.updateHorizontalVelocity(isLeftPressed, isRightPressed);
+		
 		localPlayer.update(this, delta);
+		localPlayer.updateAnimation(delta);
 	}
 	
 	public ArrayList<Tile> getNearbyTiles(Entity entity)
@@ -139,11 +146,19 @@ public class World
 	public void keyPressed(int key, char character) {
 		if(key == Input.KEY_LEFT)
 		{
-			localPlayer.setWalking(EntityPlayer.LEFT);
+			isLeftPressed = true;
 		}
 		if(key == Input.KEY_RIGHT)
 		{
-			localPlayer.setWalking(EntityPlayer.RIGHT);
+			isRightPressed = true;
+		}
+		if(key == Input.KEY_UP)
+		{
+			localPlayer.climb();
+		}
+		if(key == Input.KEY_DOWN)
+		{
+			localPlayer.dropFromLadder();
 		}
 		if(key == Input.KEY_A)
 		{
@@ -162,18 +177,26 @@ public class World
 		
 		if(key == Input.KEY_SPACE)
 		{
-			localPlayer.jump();
+			isJumping = true;
 		}
 	}
 
 	public void keyReleased(int key, char character) {
-		if(key == Input.KEY_LEFT && localPlayer.direction == EntityPlayer.LEFT)
+		if(key == Input.KEY_LEFT)
 		{
-			localPlayer.setStop();
+			isLeftPressed = false;
 		}
-		else if(key == Input.KEY_RIGHT && localPlayer.direction == EntityPlayer.RIGHT)
+		if(key == Input.KEY_RIGHT)
 		{
-			localPlayer.setStop();
+			isRightPressed = false;
+		}
+		if(key == Input.KEY_UP)
+		{
+			localPlayer.pauseClimbing();
+		}
+		if(key == Input.KEY_SPACE)
+		{
+			isJumping = false;
 		}
 	}
 	
@@ -206,6 +229,24 @@ public class World
 				currentBrushTile = tile.id;
 			}
 		}
+	}
+	
+	public void mouseWheelMoved(int steps)
+	{
+		// The tile id counts from 1->numOfTiles, but modulus uses the range 0->numOfTiles-1.
+		int currentTile = currentBrushTile - 1; 
+		
+		int direction;
+		
+		if(steps > 0) {
+			direction = 1;
+		} else {
+			direction = -1;
+		}
+		
+		int newTile = (((currentTile + direction) % Tile.NUMBER_OF_TILES) + Tile.NUMBER_OF_TILES) % Tile.NUMBER_OF_TILES; // Modulus that also works properly with negative numbers.
+		
+		currentBrushTile = newTile + 1;
 	}
 	
 	public Position getWorldPosition(int x, int y, int windowWidth, int windowHeight)

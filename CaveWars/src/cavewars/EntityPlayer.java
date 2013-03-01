@@ -13,14 +13,20 @@ public class EntityPlayer extends Entity
 	public static final int animationFPS = 100; //Milliseconds
 	public static final float speed = 5.0F; // m/s
 	
-	/** Whether the entity is standing in the ground. This determines if it is allowed to jump. */
-	public boolean onGround = false;
-	
+	/** Current animated direction */
 	public int direction = RIGHT;
+	
+	/** Whether the player is standing on the ground. This determines if it is allowed to jump. */
+	public boolean onGround = false;
+	/** Whether the player is touching a ladder. */
+	public boolean onLadder = false;
+	
+	/** While climbing, the gravity is disabled. */
+	public boolean isClimbing = false;
 	
 	public EntityPlayer(int id, float x, float y, String filName, int xTiles, int yTiles)
 	{
-		super(id, x, y, 1.0F, filName, xTiles, yTiles);
+		super(id, x, y, 1.5F, filName, xTiles, yTiles);
 	}
 	
 	@Override
@@ -62,28 +68,90 @@ public class EntityPlayer extends Entity
 	}
 	
 	/**
-	 * Sets the player moving either to the left or right. This also shows in the animation.
-	 * @param movementDirection 
-	 */
-	public void setWalking(int movementDirection)
-	{
-		direction = movementDirection;
-		velocityX = movementDirection * speed;
-	}
-	
-	/** 
-	 * Sets the velocity in the x axis to 0 while leaving the direction untouched.
-	 */
-	public void setStop()
-	{
-		velocityX = 0;
-	}
-	
-	/**
 	 * Alters the current vertical velocity so that the player jumps.
 	 */
 	public void jump()
 	{
-		velocityY = -5; // Negative values point up.
+		if(onGround)
+		{
+			velocityY = -5; // Negative values point up.
+		}
+	}
+	
+	public void climb()
+	{
+		if(onLadder)
+		{
+			isClimbing = true;
+			velocityY = -3.0F;
+		}
+	}
+	
+	public void pauseClimbing()
+	{
+		if(isClimbing)
+		{
+			velocityY = 0;
+		}
+	}
+	
+	public void dropFromLadder()
+	{
+		if(isClimbing)
+		{
+			isClimbing = false;
+			velocityY = 0;
+		}
+	}
+
+	@Override
+	public float getVerticalAcceleration()
+	{
+		updateClimbingState();
+		if(isClimbing)
+		{
+			return 0F;
+		}
+		return gravity;
+	}
+	
+	public void updateClimbingState()
+	{
+		if(!onLadder)
+		{
+			isClimbing = false;
+		}
+	}
+	
+	@Override
+	public void hasCollided(int id, boolean onGround)
+	{
+		if(id == Tile.LADDER_ID)
+		{
+			onLadder = true;
+		}
+		this.onGround = onGround;
+	}
+
+	@Override
+	public void resetCollisionStatus()
+	{
+		onGround = false;
+		onLadder = false;
+	}
+
+	public void updateHorizontalVelocity(boolean leftPressed, boolean rightPressed)
+	{
+		velocityX = 0;
+		if(leftPressed && !rightPressed)
+		{
+			velocityX = -speed;
+			direction = LEFT;
+		}
+		if(rightPressed && !leftPressed)
+		{
+			velocityX = speed;
+			direction = RIGHT;
+		}
 	}
 }

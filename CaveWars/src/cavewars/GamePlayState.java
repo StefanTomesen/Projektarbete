@@ -50,8 +50,8 @@ public class GamePlayState implements GameState
 
 	
 	@Override
-	public void mouseWheelMoved(int i) {
-		//throw new UnsupportedOperationException("Not supported yet.");
+	public void mouseWheelMoved(int steps) {
+		world.mouseWheelMoved(steps);
 	}
 
 	@Override

@@ -33,18 +33,30 @@ public abstract class Entity extends Renderable
 		ArrayList<Tile> nearbyTiles = world.getNearbyTiles(this);
 		CollisionBox entityCollision = new CollisionBox(this);
 		
-		Vector movement = getMovementVector(deltaSeconds);
+		float verticalAcceleration = getVerticalAcceleration();
+		
+		float deltaX = velocityX * deltaSeconds;
+		float deltaY = velocityY * deltaSeconds + verticalAcceleration * deltaSeconds * deltaSeconds / 2;
+		
+		Vector movement = new Vector(deltaX, deltaY);
+		
+		resetCollisionStatus();
 		for(Tile tile : nearbyTiles)
 		{
 			CollisionBox tileBox = new CollisionBox(tile);
-			boolean collided = entityCollision.collidesWith(tileBox, movement);
-			if(collided)
+			
+			if(entityCollision.collidesWith(tileBox, movement))
 			{
-				movement = entityCollision.getMotionVectorAfterCollision(tileBox, movement);
+				boolean onGround = tile.isSolid() && entityCollision.collidesWith(tileBox, new Vector(0, movement.y)) && yPosition < tile.yPosition;
+				hasCollided(tile.id, onGround);
+				if(tile.isSolid())
+				{
+					movement = entityCollision.getMotionVectorAfterCollision(tileBox, movement);
+				}
 			}
 		}
 		
-		velocityY += gravity * deltaSeconds; // Update the velocity.
+		velocityY += verticalAcceleration * deltaSeconds; // Update the velocity.
 		
 		xPosition += movement.x;
 		yPosition += movement.y;
@@ -62,11 +74,15 @@ public abstract class Entity extends Renderable
 		}
 	}
 	
-	public Vector getMovementVector(float deltaSeconds)
-	{
-		float deltaX = velocityX * deltaSeconds;
-		float deltaY = velocityY * deltaSeconds + gravity * deltaSeconds * deltaSeconds / 2;
-		
-		return new Vector(deltaX, deltaY);
-	}
+	public abstract float getVerticalAcceleration();
+	
+	/** 
+	 * Does logic depending on what it is we've hit. Usually sets flags that we're touching somehting. 
+	 */
+	public abstract void hasCollided(int id, boolean onGround);
+	
+	/** 
+	 * Resets any flags set by the hasCollided method before the collision is reevaluated the next frame.
+	 */
+	public abstract void resetCollisionStatus();
 }
