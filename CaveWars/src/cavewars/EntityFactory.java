@@ -16,9 +16,19 @@ public class EntityFactory
 		this.world = world;
 	}
 	
-	public void createPlayer(int id, float x, float y, String teamColorFileName) throws SlickException
-	{		
-		EntityPlayer player = new EntityPlayer(id, x, y, teamColorFileName, 4, 2);
+	public void createPlayer(int id, String teamColorFileName) throws SlickException
+	{
+		Position spawn;
+		if(teamColorFileName == EntityPlayer.RED_TEAM)
+		{
+			spawn = EntityPlayer.RED_SPAWN;
+		}
+		else
+		{
+			spawn = EntityPlayer.YELLOW_SPAWN;
+		}
+		
+		EntityPlayer player = new EntityPlayer(id, spawn.x, spawn.y, teamColorFileName, 4, 2);
 		world.localPlayer = player;
 	}
 }

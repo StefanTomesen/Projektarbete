@@ -5,7 +5,11 @@ public class Tile extends Renderable
 	public static int numberOfTileColumns;
 	public static int numberOfTileRows;
 	
+	public static final int NUMBER_OF_ACTIVE_TILES = 4;
+	
 	public static int LADDER_ID = 2;
+	public static int WATER_ID1 = 3;
+	public static int WATER_ID2 = 4;
 	
 	public int id;
 	
@@ -57,7 +61,7 @@ public class Tile extends Renderable
 	
 	public static int getNumberOfTiles()
 	{
-		return numberOfTileColumns * numberOfTileRows;
+		return NUMBER_OF_ACTIVE_TILES;
 	}
 	
 }

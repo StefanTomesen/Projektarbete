@@ -40,7 +40,7 @@ public class World
 		entityFactory = new EntityFactory(this);
 		
 		background = ImageLoader.getImage("Deep Cave.jpg");
-		entityFactory.createPlayer(0, tileGrid.xSize/2, tileGrid.ySize/2, EntityPlayer.RED_TEAM);
+		entityFactory.createPlayer(0, EntityPlayer.RED_TEAM);
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException 

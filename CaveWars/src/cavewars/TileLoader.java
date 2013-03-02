@@ -35,7 +35,6 @@ public class TileLoader
 	
 	public static void initTileSet() throws SlickException
 	{
-		System.out.println("init");
 		// Ladda in tmxfilen med tiles.
 		TiledMap karta = new TiledMap("resources/karta_2_1.tmx");
 		TileSet tileset = karta.getTileSet(0);

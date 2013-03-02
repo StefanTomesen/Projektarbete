@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" width="100" height="50" tilewidth="128" tileheight="128">
  <tileset firstgid="1" name="Brevid" tilewidth="128" tileheight="128">
-  <image source="Tiles/Brevid.png" width="512" height="128"/>
+  <image source="Tiles/Brevid.png" width="512" height="384"/>
  </tileset>
  <layer name="Tile Layer 1" width="100" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2TQQ6DQBDDQOr/39xjNeISEKxDE0u+Z8ewb9u2v0wVemeKKvTOFFXonSmq0DtTVKF3pqhC70xRhd6Zogq9M0UVemeKKvROB9Og790WR+i7t8eEvntbHKHv3x4T+v7tMaHv3xZH6A7tMaE7tMeE7tAeE7rD2RZufck30j3c/jmXdxI9Vvx7Z3B866oeK3qfwf297vvuxv297vvuxv29TzdJ6kF3ePqbeQq3d67ucWXr0zi8kexxZu8qqPc5NflX6Pu3x4S+f3tM6Pu3yQ/67u0xoe/eJj/oezvYW3mpQu9MUYXemaIKvTNFFXpniir0zhRV6J0pqtA7U1Shd6aoQu9MUYXeecVPrbW+xC8U+3iJIE4AAA==
+   H4sIAAAAAAAAC+2TQQ6DMBADQe3/39ze0IqLg0hmwR7JytXrgX3btv1hUaF7ukSF7ukSFbqnS1Toni5RoXu6RIXu6RIVuqdLVOieLlGhe7pEhe7ZIW7Qe8fFGXr3+KjQu8fFGXr/+KjQ+8dHhd4/Ls7QHuKjQnuIjwrtIT4qtIdRF938kjfSPrr9c13uJHys+PdG6HjrKh8rfI/Q/d7u/e6m+73d+91N93tnO3HyQXuY/c3Motudq31c6TqbDjeSPkb6roK6r5OTt0LvHx8Vev/4qND7x8kBvXt8VOjd4+SA3rtDslWvqNA9XaJC93SJCt3TJSp0T5eo0D1dokL3dIkK3dMlKnRPl6jQPV2iQve8ks8/37x58+Z9wPsD0C3fyCBOAAA=
   </data>
  </layer>
 </map>

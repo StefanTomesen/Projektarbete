@@ -7,6 +7,9 @@ public class EntityPlayer extends Entity
 	public static final String RED_TEAM = "spritesheet_player_red.png";
 	public static final String YELLOW_TEAM = "spritesheet_player_yellow.png";
 	
+	public static final Position RED_SPAWN = new Position(24, 34);
+	public static final Position YELLOW_SPAWN = new Position(76, 34);
+	
 	public static final int LEFT = -1;
 	public static final int RIGHT = 1;
 	
@@ -129,6 +132,10 @@ public class EntityPlayer extends Entity
 		if(id == Tile.LADDER_ID)
 		{
 			onLadder = true;
+		}
+		if(id == Tile.WATER_ID1 || id == Tile.WATER_ID2)
+		{
+			//CaveWars.caveWars.enterState(CaveWars.MAIN_MENU_STATE);
 		}
 		this.onGround = onGround;
 	}
