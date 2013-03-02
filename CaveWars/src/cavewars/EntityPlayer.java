@@ -147,7 +147,7 @@ public class EntityPlayer extends Entity
 		onLadder = false;
 	}
 
-	public void updateHorizontalVelocity(boolean leftPressed, boolean rightPressed)
+	public void updateMovement(boolean leftPressed, boolean rightPressed)
 	{
 		velocityX = 0;
 		if(leftPressed && !rightPressed)

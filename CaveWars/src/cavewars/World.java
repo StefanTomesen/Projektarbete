@@ -12,7 +12,7 @@ import static cavewars.CaveWars.windowWidth;
  */
 public class World
 {
-	public static float zoomSteps = 1.2F;
+	public static float zoomStep = 1.1F;
 	
 	public TileGrid tileGrid;
 	public EntityFactory entityFactory;
@@ -29,7 +29,8 @@ public class World
 	
 	public boolean isRightPressed = false;
 	public boolean isLeftPressed = false;
-	public boolean isJumping = false;
+	public boolean isSpacePressed = false;
+	public boolean isUpPressed = false;
 	
 	public World() throws SlickException
 	{	
@@ -72,13 +73,14 @@ public class World
 	
 	public void update(int delta)
 	{
-		if(isJumping)
-		{
-			localPlayer.jump();
-		}
-		localPlayer.updateHorizontalVelocity(isLeftPressed, isRightPressed);
+		if(isSpacePressed) localPlayer.jump();
 		
-		localPlayer.update(this, delta);
+		if(isUpPressed) localPlayer.climb();
+		else localPlayer.pauseClimbing();
+		
+		localPlayer.updateMovement(isLeftPressed, isRightPressed);
+		
+		localPlayer.update(this, delta); // Run all the physics (movement + collision)
 		localPlayer.updateAnimation(delta);
 	}
 	
@@ -144,59 +146,55 @@ public class World
 	}
 	
 	public void keyPressed(int key, char character) {
-		if(key == Input.KEY_LEFT)
+		if(key == Input.KEY_A)
 		{
 			isLeftPressed = true;
 		}
-		if(key == Input.KEY_RIGHT)
+		if(key == Input.KEY_D)
 		{
 			isRightPressed = true;
 		}
-		if(key == Input.KEY_UP)
+		if(key == Input.KEY_W)
 		{
-			localPlayer.climb();
+			isUpPressed = true;
 		}
-		if(key == Input.KEY_DOWN)
+		if(key == Input.KEY_S)
 		{
 			localPlayer.dropFromLadder();
-		}
-		if(key == Input.KEY_A)
-		{
-			if(camera.scale < tileGrid.ySize)
-			{
-				camera.zoom(zoomSteps);
-			}
-		}
-		if(key == Input.KEY_Z)
-		{
-			if(camera.scale > 0)
-			{
-				camera.zoom(1 / zoomSteps);
-			}
 		}
 		
 		if(key == Input.KEY_SPACE)
 		{
-			isJumping = true;
+			isSpacePressed = true;
 		}
+		
+		if(key == Input.KEY_E)
+		{
+			cycleBrush(1);
+		}
+		if(key == Input.KEY_Q)
+		{
+			cycleBrush(-1);
+		}
+
 	}
 
 	public void keyReleased(int key, char character) {
-		if(key == Input.KEY_LEFT)
+		if(key == Input.KEY_A)
 		{
 			isLeftPressed = false;
 		}
-		if(key == Input.KEY_RIGHT)
+		if(key == Input.KEY_D)
 		{
 			isRightPressed = false;
 		}
-		if(key == Input.KEY_UP)
+		if(key == Input.KEY_W)
 		{
-			localPlayer.pauseClimbing();
+			isUpPressed = false;
 		}
 		if(key == Input.KEY_SPACE)
 		{
-			isJumping = false;
+			isSpacePressed = false;
 		}
 	}
 	
@@ -232,21 +230,40 @@ public class World
 	}
 	
 	public void mouseWheelMoved(int steps)
-	{
-		// The tile id counts from 1->numOfTiles, but modulus uses the range 0->numOfTiles-1.
-		int currentTile = currentBrushTile - 1; 
-		
-		int direction;
-		
-		if(steps > 0) {
-			direction = 1;
-		} else {
-			direction = -1;
+	{	
+		if(steps > 0)
+		{
+			if(camera.scale > 4)
+			{
+				camera.zoom(1 / zoomStep);
+			}
 		}
-		
-		int newTile = (((currentTile + direction) % Tile.getNumberOfTiles()) + Tile.getNumberOfTiles()) % Tile.getNumberOfTiles(); // Modulus that also works properly with negative numbers.
-		
-		currentBrushTile = newTile + 1;
+		else
+		{
+			if(camera.scale < tileGrid.ySize)
+			{
+				camera.zoom(zoomStep);
+			}
+		}
+	}
+	
+	/**
+	 * Modulus that also works properly with negative numbers.
+	 * @param value The value to the left of the modulus, the value that is operated on.
+	 * @param limit The limiting value, the cap. The number to ther right of the modulus sign.
+	 */
+	public int properModulus(int value, int limit)
+	{
+		return ((value % limit) + limit) % limit;
+	}
+	
+	/**
+	 * 
+	 * @param direction 
+	 */
+	public void cycleBrush(int offset)
+	{
+		currentBrushTile = properModulus(currentBrushTile + offset - 1, Tile.getNumberOfTiles()) + 1; 
 	}
 	
 	public Position getWorldPosition(int x, int y, int windowWidth, int windowHeight)
