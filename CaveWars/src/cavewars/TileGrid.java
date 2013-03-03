@@ -74,7 +74,7 @@ public class TileGrid
 	 * @param y The position of the slot along the y axis.
 	 * @return The tile that until now was in the slot.
 	 */
-	public Tile pop(int x, int y)
+	public Tile take(int x, int y)
 	{
 		Tile tile = get(x,y);
 		remove(x,y);

@@ -46,6 +46,11 @@ public class World
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException 
 	{	
+		if(localPlayer == null)
+		{
+			return;
+		}
+		
 		camera.updatePositon(localPlayer, tileGrid.ySize, tileGrid.ySize);
 		
 		drawBackground(camera, windowWidth, windowHeight);
@@ -73,6 +78,11 @@ public class World
 	
 	public void update(int delta)
 	{
+		if(localPlayer == null)
+		{
+			return;
+		}
+		
 		if(isSpacePressed) localPlayer.jump();
 		
 		if(isUpPressed) localPlayer.climb();
