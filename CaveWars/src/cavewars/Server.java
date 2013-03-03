@@ -34,16 +34,16 @@ public class Server implements Runnable
 		{
 			
 		}
-		CaveWars.server = null;
 		clientListener.stop();
 		while(clientListener != null)
 		{
 			try
 			{
 				Thread.sleep(500);
-			} catch (InterruptedException ex) {}
+			} catch (InterruptedException ex){}
 		}
-		System.out.println("Shutdown");
+		System.out.println("Server Shutdown");
+		CaveWars.server = null;
 	}
 	
 	public void start()

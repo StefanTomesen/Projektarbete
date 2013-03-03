@@ -26,9 +26,7 @@ public class ClientListener implements Runnable
 			Socket clientSocket = null;
 			try
 			{
-				System.out.println("1");
 				clientSocket = serverSocket.accept();
-				System.out.println("2");
 				server.newConnection(clientSocket);
 			} 
 			catch (IOException ioe) 
@@ -46,18 +44,20 @@ public class ClientListener implements Runnable
 				
 			}
 		}
-		System.out.println("ClientListener Shutdown");
+		System.out.println("ClientListener shutdown");
 		server.clientListener = null;
 	}
 	
 	public void start()
 	{
+		System.out.println("ClientListener start");
 		Thread thread = new Thread(this);
 		thread.start();
 	}
 	
 	public void stop()
 	{
+		System.out.println("ClientListener stop");
 		running = false;
 		try
 		{
