@@ -3,6 +3,8 @@ package cavewars;
 import java.io.*;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
+import org.newdawn.slick.*;
+import org.newdawn.slick.state.StateBasedGame;
 
 /**
  * @author Mattias Stenqvist, 3B Portalens Gymnasium
@@ -24,11 +26,18 @@ class MainMenu extends Menu {
 			setS.next();
 		}
         
-        MenuButton start = new MenuButton("start", "Start", width/2, height/3);
-        MenuButton options = new MenuButton("options","Inställningar", width/2, height/2);
-        MenuButton exit = new MenuButton("exit","Avsluta", width/2, (height/3)*2);
+		int firstButtonYPos = height / 4;
+		int buttonSpacing = height / 10;
+		
+        MenuButton start = new MenuButton("start", "Start", width/2, firstButtonYPos + buttonSpacing * 0);
+		MenuButton runServer = new MenuButton("runServer", "Starta Server", width/2, firstButtonYPos + buttonSpacing * 1);
+		MenuButton restartServer = new MenuButton("stopServer", "Stäng Av Server", width/2, firstButtonYPos + buttonSpacing * 2);
+        MenuButton options = new MenuButton("options","Inställningar", width/2, firstButtonYPos + buttonSpacing * 3);
+        MenuButton exit = new MenuButton("exit","Avsluta", width/2, firstButtonYPos + buttonSpacing * 4);
         
         buttonList.add(start);
+		buttonList.add(runServer);
+		buttonList.add(restartServer);
         buttonList.add(options);
         buttonList.add(exit);
     }
@@ -39,6 +48,19 @@ class MainMenu extends Menu {
             case "exit":
                 System.exit(0);
                 break;
+			case "runServer":
+				if(CaveWars.server == null)
+				{
+					CaveWars.server = new Server(CaveWars.serverPort);
+					CaveWars.server.start();
+				}
+				break;
+			case "stopServer":
+				if(CaveWars.server != null)
+				{
+					CaveWars.server.stop();
+				}
+				break;
             case "options":
                 Settings meny = new Settings();
                 meny.Menu();
@@ -50,4 +72,15 @@ class MainMenu extends Menu {
 				break;
         }
     }
+	
+	public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics) throws SlickException
+	{
+		super.render(gc, sbg, graphics);
+		String serverStatus;
+		
+		if(CaveWars.server == null) serverStatus = "Offline";
+		else if(CaveWars.server.running) serverStatus = "Online";
+		else serverStatus = "Stängs Av";
+		graphics.drawString("Server: " + serverStatus, 5, 25);
+	}
 }

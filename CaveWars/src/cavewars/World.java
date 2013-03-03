@@ -56,8 +56,7 @@ public class World
 		drawBackground(camera, windowWidth, windowHeight);
 		
 		
-		for(Entity entity : entityList)
-		{	
+		for(Entity entity : entityList){	
 			entity.render(camera, gc.getWidth(), gc.getHeight());
 		}
 		for(int x = 0; x < tileGrid.xSize; x++)
@@ -65,7 +64,7 @@ public class World
 			for(int y = 0; y < tileGrid.ySize; y++)
 			{
 				Tile tile = tileGrid.get(x, y);
-				if(tile != null)
+				if(tile != null) 
 				{
 					tile.render(camera, gc.getWidth(), gc.getHeight());
 				}

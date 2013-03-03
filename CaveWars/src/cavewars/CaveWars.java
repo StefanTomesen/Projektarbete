@@ -15,15 +15,17 @@ import org.newdawn.slick.state.*;
  */
 public class CaveWars extends StateBasedGame
 {
+	public static CaveWars caveWars;
+	
 	public static final int MAIN_MENU_STATE = 0;
 	public static final int GAME_PLAY_STATE = 1;
 	
 	public static int windowWidth = 500; // Default settings.
 	public static int windowHeight = 500; 
 	
-    public static CaveWars caveWars;
+	public static int serverPort = 36745;
 	
-	public boolean server;
+	public static Server server = null;
 	
 	public CaveWars()
 	{
