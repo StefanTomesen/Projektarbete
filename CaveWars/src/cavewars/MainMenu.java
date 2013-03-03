@@ -10,34 +10,25 @@ import org.newdawn.slick.state.StateBasedGame;
  * @author Mattias Stenqvist, 3B Portalens Gymnasium
  */
 class MainMenu extends Menu {
-    private int width = 0;
-    private int height = 0;
+    private int width = CaveWars.windowWidth;
+    private int height = CaveWars.windowHeight;
 
     public MainMenu() throws FileNotFoundException 
-    {
-        File setting = new File("Settings.txt");
-        Scanner setS = new Scanner(setting);
-        while(setS.hasNext()){            
-			if(setS.hasNextInt()){
-				width = setS.nextInt();
-				height = setS.nextInt();
-				break;
-			}
-			setS.next();
-		}
-        
+    {   
 		int firstButtonYPos = height / 4;
 		int buttonSpacing = height / 10;
 		
         MenuButton start = new MenuButton("start", "Start", width/2, firstButtonYPos + buttonSpacing * 0);
 		MenuButton runServer = new MenuButton("runServer", "Starta Server", width/2, firstButtonYPos + buttonSpacing * 1);
-		MenuButton restartServer = new MenuButton("stopServer", "Stäng Av Server", width/2, firstButtonYPos + buttonSpacing * 2);
-        MenuButton options = new MenuButton("options","Inställningar", width/2, firstButtonYPos + buttonSpacing * 3);
-        MenuButton exit = new MenuButton("exit","Avsluta", width/2, firstButtonYPos + buttonSpacing * 4);
+		MenuButton stopServer = new MenuButton("stopServer", "Stäng Av Server", width/2, firstButtonYPos + buttonSpacing * 2);
+        MenuButton level = new MenuButton("setLevel", "Välj Serverns Bana & Lagfärg", width/2, firstButtonYPos + buttonSpacing * 3);
+		MenuButton options = new MenuButton("options","Inställningar", width/2, firstButtonYPos + buttonSpacing * 4);
+        MenuButton exit = new MenuButton("exit","Avsluta", width/2, firstButtonYPos + buttonSpacing * 5);
         
         buttonList.add(start);
 		buttonList.add(runServer);
-		buttonList.add(restartServer);
+		buttonList.add(stopServer);
+		buttonList.add(level);
         buttonList.add(options);
         buttonList.add(exit);
     }
@@ -60,6 +51,9 @@ class MainMenu extends Menu {
 				{
 					CaveWars.server.stop();
 				}
+				break;
+			case "setLevel":
+				CaveWars.caveWars.enterState(CaveWars.SUB_MENU_STATE);
 				break;
             case "options":
                 Settings meny = new Settings();

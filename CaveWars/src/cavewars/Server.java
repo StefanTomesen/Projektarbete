@@ -63,5 +63,7 @@ public class Server implements Runnable
 	{
 		PacketCentral packetCentral = new PacketCentral(socket);
 		packetCentral.startListening();
+		
+		connections.add(packetCentral);
 	}
 }

@@ -8,10 +8,17 @@ import org.newdawn.slick.tiled.*;
  */
 public class TileLoader
 {
-	public static TileGrid loadTiles() throws SlickException
+	public static TileGrid loadTiles(int mapChoise) throws SlickException
 	{
+		int mapChosen = mapChoise;
 		// Ladda in tmxfilen med tiles.
-		TiledMap karta = new TiledMap("resources/karta_2_1.tmx");
+		TiledMap karta = null;
+                
+		switch(mapChosen){
+			case 0: karta = new TiledMap("resources/karta_2_1.tmx"); break;
+			case 1: karta = new TiledMap("resources/karta_2_1.tmx"); break;
+			case 2: karta = new TiledMap("resources/karta_2_1.tmx"); break;
+		}
 		
 		// Loopa igenom alla tiles och skapa nya Tile objekt om det finns en tile på den specifika
 		// platsen. Tile objektet initieras med endast ett id som representerar dess blocktyp.

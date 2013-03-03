@@ -14,6 +14,8 @@ public class World
 {
 	public static float zoomStep = 1.1F;
 	
+	public int map = SubMenu.chosenMap;
+	
 	public TileGrid tileGrid;
 	public EntityFactory entityFactory;
 	
@@ -35,7 +37,7 @@ public class World
 	public World() throws SlickException
 	{	
 		tileGrid = new TileGrid(100, 50);
-		tileGrid = TileLoader.loadTiles();
+		tileGrid = TileLoader.loadTiles(map);
 		
 		camera = new Camera(tileGrid.xSize / 2,tileGrid.ySize / 2, tileGrid.ySize / 5);
 		entityFactory = new EntityFactory(this);
