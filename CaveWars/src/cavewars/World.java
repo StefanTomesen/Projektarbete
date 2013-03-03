@@ -15,6 +15,7 @@ public class World
 	public static float zoomStep = 1.1F;
 	
 	public int map = SubMenu.chosenMap;
+        public int team = SubMenu.chosenTeam;
 	
 	public TileGrid tileGrid;
 	public EntityFactory entityFactory;
@@ -43,7 +44,11 @@ public class World
 		entityFactory = new EntityFactory(this);
 		
 		background = ImageLoader.getImage("Deep Cave.jpg");
-		entityFactory.createPlayer(0, EntityPlayer.RED_TEAM);
+                if(team == 0){
+                    entityFactory.createPlayer(0, EntityPlayer.RED_TEAM);
+                }else{
+                    entityFactory.createPlayer(0, EntityPlayer.YELLOW_TEAM);
+                }
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException 

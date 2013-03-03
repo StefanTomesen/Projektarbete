@@ -44,8 +44,8 @@ class SubMenu extends Menu {
                 chosenMap = 2;
                 CaveWars.caveWars.enterState(CaveWars.MAIN_MENU_STATE);
                 break;
-            case "yellow_team": chosenTeam = 0; break;
-            case "red_team": chosenTeam = 1; break;
+            case "red_team": chosenTeam = 0; break;
+            case "yellow_team": chosenTeam = 1; break;
         }
     }
 }
