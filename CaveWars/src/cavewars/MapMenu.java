@@ -7,26 +7,21 @@ import javax.swing.JOptionPane;
 /**
  * @author Mattias Stenqvist, 3B Portalens Gymnasium
  */
-class SubMenu extends Menu {
+class MapMenu extends Menu {
     private int width = CaveWars.windowWidth;
     private int height = CaveWars.windowHeight;
     public static int chosenMap = 0;
-    public static int chosenTeam = 0;
 
-    public SubMenu() throws FileNotFoundException 
+    public MapMenu() throws FileNotFoundException 
     {   
         MenuButton map_1 = new MenuButton("map_1", "Map no. 1", width/2, height/3);
         MenuButton map_2 = new MenuButton("map_2","Map no. 2", width/2, height/2);
         MenuButton map_3 = new MenuButton("map_3","Map no. 3", width/2, (height/3)*2);
         
-        MenuButton yellowTeam = new MenuButton("yellow_team","Join yellow", width/3, height/2);
-        MenuButton redTeam = new MenuButton("red_team","Join Red", (width/3)*2, height/2);
-        
         buttonList.add(map_1);
         buttonList.add(map_2);
         buttonList.add(map_3);
-        buttonList.add(yellowTeam);
-        buttonList.add(redTeam);
+
     }
 
     @Override
@@ -44,8 +39,6 @@ class SubMenu extends Menu {
                 chosenMap = 2;
                 CaveWars.caveWars.enterState(CaveWars.MAIN_MENU_STATE);
                 break;
-            case "red_team": chosenTeam = 0; break;
-            case "yellow_team": chosenTeam = 1; break;
         }
     }
 }
