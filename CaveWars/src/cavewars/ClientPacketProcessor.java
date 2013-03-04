@@ -16,7 +16,7 @@ public class ClientPacketProcessor
 	
 	public void process(PacketCentral packetCentral, Packet packet) throws SlickException
 	{
-		System.out.println("Process packet: " + packet.getID());
+		//System.out.println("Process packet: " + packet.getID());
 		switch(packet.getID())
 		{
 			case Packet1InitLocalWorld.packetID:	

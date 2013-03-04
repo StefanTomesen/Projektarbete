@@ -21,8 +21,8 @@ public class CaveWars extends StateBasedGame
 	public static final int MAIN_MENU_STATE = 0;
 	public static final int GAME_PLAY_STATE = 1;
 	public static final int MAP_MENU_STATE = 2;
-        public static final int COL_MENU_STATE = 3;
-        public static final int IP_MENU_STATE = 4;
+	public static final int COL_MENU_STATE = 3;
+	public static final int IP_MENU_STATE = 4;
 	
 	public static int windowWidth = 500; // Default settings.
 	public static int windowHeight = 500; 
@@ -40,8 +40,8 @@ public class CaveWars extends StateBasedGame
 		addState(new MainMenuState(MAIN_MENU_STATE));
 		addState(new GamePlayState(GAME_PLAY_STATE));
 		addState(new MapMenuState(MAP_MENU_STATE));
-                addState(new ColMenuState(COL_MENU_STATE));
-                addState(new IPMenuState(IP_MENU_STATE));
+		addState(new ColMenuState(COL_MENU_STATE));
+		addState(new IPMenuState(IP_MENU_STATE));
 	}
         
 	public static void main(String[] args) throws SlickException, IOException
