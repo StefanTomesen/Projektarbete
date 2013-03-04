@@ -78,7 +78,7 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void mousePressed(int button, int x, int y) {
-		client.world.mousePressed(button, x, y);
+		client.world.mousePressed(client.serverConnection, button, x, y);
 	}
 
 	@Override

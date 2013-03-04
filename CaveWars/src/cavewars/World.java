@@ -53,7 +53,7 @@ public class World
 	{
 		tileGrid = new TileGrid(tileWidth, tileHeight);
 		
-		camera = new Camera(tileGrid.xSize / 2,tileGrid.ySize / 2, tileGrid.ySize / 5);
+		camera = new Camera(tileGrid.xSize * 2 / 3,tileGrid.ySize * 2 / 3, tileGrid.ySize / 5);
 	}
 	
 	public EntityPlayer getPlayer(int entityID)
@@ -251,7 +251,7 @@ public class World
 		}
 	}
 	
-	public void mousePressed(int button, int x, int y)
+	public void mousePressed(PacketCentral serverConnection, int button, int x, int y)
 	{
 		System.out.println("Button: " + button);
 		Position mousePosition = getWorldPosition(x, y, windowWidth, windowHeight);
@@ -264,12 +264,13 @@ public class World
 		
 		if(button == 0)
 		{
-			tileGrid.add(xPos, yPos, new Tile(currentBrushTile, xPos, yPos));
+			Tile tile = new Tile(currentBrushTile, xPos, yPos);
+			serverConnection.sendPacket(new Packet4AddTile(tile));
 		}
 		
 		if(button == 1)
 		{
-			tileGrid.remove(xPos, yPos);
+			serverConnection.sendPacket(new Packet5RemoveTile(xPos, yPos));
 		}
 		
 		if(button == 2)

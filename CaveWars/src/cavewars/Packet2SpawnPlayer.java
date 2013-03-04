@@ -22,6 +22,7 @@ public class Packet2SpawnPlayer extends Packet
 		this.team = entityPlayer.team;
 		this.x = entityPlayer.xPosition;
 		this.y = entityPlayer.yPosition;
+		System.out.println("Team: " + team);
 	}
 	
 	public Packet2SpawnPlayer()
