@@ -14,11 +14,11 @@ public class World
 {
 	public static float zoomStep = 1.1F;
 	
-	public EntityFactory entityFactory;
-	public TileGrid tileGrid;
+	public int map = SubMenu.chosenMap;
+        public int team = SubMenu.chosenTeam;
 	
-	public Position RED_SPAWN;
-	public Position YELLOW_SPAWN;
+	public TileGrid tileGrid;
+	public EntityFactory entityFactory;
 	
 	public Camera camera;
 	
@@ -37,49 +37,18 @@ public class World
 	
 	public World() throws SlickException
 	{	
-		background = ImageLoader.getImage("Deep Cave.jpg");
+		tileGrid = new TileGrid(100, 50);
+		tileGrid = TileLoader.loadTiles(map);
+		
+		camera = new Camera(tileGrid.xSize / 2,tileGrid.ySize / 2, tileGrid.ySize / 5);
 		entityFactory = new EntityFactory(this);
-	}
 		
-	public void serverInit() throws SlickException
-	{
-		tileGrid = TileLoader.loadTiles(MapMenu.chosenMap);
-		
-		RED_SPAWN = new Position(tileGrid.xSize/4, tileGrid.ySize / 2);
-		YELLOW_SPAWN = new Position(tileGrid.xSize*3/4, tileGrid.ySize / 2);
+		background = ImageLoader.getImage("Deep Cave.jpg");
+                if(team == 0){
+                    entityFactory.createPlayer(0, EntityPlayer.RED_TEAM);
+                }else{
+                    entityFactory.createPlayer(0, EntityPlayer.YELLOW_TEAM);
                 }
-	
-	public void clientInit(int tileWidth, int tileHeight) throws SlickException
-	{
-		tileGrid = new TileGrid(tileWidth, tileHeight);
-		
-		camera = new Camera(tileGrid.xSize * 2 / 3,tileGrid.ySize * 2 / 3, tileGrid.ySize / 5);
-	}
-	
-	public EntityPlayer getPlayer(int entityID)
-	{
-		EntityPlayer targetPlayer = null;
-		for(EntityPlayer player : playerList)
-		{
-			if(player.entityID == entityID)
-			{
-				targetPlayer = player;
-			}
-		}
-		return targetPlayer;
-	}
-	
-	public Entity getEntity(int entityID)
-	{
-		Entity targetEntity = null;
-		for(Entity entity : entityList)
-		{
-			if(entity.entityID == entityID)
-			{
-				targetEntity = entity;
-			}
-		}
-		return targetEntity;
 	}
 	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException 
@@ -88,7 +57,6 @@ public class World
 		{
 			return;
 		}
-		System.out.println("Render");
 		
 		camera.updatePositon(localPlayer, tileGrid.ySize, tileGrid.ySize);
 		
@@ -96,7 +64,6 @@ public class World
 		
 		
 		for(Entity entity : entityList){	
-			System.out.println("Player");
 			entity.render(camera, gc.getWidth(), gc.getHeight());
 		}
 		for(int x = 0; x < tileGrid.xSize; x++)
@@ -117,24 +84,20 @@ public class World
 	
 	public void update(int delta)
 	{
-		if(localPlayer != null)
+		if(localPlayer == null)
 		{
+			return;
+		}
+		
 		if(isSpacePressed) localPlayer.jump();
 		
 		if(isUpPressed) localPlayer.climb();
 		else localPlayer.pauseClimbing();
 		
 		localPlayer.updateMovement(isLeftPressed, isRightPressed);
-		}
-		//System.out.println("Gamelogic");
 		
-		for(EntityPlayer player : playerList)
-		{
-			// Run all the physics (movement + collision)
-			player.update(this, delta);
-			player.updateAnimation(delta);
-	}
-	
+		localPlayer.update(this, delta); // Run all the physics (movement + collision)
+		localPlayer.updateAnimation(delta);
 	}
 	
 	public ArrayList<Tile> getNearbyTiles(Entity entity)
@@ -251,7 +214,7 @@ public class World
 		}
 	}
 	
-	public void mousePressed(PacketCentral serverConnection, int button, int x, int y)
+	public void mousePressed(int button, int x, int y)
 	{
 		System.out.println("Button: " + button);
 		Position mousePosition = getWorldPosition(x, y, windowWidth, windowHeight);
@@ -264,13 +227,12 @@ public class World
 		
 		if(button == 0)
 		{
-			Tile tile = new Tile(currentBrushTile, xPos, yPos);
-			serverConnection.sendPacket(new Packet4AddTile(tile));
+			tileGrid.add(xPos, yPos, new Tile(currentBrushTile, xPos, yPos));
 		}
 		
 		if(button == 1)
 		{
-			serverConnection.sendPacket(new Packet5RemoveTile(xPos, yPos));
+			tileGrid.remove(xPos, yPos);
 		}
 		
 		if(button == 2)
