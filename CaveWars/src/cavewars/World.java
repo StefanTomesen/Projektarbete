@@ -119,12 +119,12 @@ public class World
 	{
 		if(localPlayer != null)
 		{
-		if(isSpacePressed) localPlayer.jump();
-		
-		if(isUpPressed) localPlayer.climb();
-		else localPlayer.pauseClimbing();
-		
-		localPlayer.updateMovement(isLeftPressed, isRightPressed);
+			if(isSpacePressed) localPlayer.jump();
+
+			if(isUpPressed) localPlayer.climb();
+			else localPlayer.pauseClimbing();
+
+			localPlayer.updateMovement(isLeftPressed, isRightPressed);
 		}
 		//System.out.println("Gamelogic");
 		
@@ -133,7 +133,7 @@ public class World
 			// Run all the physics (movement + collision)
 			player.update(this, delta);
 			player.updateAnimation(delta);
-	}
+		}
 	
 	}
 	
