@@ -49,7 +49,7 @@ public class GamePlayState implements GameState
 	{
 		try
 		{
-			Socket socket = new Socket(ipAdress, port);
+			Socket socket = new Socket(IPMenu.ipAdresse, IPMenu.ipPort);
 			client = new Client(socket);
 		} catch (Exception ex)
 		{

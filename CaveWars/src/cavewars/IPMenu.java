@@ -13,10 +13,10 @@ import javax.swing.JOptionPane;
  * Mattias Stenqvist, 3B
  */
 class IPMenu extends Menu{
-    public static String ipAdresse;
     private int width = CaveWars.windowWidth;
     private int height = CaveWars.windowHeight;
-    public static int ipPort;
+	public static String ipAdresse = "localhost";
+    public static int ipPort = 36745;
     
     public IPMenu() throws FileNotFoundException 
     {   

@@ -27,7 +27,7 @@ public class CaveWars extends StateBasedGame
 	public static int windowWidth = 500; // Default settings.
 	public static int windowHeight = 500; 
 	
-	public static int serverPort = /*36745*/ IPMenu.ipPort;
+	public static int serverPort = 36745;
 	
 	public CaveWars()
 	{
