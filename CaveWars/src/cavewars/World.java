@@ -14,8 +14,8 @@ public class World
 {
 	public static float zoomStep = 1.1F;
 	
-	public int map = SubMenu.chosenMap;
-        public int team = SubMenu.chosenTeam;
+	public int map = MapMenu.chosenMap;
+        public int team = ColMenu.chosenTeam;
 	
 	public TileGrid tileGrid;
 	public EntityFactory entityFactory;
