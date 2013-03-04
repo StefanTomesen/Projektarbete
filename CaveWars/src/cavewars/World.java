@@ -45,8 +45,8 @@ public class World
 	{
 		tileGrid = TileLoader.loadTiles(MapMenu.chosenMap);
 		
-		RED_SPAWN = new Position(tileGrid.xSize/4, tileGrid.ySize / 2);
-		YELLOW_SPAWN = new Position(tileGrid.xSize*3/4, tileGrid.ySize / 2);
+		RED_SPAWN = new Position(tileGrid.xSize/4, tileGrid.ySize * 2 / 3);
+		YELLOW_SPAWN = new Position(tileGrid.xSize*3/4, tileGrid.ySize * 2 / 3);
                 }
 	
 	public void clientInit(int tileWidth, int tileHeight) throws SlickException

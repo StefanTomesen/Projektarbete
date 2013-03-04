@@ -35,8 +35,7 @@ public class EntityPlayer extends Entity
 	public EntityPlayer(int id, float x, float y, int team)
 	{
 		super(id, x, y, 1.5F, ((team == RED_TEAM) ? RED_TEAM_IMAGE : YELLOW_TEAM_IMAGE), 4, 2);
-		System.out.println(((team == RED_TEAM) ? RED_TEAM_IMAGE : YELLOW_TEAM_IMAGE));
-		System.out.println("Team: " + team);
+		this.team = team;
 	}
 	
 	@Override
