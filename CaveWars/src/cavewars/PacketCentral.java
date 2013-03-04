@@ -69,12 +69,12 @@ public class PacketCentral implements Runnable
 		try
 		{
 			int packetID = instream.readInt();
-			System.out.println("Recieved packet: " + packetID);
+			//System.out.println("Recieved packet: " + packetID);
 			Packet packet = Packet.createEmptyPacket(packetID);
 			
 			packet.read(instream);
 			inList.put(packet);
-			System.out.println("Finished reading packet");
+			//System.out.println("Finished reading packet");
 		} 
 		catch (IOException ex)
 		{ 
@@ -85,7 +85,7 @@ public class PacketCentral implements Runnable
 		
 	public void sendPacket(Packet packet)
 	{
-		System.out.println("Sending packet: " + packet.getID());
+		//System.out.println("Sending packet: " + packet.getID());
 		try
 		{
 			outstream.writeInt(packet.getID());

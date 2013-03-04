@@ -54,10 +54,9 @@ public class ServerPacketProcessor
 			for(int y = 0; y < world.tileGrid.xSize; y++)
 			{
 				Tile tile = world.tileGrid.get(x, y);
-				System.out.println("Tile: x:" + x + ", y:" + y);
-				if(tile != null)
+				if(tile != null && tile.id != 0)
 				{
-					packetCentral.sendPacket(new Packet4AddTile());
+					packetCentral.sendPacket(new Packet4AddTile(tile));
 				}
 			}
 		}

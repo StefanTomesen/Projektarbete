@@ -27,11 +27,6 @@ public class EntityFactory
 			spawn = world.YELLOW_SPAWN;
 		}
 		
-		if(spawn == null)
-		{
-			System.out.println("Spawn = null");
-		}
-		
 		EntityPlayer player = new EntityPlayer(id, spawn.x, spawn.y, team);
 		world.playerList.add(player);
 		

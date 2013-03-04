@@ -45,8 +45,8 @@ public class World
 	{
 		tileGrid = TileLoader.loadTiles(SubMenu.chosenMap);
 		
-		RED_SPAWN = new Position(tileGrid.xSize/4, tileGrid.ySize);
-		YELLOW_SPAWN = new Position(tileGrid.xSize*3/4, tileGrid.ySize);
+		RED_SPAWN = new Position(tileGrid.xSize/4, tileGrid.ySize / 2);
+		YELLOW_SPAWN = new Position(tileGrid.xSize*3/4, tileGrid.ySize / 2);
 	}
 	
 	public void clientInit(int tileWidth, int tileHeight) throws SlickException
@@ -106,7 +106,6 @@ public class World
 				Tile tile = tileGrid.get(x, y);
 				if(tile != null) 
 				{
-					System.out.println("Tile");
 					tile.render(camera, gc.getWidth(), gc.getHeight());
 				}
 			}

@@ -72,7 +72,8 @@ public class ClientPacketProcessor
 	
 	private void processPacket4AddTile(PacketCentral packetCentral, Packet4AddTile packet4AddTile)
 	{
-		world.tileGrid.add(packet4AddTile.x, packet4AddTile.y, new Tile(packet4AddTile.id, packet4AddTile.x, packet4AddTile.y));
+		Tile tile = new Tile(packet4AddTile.id, packet4AddTile.x, packet4AddTile.y);
+		world.tileGrid.add(packet4AddTile.x, packet4AddTile.y, tile);
 	}
 	
 	private void processPacket5RemoveTile(PacketCentral packetCentral, Packet5RemoveTile packet5RemoveTile)

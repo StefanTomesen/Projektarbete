@@ -52,7 +52,6 @@ public class EntityPlayer extends Entity
 	@Override
 	public int getSpriteXIndex()
 	{
-		System.out.println("X");
 		if(Math.abs(velocityX) > 0)
 		{
 			return (int)(animationTimer / animationFPS) % 4;
@@ -66,7 +65,6 @@ public class EntityPlayer extends Entity
 	@Override
 	public int getSpriteYIndex()
 	{
-		System.out.println("Y");
 		if(direction == LEFT)
 		{
 			return 0;
