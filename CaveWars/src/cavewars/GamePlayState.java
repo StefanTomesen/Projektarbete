@@ -1,5 +1,6 @@
 package cavewars;
 
+import java.net.Socket;
 import java.util.logging.*;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
@@ -12,9 +13,6 @@ public class GamePlayState implements GameState
 	public int stateID;
 	
 	Client client;
-	
-	public static String ipAdress = "localhost";
-	public static int port = CaveWars.serverPort;
 
 	public GamePlayState(int stateID) throws SlickException
 	{
@@ -51,7 +49,8 @@ public class GamePlayState implements GameState
 	{
 		try
 		{
-			client = new Client("localhost", CaveWars.serverPort);
+			Socket socket = new Socket(ipAdress, port);
+			client = new Client(socket);
 		} catch (Exception ex)
 		{
 			System.out.println("Failed to connect to server");

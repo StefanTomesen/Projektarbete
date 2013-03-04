@@ -139,10 +139,6 @@ public class EntityPlayer extends Entity
 		{
 			onLadder = true;
 		}
-		if(id == Tile.WATER_ID1 || id == Tile.WATER_ID2)
-		{
-			//CaveWars.caveWars.enterState(CaveWars.MAIN_MENU_STATE);
-		}
 		this.onGround = onGround;
 	}
 

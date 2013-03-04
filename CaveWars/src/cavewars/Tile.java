@@ -46,6 +46,7 @@ public class Tile extends Renderable
 	public static boolean isSolid(int id)
 	{
 		if(id == LADDER_ID) return false;
+		if(id == WATER_ID1 || id == WATER_ID2) return false;
 		
 		return true;
 	}
