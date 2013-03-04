@@ -88,7 +88,6 @@ public class World
 		{
 			return;
 		}
-		System.out.println("Render");
 		
 		camera.updatePositon(localPlayer, tileGrid.ySize, tileGrid.ySize);
 		
@@ -96,7 +95,6 @@ public class World
 		
 		
 		for(Entity entity : entityList){	
-			System.out.println("Player");
 			entity.render(camera, gc.getWidth(), gc.getHeight());
 		}
 		for(int x = 0; x < tileGrid.xSize; x++)
@@ -133,6 +131,11 @@ public class World
 			// Run all the physics (movement + collision)
 			player.update(this, delta);
 			player.updateAnimation(delta);
+			
+			if(player.yPosition > tileGrid.ySize)
+			{
+				CaveWars.caveWars.enterState(CaveWars.MAIN_MENU_STATE);
+			}
 		}
 	
 	}
@@ -253,7 +256,6 @@ public class World
 	
 	public void mousePressed(PacketCentral serverConnection, int button, int x, int y)
 	{
-		System.out.println("Button: " + button);
 		Position mousePosition = getWorldPosition(x, y, windowWidth, windowHeight);
 			
 		int xPos = (int)mousePosition.x;

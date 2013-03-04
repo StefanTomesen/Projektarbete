@@ -12,9 +12,8 @@ public class Client
 	PacketCentral serverConnection;
 	ClientPacketProcessor clientPacketProcessor;
 	
-	public Client(String ipAdress, int port) throws Exception
+	public Client(Socket socket) throws Exception
 	{
-		Socket socket = new Socket(ipAdress, port);
 		serverConnection = new PacketCentral(socket);
 		serverConnection.startListening();
 		
@@ -43,5 +42,10 @@ public class Client
 				ex.printStackTrace();
 			}
 		}
+	}
+	
+	public void stop()
+	{
+		
 	}
 }
