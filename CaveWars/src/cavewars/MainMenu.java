@@ -20,11 +20,11 @@ class MainMenu extends Menu {
 		int buttonSpacing = height / 10;
 		
         MenuButton start = new MenuButton("start", "Start", width/2, firstButtonYPos + buttonSpacing * 0);
-        MenuButton runServer = new MenuButton("runServer", "Starta Server", width/2, firstButtonYPos + buttonSpacing * 1);
-        MenuButton stopServer = new MenuButton("stopServer", "Stäng Av Server", width/2, firstButtonYPos + buttonSpacing * 2);
-        MenuButton level = new MenuButton("setLevel", "Välj serverns bana", width/2, firstButtonYPos + buttonSpacing * 3);
-        MenuButton options = new MenuButton("options","Inställningar", width/2, firstButtonYPos + buttonSpacing * 4);
-        MenuButton exit = new MenuButton("exit","Avsluta", width/2, firstButtonYPos + buttonSpacing * 5);
+        MenuButton runServer = new MenuButton("runServer", "Run server", width/2, firstButtonYPos + buttonSpacing * 1);
+        MenuButton stopServer = new MenuButton("stopServer", "Close server", width/2, firstButtonYPos + buttonSpacing * 2);
+        MenuButton level = new MenuButton("setLevel", "Select map", width/2, firstButtonYPos + buttonSpacing * 3);
+        MenuButton options = new MenuButton("options","Settings", width/2, firstButtonYPos + buttonSpacing * 4);
+        MenuButton exit = new MenuButton("exit","Exit game", width/2, firstButtonYPos + buttonSpacing * 5);
         
         buttonList.add(start);
         buttonList.add(runServer);
