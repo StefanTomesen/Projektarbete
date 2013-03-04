@@ -26,8 +26,8 @@ class ColMenu extends Menu {
     public void buttonPressed(String id) {
         
         switch (id) {
-            case "red_team": chosenTeam = 0; CaveWars.caveWars.enterState(CaveWars.GAME_PLAY_STATE);break;
-            case "yellow_team": chosenTeam = 1; CaveWars.caveWars.enterState(CaveWars.GAME_PLAY_STATE);break;
+            case "red_team": chosenTeam = 0; CaveWars.caveWars.enterState(CaveWars.IP_MENU_STATE);break;
+            case "yellow_team": chosenTeam = 1; CaveWars.caveWars.enterState(CaveWars.IP_MENU_STATE);break;
         }
     }
 

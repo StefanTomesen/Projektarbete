@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map SYSTEM "http://mapeditor.org/dtd/1.0/map.dtd">
 <map version="1.0" orientation="orthogonal" width="100" height="50" tilewidth="128" tileheight="128">
  <tileset firstgid="1" name="Brevid" tilewidth="128" tileheight="128">
   <image source="Tiles/Brevid.png" width="512" height="384"/>
  </tileset>
  <layer name="Tile Layer 1" width="100" height="50">
   <data encoding="base64" compression="gzip">
-   H4sIAAAAAAAAC+2TQQ6DMBADQe3/39ze0IqLg0hmwR7JytXrgX3btv1hUaF7ukSF7ukSFbqnS1Toni5RoXu6RIXu6RIVuqdLVOieLlGhe7pEhe7ZIW7Qe8fFGXr3+KjQu8fFGXr/+KjQ+8dHhd4/Ls7QHuKjQnuIjwrtIT4qtIdRF938kjfSPrr9c13uJHys+PdG6HjrKh8rfI/Q/d7u/e6m+73d+91N93tnO3HyQXuY/c3Motudq31c6TqbDjeSPkb6roK6r5OTt0LvHx8Vev/4qND7x8kBvXt8VOjd4+SA3rtDslWvqNA9XaJC93SJCt3TJSp0T5eo0D1dokL3dIkK3dMlKnRPl6jQPV2iQve8ks8/37x58+Z9wPsD0C3fyCBOAAA=
+   H4sIAAAAAAAAC+2TQQ6CUBQDMXr/M+uOvLApBv5U20katn0d/mPbtsePRYXumRIVumdKVOieKVGhe6ZEhe6ZEhW6Z0pU6J4pUaF7pkSF7pkSFbqnQ9Kg966LI/Tu9TGhd6+LI/T+9TGh96+PCb1/XRyhPdTHhPZQHxPaQ31MaA9nXbj5JW+kfbi9OZc7CR8r3t4ZHG9d5WOF7zO43+ve72rc73XvdzXu997tJMkH7eHuf+Yu3O5c7eObrnfjcCPp40zfVVD3OTn5V+j962NC718fE3r/Otmhd6+PCb17nezQezukW3lFhe6ZEhW6Z0pU6J4pUaF7pkSF7pkSFbpnSlTonilRoXumRIXumRIVumdKXp88hS/dMyX14ZV/9vEG3B79myBOAAA=
   </data>
  </layer>
 </map>
