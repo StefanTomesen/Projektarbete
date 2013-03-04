@@ -22,7 +22,7 @@ class MainMenu extends Menu {
         MenuButton start = new MenuButton("start", "Start", width/2, firstButtonYPos + buttonSpacing * 0);
         MenuButton runServer = new MenuButton("runServer", "Starta Server", width/2, firstButtonYPos + buttonSpacing * 1);
         MenuButton stopServer = new MenuButton("stopServer", "Stäng Av Server", width/2, firstButtonYPos + buttonSpacing * 2);
-        MenuButton level = new MenuButton("setLevel", "Välj Serverns Bana & Lagfärg", width/2, firstButtonYPos + buttonSpacing * 3);
+        MenuButton level = new MenuButton("setLevel", "Välj serverns bana", width/2, firstButtonYPos + buttonSpacing * 3);
         MenuButton options = new MenuButton("options","Inställningar", width/2, firstButtonYPos + buttonSpacing * 4);
         MenuButton exit = new MenuButton("exit","Avsluta", width/2, firstButtonYPos + buttonSpacing * 5);
         
@@ -37,41 +37,41 @@ class MainMenu extends Menu {
     @Override
     public void buttonPressed(String id) {
         switch (id) {
-			case "exit":
-				System.exit(0);
-				break;
-			case "runServer":
-				if(CaveWars.server == null)
-				{
+            case "exit":
+                System.exit(0);
+                break;
+            case "runServer":
+                    if(CaveWars.server == null)
+                    {
 					try
 					{
-						CaveWars.server = new Server(CaveWars.serverPort);
-						CaveWars.server.start();
-					} 
+                            CaveWars.server = new Server(CaveWars.serverPort);
+                            CaveWars.server.start();
+                    }
 					catch (SlickException ex)
 					{
 						System.out.println("Failed to start server!");
 						ex.printStackTrace();
 					}
 				}
-				break;
-			case "stopServer":
-				if(CaveWars.server != null)
-				{
-						CaveWars.server.stop();
-				}
-				break;
-			case "setLevel":
-				CaveWars.caveWars.enterState(CaveWars.SUB_MENU_STATE);
-				break;
-			case "options":
-				Settings meny = new Settings();
-				meny.Menu();
-				meny.setSize(170, 100);
-				meny.setVisible(true);
-				break;
-			case "start":
-				CaveWars.caveWars.enterState(CaveWars.GAME_PLAY_STATE);
+                    break;
+            case "stopServer":
+                    if(CaveWars.server != null)
+                    {
+                            CaveWars.server.stop();
+                    }
+                    break;
+            case "setLevel":
+                    CaveWars.caveWars.enterState(CaveWars.MAP_MENU_STATE);
+                    break;
+            case "options":
+                Settings meny = new Settings();
+                meny.Menu();
+                meny.setSize(170, 100);
+                meny.setVisible(true);
+                break;
+            case "start":
+                CaveWars.caveWars.enterState(CaveWars.COL_MENU_STATE);
 				break;
         }
     }

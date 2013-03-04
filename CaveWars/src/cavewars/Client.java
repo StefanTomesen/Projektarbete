@@ -21,7 +21,7 @@ public class Client
 		world = new World();
 		clientPacketProcessor = new ClientPacketProcessor(world);
 		
-		serverConnection.sendPacket(new Packet0Login(SubMenu.chosenTeam));
+		serverConnection.sendPacket(new Packet0Login(ColMenu.chosenTeam));
 	}
 	
 	public void update()

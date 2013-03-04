@@ -1,16 +1,17 @@
 package cavewars;
 
 import java.io.FileNotFoundException;
+import java.util.logging.*;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
-public class SubMenuState implements GameState
+public class ColMenuState implements GameState
 {
 	public int stateID;
 	
-	public Menu meny;
+	public Menu colMenu;
         
-	public SubMenuState(int stateID)
+	public ColMenuState(int stateID)
 	{
 		this.stateID = stateID;
 	}
@@ -24,16 +25,13 @@ public class SubMenuState implements GameState
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException 
 	{
-		try
-		{
-			meny = new SubMenu();
-		} catch (FileNotFoundException ex) {}
+                colMenu = new ColMenu();
 	}
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException 
 	{
-		meny.render(gc, sbg, grphcs);
+		colMenu.render(gc, sbg, grphcs);
 	}
 
 	@Override
@@ -54,7 +52,7 @@ public class SubMenuState implements GameState
 	@Override
 	public void mousePressed(int button, int x, int y) 
 	{
-		meny.mouseReleased(button, x, y);
+		colMenu.mouseReleased(button, x, y);
 	}
 
 	@Override

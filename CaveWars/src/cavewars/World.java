@@ -40,14 +40,14 @@ public class World
 		background = ImageLoader.getImage("Deep Cave.jpg");
 		entityFactory = new EntityFactory(this);
 	}
-	
+		
 	public void serverInit() throws SlickException
 	{
-		tileGrid = TileLoader.loadTiles(SubMenu.chosenMap);
+		tileGrid = TileLoader.loadTiles(MapMenu.chosenMap);
 		
 		RED_SPAWN = new Position(tileGrid.xSize/4, tileGrid.ySize / 2);
 		YELLOW_SPAWN = new Position(tileGrid.xSize*3/4, tileGrid.ySize / 2);
-	}
+                }
 	
 	public void clientInit(int tileWidth, int tileHeight) throws SlickException
 	{
@@ -119,12 +119,12 @@ public class World
 	{
 		if(localPlayer != null)
 		{
-			if(isSpacePressed) localPlayer.jump();
+		if(isSpacePressed) localPlayer.jump();
 		
-			if(isUpPressed) localPlayer.climb();
-			else localPlayer.pauseClimbing();
-
-			localPlayer.updateMovement(isLeftPressed, isRightPressed);
+		if(isUpPressed) localPlayer.climb();
+		else localPlayer.pauseClimbing();
+		
+		localPlayer.updateMovement(isLeftPressed, isRightPressed);
 		}
 		//System.out.println("Gamelogic");
 		
@@ -133,8 +133,8 @@ public class World
 			// Run all the physics (movement + collision)
 			player.update(this, delta);
 			player.updateAnimation(delta);
-		} 
-		
+	}
+	
 	}
 	
 	public ArrayList<Tile> getNearbyTiles(Entity entity)
