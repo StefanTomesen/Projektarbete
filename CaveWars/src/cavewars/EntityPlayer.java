@@ -2,19 +2,24 @@ package cavewars;
 
 import org.newdawn.slick.*;
 
+/**
+ * @author Stefan Tomesen, 3B Portalens Gymnasium
+ */
 public class EntityPlayer extends Entity
 {
-	public static final String RED_TEAM = "spritesheet_player_red.png";
-	public static final String YELLOW_TEAM = "spritesheet_player_yellow.png";
+	public static final int RED_TEAM = 0;
+	public static final int YELLOW_TEAM = 1;
 	
-	public static final Position RED_SPAWN = new Position(24, 34);
-	public static final Position YELLOW_SPAWN = new Position(76, 34);
+	private static final String RED_TEAM_IMAGE = "spritesheet_player_red.png";
+	private static final String YELLOW_TEAM_IMAGE = "spritesheet_player_yellow.png";
 	
 	public static final int LEFT = -1;
 	public static final int RIGHT = 1;
 	
 	public static final int animationFPS = 100; //Milliseconds
 	public static final float speed = 5.0F; // m/s
+	
+	public int team;
 	
 	/** Current animated direction */
 	public int direction = RIGHT;
@@ -27,9 +32,9 @@ public class EntityPlayer extends Entity
 	/** While climbing, the gravity is disabled. */
 	public boolean isClimbing = false;
 	
-	public EntityPlayer(int id, float x, float y, String filName, int xTiles, int yTiles)
+	public EntityPlayer(int id, float x, float y, int team)
 	{
-		super(id, x, y, 1.5F, filName, xTiles, yTiles);
+		super(id, x, y, 1.5F, ((team == RED_TEAM) ? RED_TEAM_IMAGE : YELLOW_TEAM_IMAGE), 4, 2);
 	}
 	
 	@Override
@@ -47,6 +52,7 @@ public class EntityPlayer extends Entity
 	@Override
 	public int getSpriteXIndex()
 	{
+		System.out.println("X");
 		if(Math.abs(velocityX) > 0)
 		{
 			return (int)(animationTimer / animationFPS) % 4;
@@ -60,6 +66,7 @@ public class EntityPlayer extends Entity
 	@Override
 	public int getSpriteYIndex()
 	{
+		System.out.println("Y");
 		if(direction == LEFT)
 		{
 			return 0;

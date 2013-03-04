@@ -1,11 +1,10 @@
 package cavewars;
 
-import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.newdawn.slick.Animation;
 import org.newdawn.slick.*;
 
+/**
+ * @author Stefan Tomesen, 3B Portalens Gymnasium
+ */
 public class EntityFactory
 {
 	/** A reference to the world this entity factory is linked to. */
@@ -16,19 +15,26 @@ public class EntityFactory
 		this.world = world;
 	}
 	
-	public void createPlayer(int id, String teamColorFileName) throws SlickException
+	public EntityPlayer createPlayer(int id, int team) throws SlickException
 	{
 		Position spawn;
-		if(teamColorFileName == EntityPlayer.RED_TEAM)
+		if(team == EntityPlayer.RED_TEAM)
 		{
-			spawn = EntityPlayer.RED_SPAWN;
+			spawn = world.RED_SPAWN;
 		}
 		else
 		{
-			spawn = EntityPlayer.YELLOW_SPAWN;
+			spawn = world.YELLOW_SPAWN;
 		}
 		
-		EntityPlayer player = new EntityPlayer(id, spawn.x, spawn.y, teamColorFileName, 4, 2);
-		world.localPlayer = player;
+		if(spawn == null)
+		{
+			System.out.println("Spawn = null");
+		}
+		
+		EntityPlayer player = new EntityPlayer(id, spawn.x, spawn.y, team);
+		world.playerList.add(player);
+		
+		return player;
 	}
 }

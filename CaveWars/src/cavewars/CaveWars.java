@@ -16,6 +16,7 @@ import org.newdawn.slick.state.*;
 public class CaveWars extends StateBasedGame
 {
 	public static CaveWars caveWars;
+	public static Server server = null;
 	
 	public static final int MAIN_MENU_STATE = 0;
 	public static final int GAME_PLAY_STATE = 1;
@@ -25,8 +26,6 @@ public class CaveWars extends StateBasedGame
 	public static int windowHeight = 500; 
 	
 	public static int serverPort = 36745;
-	
-	public static Server server = null;
 	
 	public CaveWars()
 	{
@@ -64,6 +63,14 @@ public class CaveWars extends StateBasedGame
 		AppGameContainer app = new AppGameContainer(new ScalableGame(new CaveWars(), windowWidth, windowHeight));
 
 		app.setDisplayMode(windowWidth, windowHeight, false);
-		app.start();
+		try
+		{
+			app.start();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			System.exit(0);
+		}
     }
 }

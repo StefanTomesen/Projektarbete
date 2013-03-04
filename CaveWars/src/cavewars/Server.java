@@ -4,16 +4,27 @@ import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
 import java.util.logging.*;
+import org.newdawn.slick.SlickException;
 
 public class Server implements Runnable
-{
-	public ClientListener clientListener;
-	public ArrayList<PacketCentral> connections = new ArrayList();
-	
+{	
 	public boolean running = true;
 	
-	public Server(int port)
+	public ClientListener clientListener;
+	public ArrayList<PacketCentral> connections = new ArrayList();
+	public ServerPacketProcessor serverPacketProcessor;
+	
+	public World world;
+	
+	public int nextEntityID = 0;
+	
+	public Server(int port) throws SlickException
 	{
+		world = new World();
+		world.serverInit();
+		
+		serverPacketProcessor = new ServerPacketProcessor(this, world);
+		
 		try
 		{
 			clientListener = new ClientListener(this, port);
@@ -30,9 +41,50 @@ public class Server implements Runnable
 	@Override
 	public void run()
 	{
+		long lastLoopTime = System.currentTimeMillis();
+		
 		while(running)
 		{
+			// Recieve packets
+			for(PacketCentral connection : connections)
+			{
+				Packet packet;
+				while((packet = connection.inList.poll()) != null)
+				{
+					try
+					{
+						serverPacketProcessor.process(connection, packet);
+					} 
+					catch (SlickException ex)
+					{
+						System.out.println("Packet process failure!");
+						ex.printStackTrace();
+					}
+				}
+			}
+				
+			// Update the world - run physics etc.
+			int delta = (int)(System.currentTimeMillis() - lastLoopTime);
+			lastLoopTime = System.currentTimeMillis();
 			
+			world.update(delta);
+			
+			// Send updates
+			for(PacketCentral packetCentral : connections)
+			{
+				for(EntityPlayer player : world.playerList)
+				{
+					if(player != packetCentral.player)
+					{
+						packetCentral.sendPacket(new Packet7UpdatePlayerData(player));
+					}
+				}
+			}
+			try
+			{
+				Thread.sleep(5);
+			} 
+			catch (InterruptedException ex){}
 		}
 		clientListener.stop();
 		while(clientListener != null)
@@ -65,5 +117,16 @@ public class Server implements Runnable
 		packetCentral.startListening();
 		
 		connections.add(packetCentral);
+	}
+	
+	/**
+	 * Retrieves the current nextEntityID and incrementing the counter.
+	 */
+	public int getNextEntityID()
+	{
+		int currentID = nextEntityID;
+		nextEntityID++;
+		
+		return currentID;
 	}
 }

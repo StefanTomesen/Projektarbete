@@ -1,5 +1,8 @@
 package cavewars;
 
+/**
+ * @author Stefan Tomesen, 3B Portalens Gymnasium
+ */
 public class Tile extends Renderable
 {
 	public static int numberOfTileColumns;

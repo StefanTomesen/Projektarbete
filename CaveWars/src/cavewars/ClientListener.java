@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.net.*;
 import java.util.logging.*;
 
+/**
+ * @author Stefan Tomesen, 3B Portalens Gymnasium
+ */
 public class ClientListener implements Runnable
 {
 	public Server server;

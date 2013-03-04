@@ -1,5 +1,6 @@
 package cavewars;
 
+import java.util.logging.*;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
@@ -10,7 +11,10 @@ public class GamePlayState implements GameState
 {
 	public int stateID;
 	
-	public World world;
+	Client client;
+	
+	public static String ipAdress = "localhost";
+	public static int port = CaveWars.serverPort;
 
 	public GamePlayState(int stateID) throws SlickException
 	{
@@ -31,28 +35,40 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
-		world.render(gc, sbg, grphcs);
+		client.world.render(gc, sbg, grphcs);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		world.update(delta);
+		// Perform physics
+		client.world.update(delta);
+		// Recieve and send packets
+		client.update();
 	}
 
 	@Override
-	public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		world = new World();
+	public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException 
+	{
+		try
+		{
+			client = new Client("localhost", CaveWars.serverPort);
+		} catch (Exception ex)
+		{
+			System.out.println("Failed to connect to server");
+			CaveWars.caveWars.enterState(CaveWars.MAIN_MENU_STATE);
+		}
+		
 	}
 
 	@Override
 	public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		world = null;
+		client = null;
 	}
 
 	
 	@Override
 	public void mouseWheelMoved(int steps) {
-		world.mouseWheelMoved(steps);
+		client.world.mouseWheelMoved(steps);
 	}
 
 	@Override
@@ -62,7 +78,7 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void mousePressed(int button, int x, int y) {
-		world.mousePressed(button, x, y);
+		client.world.mousePressed(button, x, y);
 	}
 
 	@Override
@@ -103,7 +119,7 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void keyPressed(int key, char character) {
-		world.keyPressed(key, character);
+		client.world.keyPressed(key, character);
 		
 		if(key == Input.KEY_ESCAPE)
 		{
@@ -113,7 +129,7 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void keyReleased(int key, char character) {
-		world.keyReleased(key, character);
+		client.world.keyReleased(key, character);
 	}
 
 	@Override
