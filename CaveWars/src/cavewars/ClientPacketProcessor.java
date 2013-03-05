@@ -14,7 +14,7 @@ public class ClientPacketProcessor
 		this.world = world;
 	}
 	
-	public void process(PacketCentral packetCentral, Packet packet) throws SlickException
+	public void process(PacketCentral packetCentral, Packet packet)
 	{
 		//System.out.println("Process packet: " + packet.getID());
 		switch(packet.getID())
@@ -49,23 +49,28 @@ public class ClientPacketProcessor
 				processPacket7UpdatePlayerData(packetCentral, (Packet7UpdatePlayerData)packet);
 				return;
 			}
+			case Packet8PlayerDisconnected.packetID:
+			{
+				processPacketPacket8PlayerDisconnected(packetCentral, (Packet8PlayerDisconnected)packet);
+				return;
+			}
 		}
 		
 		System.out.println("Client - Packet Not Processed: " + packet.getID());
 	}
 	
-	private void processPacket1InitLocalWorld(PacketCentral packetCentral, Packet1InitLocalWorld packet1InitLocalWorld) throws SlickException
+	private void processPacket1InitLocalWorld(PacketCentral packetCentral, Packet1InitLocalWorld packet1InitLocalWorld)
 	{
 		world.clientInit(packet1InitLocalWorld.tileWidth, packet1InitLocalWorld.tileHeight);
 	}
 
-	private void processPacket2SpawnPlayer(PacketCentral packetCentral, Packet2SpawnPlayer packet2SpawnPlayer) throws SlickException
+	private void processPacket2SpawnPlayer(PacketCentral packetCentral, Packet2SpawnPlayer packet2SpawnPlayer)
 	{
 		EntityPlayer player = new EntityPlayer(packet2SpawnPlayer.entityID, packet2SpawnPlayer.x, packet2SpawnPlayer.y, packet2SpawnPlayer.team);
 		world.playerList.add(player);
 	}
 	
-	private void processPacket3SetLocalPlayer(PacketCentral packetCentral, Packet3SetLocalPlayer packet3SetLocalPlayer) throws SlickException
+	private void processPacket3SetLocalPlayer(PacketCentral packetCentral, Packet3SetLocalPlayer packet3SetLocalPlayer)
 	{
 		world.localPlayer = world.getPlayer(packet3SetLocalPlayer.entityID);
 	}
@@ -83,11 +88,18 @@ public class ClientPacketProcessor
 	
 	private void processPacket7UpdatePlayerData(PacketCentral packetCentral, Packet7UpdatePlayerData packet7UpdatePlayerData)
 	{
+		System.out.println("packet7UpdatePlayerData:" + ((packet7UpdatePlayerData == null) ? "null" : packet7UpdatePlayerData));
+		System.out.println("direction:" + packet7UpdatePlayerData.direction);
 		EntityPlayer player = world.getPlayer(packet7UpdatePlayerData.entityID);
 		player.direction = packet7UpdatePlayerData.direction;
 		player.xPosition = packet7UpdatePlayerData.xPosition;
 		player.yPosition = packet7UpdatePlayerData.yPosition;
 		player.velocityX = packet7UpdatePlayerData.xVelocity;
 		player.velocityY = packet7UpdatePlayerData.yVelocity;
+	}
+
+	private void processPacketPacket8PlayerDisconnected(PacketCentral packetCentral, Packet8PlayerDisconnected packet8PlayerDisconnected)
+	{
+		world.removePlayer(packet8PlayerDisconnected.entityID);
 	}
 }

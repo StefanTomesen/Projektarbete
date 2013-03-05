@@ -27,8 +27,9 @@ public abstract class Entity extends Renderable
 	public abstract float getRotation();
 	
 	public void update(World world, int delta)
-	{
+	{		
 		float deltaSeconds = delta / 1000F;
+		if(deltaSeconds > 1.0f) deltaSeconds = 1.0f;
 		
 		ArrayList<Tile> nearbyTiles = world.getNearbyTiles(this);
 		CollisionBox entityCollision = new CollisionBox(this);

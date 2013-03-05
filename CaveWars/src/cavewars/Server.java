@@ -3,15 +3,19 @@ package cavewars;
 import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.*;
 import org.newdawn.slick.SlickException;
 
+/**
+ * @author Stefan Tomesen, 3B Portalens Gymnasium
+ */
 public class Server implements Runnable
 {	
 	public boolean running = true;
 	
 	public ClientListener clientListener;
-	public ArrayList<PacketCentral> connections = new ArrayList();
+	public CopyOnWriteArrayList<PacketCentral> connections = new CopyOnWriteArrayList();
 	public ServerPacketProcessor serverPacketProcessor;
 	
 	public World world;
@@ -72,6 +76,17 @@ public class Server implements Runnable
 			// Send updates
 			for(PacketCentral packetCentral : connections)
 			{
+				if(packetCentral.done)
+				{
+					connections.remove(packetCentral);
+					for(PacketCentral pc : connections)
+					{
+						pc.sendPacket(new Packet8PlayerDisconnected(packetCentral.player.entityID));
+					}
+					world.removePlayer(packetCentral.player.entityID);
+					continue;
+				}
+				
 				for(EntityPlayer player : world.playerList)
 				{
 					if(player != packetCentral.player)
@@ -94,7 +109,16 @@ public class Server implements Runnable
 				Thread.sleep(500);
 			} catch (InterruptedException ex){}
 		}
-		System.out.println("Server Shutdown");
+		for(PacketCentral pc : connections)
+		{
+			try
+			{
+				pc.disconnect();
+			} catch (IOException ioe)
+			{
+				ioe.printStackTrace();
+			}
+		}
 		CaveWars.server = null;
 	}
 	
@@ -102,13 +126,12 @@ public class Server implements Runnable
 	{
 		Thread thread = new Thread(this);
 		thread.start();
-		System.out.println("Server Start");
 	}
 	
 	public void stop()
 	{
 		running = false;
-		System.out.println("Server Stop");
+		for
 	}
 	
 	public void newConnection(Socket socket) throws IOException

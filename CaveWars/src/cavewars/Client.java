@@ -2,6 +2,7 @@ package cavewars;
 
 import java.io.IOException;
 import java.net.*;
+import java.util.logging.*;
 import org.newdawn.slick.SlickException;
 
 
@@ -9,32 +10,31 @@ public class Client
 {
 	public World world;
 	
-	PacketCentral serverConnection;
+	PacketCentral packetCentral;
 	ClientPacketProcessor clientPacketProcessor;
 	
 	public Client(Socket socket) throws Exception
 	{
-		serverConnection = new PacketCentral(socket);
-		serverConnection.startListening();
-		
+		packetCentral = new PacketCentral(socket);
+		packetCentral.startListening();
 		world = new World();
 		clientPacketProcessor = new ClientPacketProcessor(world);
 		
-		serverConnection.sendPacket(new Packet0Login(ColMenu.chosenTeam));
+		packetCentral.sendPacket(new Packet0Login(ColMenu.chosenTeam));
 	}
 	
 	public void update()
 	{
 		if(world.localPlayer != null)
 		{
-			serverConnection.sendPacket(new Packet7UpdatePlayerData(world.localPlayer));
+			packetCentral.sendPacket(new Packet7UpdatePlayerData(world.localPlayer));
 		}
 		Packet packet;
-		while((packet = serverConnection.inList.poll()) != null)
+		while((packet = packetCentral.inList.poll()) != null)
 		{
 			try
 			{
-				clientPacketProcessor.process(serverConnection, packet);
+				clientPacketProcessor.process(packetCentral, packet);
 			} 
 			catch (SlickException ex)
 			{
@@ -46,6 +46,11 @@ public class Client
 	
 	public void stop()
 	{
+		try
+		{
+			packetCentral.disconnect();
+		} 
+		catch (IOException ex) {}
 		
 	}
 }

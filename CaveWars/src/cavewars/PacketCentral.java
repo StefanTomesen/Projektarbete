@@ -1,7 +1,7 @@
 package cavewars;
 
 import java.io.*;
-import java.net.Socket;
+import java.net.*;
 import java.util.ArrayList;
 import java.util.concurrent.*;
 import java.util.logging.*;
@@ -11,17 +11,19 @@ import java.util.logging.*;
  */
 public class PacketCentral implements Runnable
 {
-	public boolean running = true;
+	public boolean done = false;
 	
+	public Socket socket;
 	public DataInputStream instream;
 	public DataOutputStream outstream;
 	
-	public BlockingQueue<Packet> inList =  new LinkedBlockingQueue();
+	public BlockingQueue<Packet> inList = new LinkedBlockingQueue();
 	
 	public EntityPlayer player;
 
 	public PacketCentral(Socket socket) throws IOException
 	{
+		this.socket = socket;
 		instream = new DataInputStream(socket.getInputStream());
 		outstream = new DataOutputStream(socket.getOutputStream());
 	}
@@ -32,68 +34,93 @@ public class PacketCentral implements Runnable
 		thread.start();
 	}
 	
-	public void stop()
-	{
-		running = false;
-		try
-		{
-			instream.close();
-			outstream.close();
-		} catch (IOException ex)
-		{
-			System.out.println("Failed to close PacketCentral in/out stream");
-			ex.printStackTrace();
-		}
-		
-	}
-	
-		@Override
+	@Override
 	public void run()
 	{
-		while(running)
+		try
 		{
 			try
 			{
-				recievePacket();
+				while(!done)
+				{
+					recievePacket();
+				}
 			}
-			catch(InterruptedException ie)
+			finally
 			{
-				ie.printStackTrace();
+				instream.close();
+				outstream.close();
+				socket.close();
 			}
 		}
-		System.out.println("PacketCentral Shutdown");
+		catch( EOFException oef )
+		{
+			System.out.println("Connection closed.");
+		}
+		catch( IOException ioe )
+		{
+			ioe.printStackTrace();
+		}
 	}
 		
-	public void recievePacket() throws InterruptedException
+	public void recievePacket() throws IOException
 	{
-		try
+		String action = instream.readUTF();
+		if(action.equals("disconnect"))
+		{
+			done = true;
+		}
+		if(action.equals("packet"))
 		{
 			int packetID = instream.readInt();
-			//System.out.println("Recieved packet: " + packetID);
+			/* System.out.println("Recieved packet: " + packetID); */
 			Packet packet = Packet.createEmptyPacket(packetID);
-			
 			packet.read(instream);
-			inList.put(packet);
-			//System.out.println("Finished reading packet");
-		} 
-		catch (IOException ex)
-		{ 
-			System.out.println("Packet Error");
-			ex.printStackTrace();
+			/* System.out.println("Finished reading packet");*/
+
+			try
+			{
+				inList.put(packet);
+			}
+			catch(Exception e){}
 		}
 	}
 		
 	public void sendPacket(Packet packet)
 	{
-		//System.out.println("Sending packet: " + packet.getID());
+		/* System.out.println("Sending packet: " + packet.getID());*/
 		try
 		{
+			outstream.writeUTF("packet");
 			outstream.writeInt(packet.getID());
 			packet.write(outstream);
 		}
 		catch(IOException ioe)
 		{
-			System.out.println("Failed to send packet with id: " + packet.getID());
+			System.out.println("Failed to send packet: " + packet.getID());
+			ioe.printStackTrace();
+			try
+			{
+				closeConnection();
+			}
+			catch(IOException ioe2)
+			{
+				ioe2.printStackTrace();
+			}
 		}
+	}
+	
+	public void disconnect() throws IOException
+	{
+		outstream.writeUTF("disconnect");
+		closeConnection();
+	}
+	
+	public void closeConnection() throws IOException
+	{
+		done = true;
+		instream.close();
+		outstream.close();
+		socket.close();
 	}
 }

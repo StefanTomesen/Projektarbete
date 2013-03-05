@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 class IPMenu extends Menu{
     private int width = CaveWars.windowWidth;
     private int height = CaveWars.windowHeight;
-	public static String ipAdresse = "localhost";
+	public static String ipAdress = "localhost";
     public static int ipPort = 36745;
     
     public IPMenu() throws FileNotFoundException 
@@ -33,9 +33,9 @@ class IPMenu extends Menu{
     @Override
     public void buttonPressed(String id) {
         switch(id){
-            case "print_IP": ipAdresse = JOptionPane.showInputDialog("Insert IP adresse"); break;
+            case "print_IP": ipAdress = JOptionPane.showInputDialog("Insert IP adresse"); CaveWars.caveWars.enterState(CaveWars.GAME_PLAY_STATE); break;
             //case "print_port": ipPort = Integer.parseInt(JOptionPane.showInputDialog("Insert port")); break;
-            case "localhost": ipAdresse = "localhost"; CaveWars.caveWars.enterState(CaveWars.GAME_PLAY_STATE); break;
+            case "localhost": ipAdress = "localhost"; CaveWars.caveWars.enterState(CaveWars.GAME_PLAY_STATE); break;
         }
     }
 

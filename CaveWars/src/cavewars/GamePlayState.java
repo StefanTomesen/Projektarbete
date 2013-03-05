@@ -33,11 +33,21 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
+		if(client == null || client.world == null)
+		{
+			return;
+		}
+		
 		client.world.render(gc, sbg, grphcs);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
+		if(client == null || client.world == null)
+		{
+			return;
+		}
+		
 		// Perform physics
 		client.world.update(delta);
 		// Recieve and send packets
@@ -49,7 +59,7 @@ public class GamePlayState implements GameState
 	{
 		try
 		{
-			Socket socket = new Socket(IPMenu.ipAdresse, IPMenu.ipPort);
+			Socket socket = new Socket(IPMenu.ipAdress, IPMenu.ipPort);
 			client = new Client(socket);
 		} catch (Exception ex)
 		{
@@ -61,13 +71,21 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
-		client = null;
+		client.stop();
 	}
 
 	
 	@Override
 	public void mouseWheelMoved(int steps) {
-		client.world.mouseWheelMoved(steps);
+		if(client == null || client.world == null)
+		{
+			return;
+		}
+		
+		if(client.world != null)
+		{
+			client.world.mouseWheelMoved(steps);
+		}
 	}
 
 	@Override
@@ -77,7 +95,15 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void mousePressed(int button, int x, int y) {
-		client.world.mousePressed(client.serverConnection, button, x, y);
+		if(client == null || client.world == null)
+		{
+			return;
+		}
+		
+		if(client.world != null)
+		{
+			client.world.mousePressed(client.packetCentral, button, x, y);
+		}
 	}
 
 	@Override
@@ -117,9 +143,15 @@ public class GamePlayState implements GameState
 	}
 
 	@Override
-	public void keyPressed(int key, char character) {
-		client.world.keyPressed(key, character);
+	public void keyPressed(int key, char character) 
+	{
+		if(client == null || client.world == null)
+		{
+			return;
+		}
 		
+		client.world.keyPressed(key, character);
+
 		if(key == Input.KEY_ESCAPE)
 		{
 			CaveWars.caveWars.enterState(CaveWars.MAIN_MENU_STATE);
@@ -128,7 +160,15 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void keyReleased(int key, char character) {
-		client.world.keyReleased(key, character);
+		if(client == null || client.world == null)
+		{
+			return;
+		}
+		
+		if(client.world != null)
+		{
+			client.world.keyReleased(key, character);
+		}
 	}
 
 	@Override

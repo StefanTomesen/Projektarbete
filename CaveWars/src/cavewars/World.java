@@ -49,7 +49,7 @@ public class World
 		YELLOW_SPAWN = new Position(tileGrid.xSize*3/4, tileGrid.ySize * 2 / 3);
                 }
 	
-	public void clientInit(int tileWidth, int tileHeight) throws SlickException
+	public void clientInit(int tileWidth, int tileHeight)
 	{
 		tileGrid = new TileGrid(tileWidth, tileHeight);
 		
@@ -82,6 +82,19 @@ public class World
 		return targetEntity;
 	}
 	
+	public void removePlayer(int entityID)
+	{
+		EntityPlayer player = getPlayer(entityID);
+		playerList.remove(player);
+		entityList.remove(player);
+	}
+	
+	public void removeEntity(int entityID)
+	{
+		Entity entity = getEntity(entityID);
+		entityList.remove(entity);
+	}
+	
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException 
 	{	
 		if(localPlayer == null)
@@ -109,7 +122,10 @@ public class World
 			}
 		}
 		
-		localPlayer.render(camera, gc.getWidth(), gc.getHeight());
+		for(EntityPlayer player : playerList)
+		{
+			player.render(camera, gc.getWidth(), gc.getHeight());
+		}
 
 	}
 	
