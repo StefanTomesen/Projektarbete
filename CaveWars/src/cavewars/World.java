@@ -12,6 +12,8 @@ import static cavewars.CaveWars.windowWidth;
  */
 public class World
 {
+	public boolean isServer;
+	
 	public static float zoomStep = 1.1F;
 	
 	public EntityFactory entityFactory;
@@ -35,9 +37,11 @@ public class World
 	public boolean isSpacePressed = false;
 	public boolean isUpPressed = false;
 	
-	public World() throws SlickException
+	public World(boolean isServer) throws SlickException
 	{	
-		background = ImageLoader.getImage("Deep Cave.jpg");
+		this.isServer = isServer;
+		
+		background = ImageLoader.getImage(ImageLoader.background);
 		entityFactory = new EntityFactory(this);
 	}
 		
@@ -140,15 +144,25 @@ public class World
 		}
 		//System.out.println("Gamelogic");
 		
-		for(EntityPlayer player : playerList)
+		for(Entity entity : entityList)
 		{
 			// Run all the physics (movement + collision)
-			player.update(this, delta);
-			player.updateAnimation(delta);
+			entity.update(this, delta);
+			entity.updateAnimation(delta);
 			
-			if(player.yPosition > tileGrid.ySize)
+			if(entity.yPosition > tileGrid.ySize)
 			{
-				CaveWars.caveWars.enterState(CaveWars.MAIN_MENU_STATE);
+				if(entity instanceof EntityPlayer)
+				{
+					if(entity == localPlayer)
+					{
+						CaveWars.caveWars.enterState(CaveWars.MAIN_MENU_STATE);
+					}
+				}
+				else
+				{
+					entity.outsideWorld = true;
+				}
 			}
 		}
 	

@@ -13,6 +13,7 @@ public class Tile extends Renderable
 	public static int LADDER_ID = 2;
 	public static int WATER_ID1 = 3;
 	public static int WATER_ID2 = 4;
+	public static int SAND_ID = 8;
 	
 	public int id;
 	
@@ -21,6 +22,13 @@ public class Tile extends Renderable
 		super(xPos, yPos, 1.0F, "Tiles/Brevid.png", numberOfTileColumns, numberOfTileRows);
 		
 		this.id = id;
+	}
+	
+	public Tile(EntityTile tile)
+	{
+		super((int)Math.ceil(tile.xPosition), (int)Math.ceil(tile.yPosition), 1.0F, "Tiles/Brevid.png", numberOfTileColumns, numberOfTileRows);
+		
+		this.id = tile.tileID;
 	}
 
 	@Override
@@ -51,13 +59,20 @@ public class Tile extends Renderable
 		return true;
 	}
 	
-	private static int getColumn(int id)
+	public boolean doesFall()
+	{
+		if(id == SAND_ID) return true;
+		
+		return false;
+	}
+	
+	public static int getColumn(int id)
 	{
 		id -= 1;
 		return id % numberOfTileColumns;
 	}
 	
-	private static int getRow(int id)
+	public static int getRow(int id)
 	{
 		id -= 1;
 		return id / numberOfTileColumns;

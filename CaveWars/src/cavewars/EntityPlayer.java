@@ -10,9 +10,6 @@ public class EntityPlayer extends Entity
 	public static final int RED_TEAM = 0;
 	public static final int YELLOW_TEAM = 1;
 	
-	private static final String RED_TEAM_IMAGE = "spritesheet_player_red.png";
-	private static final String YELLOW_TEAM_IMAGE = "spritesheet_player_yellow.png";
-	
 	public static final int LEFT = -1;
 	public static final int RIGHT = 1;
 	
@@ -34,7 +31,7 @@ public class EntityPlayer extends Entity
 	
 	public EntityPlayer(int id, float x, float y, int team)
 	{
-		super(id, x, y, 1.5F, ((team == RED_TEAM) ? RED_TEAM_IMAGE : YELLOW_TEAM_IMAGE), 4, 2);
+		super(id, x, y, 1.5F, ((team == RED_TEAM) ? ImageLoader.redTeam : ImageLoader.yellowTeam), 4, 2);
 		this.team = team;
 	}
 	

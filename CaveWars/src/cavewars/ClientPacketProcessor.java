@@ -44,6 +44,11 @@ public class ClientPacketProcessor
 				processPacket5RemoveTile(packetCentral, (Packet5RemoveTile)packet);
 				return;
 			}
+			case Packet6UpdateEntityData.packetID:
+			{
+				processPacket6UpdateEntityData(packetCentral, (Packet6UpdateEntityData)packet);
+				return;
+			}
 			case Packet7UpdatePlayerData.packetID:
 			{
 				processPacket7UpdatePlayerData(packetCentral, (Packet7UpdatePlayerData)packet);
@@ -52,6 +57,16 @@ public class ClientPacketProcessor
 			case Packet8PlayerDisconnected.packetID:
 			{
 				processPacketPacket8PlayerDisconnected(packetCentral, (Packet8PlayerDisconnected)packet);
+				return;
+			}
+			case Packet9SpawnTileEntity.packetID:
+			{
+				processPacket9SpawnTileEntity(packetCentral, (Packet9SpawnTileEntity)packet);
+				return;
+			}
+			case Packet10RemoveEntity.packetID:
+			{
+				processPacket10RemoveEntity(packetCentral, (Packet10RemoveEntity)packet);
 				return;
 			}
 		}
@@ -68,6 +83,7 @@ public class ClientPacketProcessor
 	{
 		EntityPlayer player = new EntityPlayer(packet2SpawnPlayer.entityID, packet2SpawnPlayer.x, packet2SpawnPlayer.y, packet2SpawnPlayer.team);
 		world.playerList.add(player);
+		world.entityList.add(player);
 	}
 	
 	private void processPacket3SetLocalPlayer(PacketCentral packetCentral, Packet3SetLocalPlayer packet3SetLocalPlayer)
@@ -86,6 +102,15 @@ public class ClientPacketProcessor
 		world.tileGrid.remove(packet5RemoveTile.x, packet5RemoveTile.y);
 	}
 	
+	private void processPacket6UpdateEntityData(PacketCentral packetCentral, Packet6UpdateEntityData packet6UpdateEntityData)
+	{
+		Entity player = world.getEntity(packet6UpdateEntityData.entityID);
+		player.xPosition = packet6UpdateEntityData.xPosition;
+		player.yPosition = packet6UpdateEntityData.yPosition;
+		player.velocityX = packet6UpdateEntityData.xVelocity;
+		player.velocityY = packet6UpdateEntityData.yVelocity;
+	}
+	
 	private void processPacket7UpdatePlayerData(PacketCentral packetCentral, Packet7UpdatePlayerData packet7UpdatePlayerData)
 	{
 		EntityPlayer player = world.getPlayer(packet7UpdatePlayerData.entityID);
@@ -100,5 +125,17 @@ public class ClientPacketProcessor
 	{
 		EntityPlayer player = world.getPlayer(packet8PlayerDisconnected.entityID);
 		world.removePlayer(player);
+	}
+	
+	private void processPacket9SpawnTileEntity(PacketCentral packetCentral, Packet9SpawnTileEntity packet9SpawnTileEntity)
+	{
+		EntityTile tileEntity = new EntityTile(packet9SpawnTileEntity.entityID, packet9SpawnTileEntity.x, packet9SpawnTileEntity.y, packet9SpawnTileEntity.tileID);
+		world.entityList.add(tileEntity);
+	}
+	
+	private void processPacket10RemoveEntity(PacketCentral packetCentral, Packet10RemoveEntity packet10RemoveEntity)
+	{
+		Entity entity = world.getEntity(packet10RemoveEntity.entityID);
+		world.removeEntity(entity);
 	}
 }

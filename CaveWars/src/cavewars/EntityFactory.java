@@ -29,6 +29,7 @@ public class EntityFactory
 		
 		EntityPlayer player = new EntityPlayer(id, spawn.x, spawn.y, team);
 		world.playerList.add(player);
+		world.entityList.add(player);
 		
 		return player;
 	}

@@ -89,6 +89,7 @@ public class ServerPacketProcessor
 		{
 			pc.sendPacket(packet4AddTile);
 		}
+		server.updateBlocksFalling(packet4AddTile.x, packet4AddTile.y);
 	}
 
 	private void processPacket5RemoveTile(PacketCentral packetCentral, Packet5RemoveTile packet5RemoveTile)
@@ -98,6 +99,7 @@ public class ServerPacketProcessor
 		{
 			pc.sendPacket(packet5RemoveTile);
 		}
+		server.updateBlocksFalling(packet5RemoveTile.x, packet5RemoveTile.y - 1);
 	}
 
 	private void processPacket7UpdatePlayerData(PacketCentral packetCentral, Packet7UpdatePlayerData packet7UpdatePlayerData)

@@ -2,7 +2,7 @@ package cavewars;
 
 import java.io.IOException;
 import java.net.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.logging.*;
 import org.newdawn.slick.SlickException;
@@ -24,7 +24,7 @@ public class Server implements Runnable
 	
 	public Server(int port) throws SlickException
 	{
-		world = new World();
+		world = new World(true);
 		world.serverInit();
 		
 		serverPacketProcessor = new ServerPacketProcessor(this, world);
@@ -98,10 +98,51 @@ public class Server implements Runnable
 						packetCentral.sendPacket(new Packet7UpdatePlayerData(player));
 					}
 				}
+				
+				for(Entity entity : world.entityList)
+				{
+					if(entity.outsideWorld)
+					{
+						packetCentral.sendPacket(new Packet10RemoveEntity(entity.entityID));
+					}
+					if(entity instanceof EntityTile)
+					{
+						EntityTile tile = (EntityTile)entity;
+						if(tile.hasLanded)
+						{
+							packetCentral.sendPacket(new Packet10RemoveEntity(tile.entityID));
+							packetCentral.sendPacket(new Packet4AddTile(new Tile(tile)));
+						}
+					}
+				}
 			}
+			// Finish up what's left to be done.
+
+			if(false)// !world.entityList.isEmpty())
+			{
+				List<Entity> entities = world.entityList.subList(0, world.entityList.size() - 1); // Required when the list is being modified
+				for(Entity entity : entities)
+				{
+					if(entity.outsideWorld)
+					{
+						world.removeEntity(entity);
+					}
+					if(entity instanceof EntityTile)
+					{
+						EntityTile tile = (EntityTile)entity;
+						if(tile.hasLanded)
+						{
+							world.removeEntity(tile);
+							world.tileGrid.add(tile);
+						}
+					}
+				}
+			}
+			
+			// Wait a little so the server doesn't use up all the CPU
 			try
 			{
-				Thread.sleep(2);
+				Thread.sleep(5);
 			} 
 			catch (InterruptedException ex){}
 		}
@@ -166,5 +207,26 @@ public class Server implements Runnable
 		nextEntityID++;
 		
 		return currentID;
+	}
+	
+	/**
+	 * Whenever a tile is removed, if the tile above it is of a type that starts falling, it will.
+	 */
+	public void updateBlocksFalling(int x, int y)
+	{
+		Tile tile = world.tileGrid.get(x, y);
+		if(tile != null && tile.doesFall())
+		{
+			EntityTile tileEntity = new EntityTile(getNextEntityID(), x, y, tile.id);
+			world.tileGrid.remove(x, y);
+			world.entityList.add(tileEntity);
+			for(PacketCentral pc : connections)
+			{
+				pc.sendPacket(new Packet5RemoveTile(x, y));
+				pc.sendPacket(new Packet9SpawnTileEntity(tileEntity));
+			}
+			
+			updateBlocksFalling(x, y - 1); // Continue with the next block if this fell.
+		}
 	}
 }

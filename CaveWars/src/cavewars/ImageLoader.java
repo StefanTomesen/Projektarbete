@@ -7,12 +7,17 @@ public class ImageLoader
 {
 	public static HashMap<String, Image> imageMap = new HashMap();
 	
+	public static final String redTeam = "spritesheet_player_red.png";
+	public static final String yellowTeam = "spritesheet_player_yellow.png";
+	public static final String background = "Deep Cave.jpg";
+	public static final String tiles = "Tiles/Brevid.png";
+	
 	public static void initiateImageList()
 	{
-		String[] imageNames = { "spritesheet_player_red.png",
-								"spritesheet_player_yellow.png",
-								"Deep Cave.jpg",
-								"Tiles/Brevid.png"};
+		String[] imageNames = { redTeam,
+								yellowTeam,
+								background,
+								tiles};
 		for(String name : imageNames)
 		{
 			Image image;

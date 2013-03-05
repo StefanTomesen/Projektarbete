@@ -17,7 +17,7 @@ public class Client
 	{
 		packetCentral = new PacketCentral(socket);
 		packetCentral.startListening();
-		world = new World();
+		world = new World(false);
 		clientPacketProcessor = new ClientPacketProcessor(world);
 		
 		packetCentral.sendPacket(new Packet0Login(ColMenu.chosenTeam));
@@ -30,6 +30,11 @@ public class Client
 			packetCentral.sendPacket(new Packet7UpdatePlayerData(world.localPlayer));
 		}
 		Packet packet;
+		
+		if(packetCentral.done)
+		{
+			CaveWars.caveWars.enterState(CaveWars.MAIN_MENU_STATE);
+		}	
 		while((packet = packetCentral.inList.poll()) != null)
 		{
 			clientPacketProcessor.process(packetCentral, packet);

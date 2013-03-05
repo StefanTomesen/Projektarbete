@@ -18,6 +18,8 @@ public abstract class Entity extends Renderable
 	/** The force of gravity counting in m/s^2 */
 	public static float gravity = 9.82F;
 	
+	public boolean outsideWorld = false;
+	
 	public Entity(int entityID, float xPosition, float yPosition, float naturalHeight, String fileName, int xTiles, int yTiles)
 	{
 		super(xPosition, yPosition, naturalHeight, fileName, xTiles, yTiles);

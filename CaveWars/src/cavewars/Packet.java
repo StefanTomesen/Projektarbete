@@ -33,6 +33,10 @@ public abstract class Packet
 				return new Packet7UpdatePlayerData();
 			case Packet8PlayerDisconnected.packetID: 
 				return new Packet8PlayerDisconnected();
+			case Packet9SpawnTileEntity.packetID: 
+				return new Packet9SpawnTileEntity();
+			case Packet10RemoveEntity.packetID: 
+				return new Packet10RemoveEntity();
 		}
 		
 		throw new RuntimeException("Unknown packet");

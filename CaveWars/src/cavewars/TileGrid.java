@@ -38,6 +38,16 @@ public class TileGrid
 	}
 	
 	/**
+	 * Adds the tile to the grid, but based on an existing entity.
+	 * 
+	 * @param tile The existing tile entity we're adding to the grid.
+	 */
+	public void add(EntityTile tile)
+	{
+		add((int)tile.xPosition, (int)tile.yPosition, new Tile(tile));
+	}
+	
+	/**
 	 * Clears the specified slot in the grid.
 	 * 
 	 * @param x The position of the slot along the x axis.
