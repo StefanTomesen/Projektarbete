@@ -18,8 +18,10 @@ public class PacketCentral implements Runnable
 	public DataOutputStream outstream;
 	
 	public BlockingQueue<Packet> inList = new LinkedBlockingQueue();
-	
 	public EntityPlayer player;
+	
+	/* Whether the client has recieved enough information from the server to recieve normal updates. */
+	public boolean ready = false;
 
 	public PacketCentral(Socket socket) throws IOException
 	{

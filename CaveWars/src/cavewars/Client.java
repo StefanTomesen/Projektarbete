@@ -32,15 +32,7 @@ public class Client
 		Packet packet;
 		while((packet = packetCentral.inList.poll()) != null)
 		{
-			try
-			{
-				clientPacketProcessor.process(packetCentral, packet);
-			} 
-			catch (SlickException ex)
-			{
-				System.out.println("Packet process failure!");
-				ex.printStackTrace();
-			}
+			clientPacketProcessor.process(packetCentral, packet);
 		}
 	}
 	

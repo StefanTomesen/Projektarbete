@@ -88,8 +88,6 @@ public class ClientPacketProcessor
 	
 	private void processPacket7UpdatePlayerData(PacketCentral packetCentral, Packet7UpdatePlayerData packet7UpdatePlayerData)
 	{
-		System.out.println("packet7UpdatePlayerData:" + ((packet7UpdatePlayerData == null) ? "null" : packet7UpdatePlayerData));
-		System.out.println("direction:" + packet7UpdatePlayerData.direction);
 		EntityPlayer player = world.getPlayer(packet7UpdatePlayerData.entityID);
 		player.direction = packet7UpdatePlayerData.direction;
 		player.xPosition = packet7UpdatePlayerData.xPosition;
@@ -100,6 +98,7 @@ public class ClientPacketProcessor
 
 	private void processPacketPacket8PlayerDisconnected(PacketCentral packetCentral, Packet8PlayerDisconnected packet8PlayerDisconnected)
 	{
-		world.removePlayer(packet8PlayerDisconnected.entityID);
+		EntityPlayer player = world.getPlayer(packet8PlayerDisconnected.entityID);
+		world.removePlayer(player);
 	}
 }

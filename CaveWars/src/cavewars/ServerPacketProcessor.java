@@ -79,6 +79,7 @@ public class ServerPacketProcessor
 		
 		// Set up the player in the packageCentral, so it can be removed when the player logs out.
 		packetCentral.player = player;
+		packetCentral.ready = true;
 	}
 
 	private void processPacket4AddTile(PacketCentral packetCentral, Packet4AddTile packet4AddTile)

@@ -83,7 +83,11 @@ public class Server implements Runnable
 					{
 						pc.sendPacket(new Packet8PlayerDisconnected(packetCentral.player.entityID));
 					}
-					world.removePlayer(packetCentral.player.entityID);
+					world.removePlayer(packetCentral.player);
+					continue;
+				}
+				if(!packetCentral.ready)
+				{
 					continue;
 				}
 				
@@ -97,7 +101,7 @@ public class Server implements Runnable
 			}
 			try
 			{
-				Thread.sleep(5);
+				Thread.sleep(2);
 			} 
 			catch (InterruptedException ex){}
 		}
@@ -114,7 +118,8 @@ public class Server implements Runnable
 			try
 			{
 				pc.disconnect();
-			} catch (IOException ioe)
+			} 
+			catch (IOException ioe)
 			{
 				ioe.printStackTrace();
 			}
@@ -131,7 +136,17 @@ public class Server implements Runnable
 	public void stop()
 	{
 		running = false;
-		for
+		for(PacketCentral packetCentral : connections)
+		{
+			try
+			{
+				packetCentral.disconnect();
+			}
+			catch (IOException ex)
+			{
+				ex.printStackTrace();
+			}
+		}
 	}
 	
 	public void newConnection(Socket socket) throws IOException

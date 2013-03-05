@@ -20,9 +20,9 @@ class IPMenu extends Menu{
     
     public IPMenu() throws FileNotFoundException 
     {   
-        MenuButton print_ip = new MenuButton("print_IP", "Insert IP", width/2, height/3);
+        MenuButton print_ip = new MenuButton("print_IP", "Insert IP", width/3, height/2);
         //MenuButton print_port = new MenuButton("print_port", "Insert port", width/2, height/2);
-        MenuButton localhost = new MenuButton("localhost","Play local", width/2, (height/3)*2);
+        MenuButton localhost = new MenuButton("localhost","Play local", width*2/3, height/2);
         
         buttonList.add(print_ip);
         //buttonList.add(print_port);

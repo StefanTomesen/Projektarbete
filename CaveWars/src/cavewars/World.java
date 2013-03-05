@@ -82,16 +82,14 @@ public class World
 		return targetEntity;
 	}
 	
-	public void removePlayer(int entityID)
+	public void removePlayer(EntityPlayer player)
 	{
-		EntityPlayer player = getPlayer(entityID);
 		playerList.remove(player);
 		entityList.remove(player);
 	}
 	
-	public void removeEntity(int entityID)
+	public void removeEntity(Entity entity)
 	{
-		Entity entity = getEntity(entityID);
 		entityList.remove(entity);
 	}
 	

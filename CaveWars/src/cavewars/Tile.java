@@ -8,7 +8,7 @@ public class Tile extends Renderable
 	public static int numberOfTileColumns;
 	public static int numberOfTileRows;
 	
-	public static final int NUMBER_OF_ACTIVE_TILES = 4;
+	public static final int NUMBER_OF_ACTIVE_TILES = 7;
 	
 	public static int LADDER_ID = 2;
 	public static int WATER_ID1 = 3;
