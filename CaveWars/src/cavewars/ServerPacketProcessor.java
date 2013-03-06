@@ -83,10 +83,11 @@ public class ServerPacketProcessor
 	}
 
 	private void processPacket4AddTile(PacketCentral packetCentral, Packet4AddTile packet4AddTile)
-	{
+	{	
 		world.tileGrid.add(packet4AddTile.x, packet4AddTile.y, new Tile(packet4AddTile.id, packet4AddTile.x, packet4AddTile.y));
 		for(PacketCentral pc : server.connections)
 		{
+			if(!pc.ready) continue;
 			pc.sendPacket(packet4AddTile);
 		}
 		server.updateBlocksFalling(packet4AddTile.x, packet4AddTile.y);
@@ -97,6 +98,7 @@ public class ServerPacketProcessor
 		world.tileGrid.remove(packet5RemoveTile.x, packet5RemoveTile.y);
 		for(PacketCentral pc : server.connections)
 		{
+			if(!pc.ready) continue;
 			pc.sendPacket(packet5RemoveTile);
 		}
 		server.updateBlocksFalling(packet5RemoveTile.x, packet5RemoveTile.y - 1);

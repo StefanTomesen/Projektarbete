@@ -33,7 +33,7 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
-		if(client == null || client.world == null)
+		if(client == null || client.world == null || client.world.tileGrid == null)
 		{
 			return;
 		}
@@ -43,7 +43,7 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		if(client == null || client.world == null)
+		if(client == null || client.world == null || client.world.tileGrid == null)
 		{
 			return;
 		}
@@ -71,13 +71,17 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
+		if(client == null)
+		{
+			return;
+		}
 		client.stop();
 	}
 
 	
 	@Override
 	public void mouseWheelMoved(int steps) {
-		if(client == null || client.world == null)
+		if(client == null || client.world == null || client.world.tileGrid == null)
 		{
 			return;
 		}
@@ -95,7 +99,7 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void mousePressed(int button, int x, int y) {
-		if(client == null || client.world == null)
+		if(client == null || client.world == null || client.world.tileGrid == null)
 		{
 			return;
 		}
@@ -145,7 +149,7 @@ public class GamePlayState implements GameState
 	@Override
 	public void keyPressed(int key, char character) 
 	{
-		if(client == null || client.world == null)
+		if(client == null || client.world == null || client.world.tileGrid == null)
 		{
 			return;
 		}
@@ -160,7 +164,7 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void keyReleased(int key, char character) {
-		if(client == null || client.world == null)
+		if(client == null || client.world == null || client.world.tileGrid == null)
 		{
 			return;
 		}
