@@ -32,24 +32,28 @@ public class GamePlayState implements GameState
 	}
 
 	@Override
-	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
+	public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics) throws SlickException {
 		if(client == null || client.world == null || client.world.tileGrid == null)
 		{
 			return;
 		}
 		
-		client.world.render(gc, sbg, grphcs);
+		client.world.render(gc, sbg, graphics);
+		//graphics.drawString("Entities: "+ client.world.entityList.size(), 10, 50);
 	}
 
 	@Override
 	public void update(GameContainer gc, StateBasedGame sbg, int delta) throws SlickException {
-		if(client == null || client.world == null || client.world.tileGrid == null)
+		if(client == null || client.world == null)
 		{
 			return;
 		}
 		
-		// Perform physics
-		client.world.update(delta);
+		if(client.world.tileGrid != null)
+		{
+			// Perform physics
+			client.world.update(delta);
+		}
 		// Recieve and send packets
 		client.update();
 	}
