@@ -70,9 +70,8 @@ public class CaveWars extends StateBasedGame
 		game = new AppGameContainer(new CaveWars());
 		CaveWars.setScreenSize(windowWidth, windowHeight);
 		
-		// Original utan fullscreen
-		//AppGameContainer game = new AppGameContainer(new ScalableGame(new CaveWars(), windowWidth, windowHeight));
-		//game.setDisplayMode(windowWidth, windowHeight, false);
+		game.setVSync(true);
+		//game.setTargetFrameRate(60);
 		
 		try
 		{

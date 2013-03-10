@@ -23,12 +23,15 @@ class SettingsMenu extends Menu {
     private int y = 3;
 
     public SettingsMenu() {
-        MenuButton resol1 = new MenuButton("resol1", "Fullscreen"/*"500 x 250"*/, width/4, height/6);
+		
+        MenuButton resol1 = new MenuButton("resol1", "400 x 200", width/4, height/6);
         MenuButton resol2 = new MenuButton("resol2", "600 x 300", (width/4) * 2, height/6);
         MenuButton resol3 = new MenuButton("resol3", "800 x 400", (width/4) * 3, height/6);
-        MenuButton resol4 = new MenuButton("resol4", "1000 x 500", (width/3) , (height/6)*2);
-        MenuButton resol5 = new MenuButton("resol5", "1500 x 750", (width/3) * 2, (height/6)*2);
-        
+        MenuButton resol4 = new MenuButton("resol4", "1000 x 500", (width/4) , (height/6)*2);
+        MenuButton resol5 = new MenuButton("resol5", "1500 x 750", (width/4) * 2, (height/6)*2);
+    
+		MenuButton fullscreen = new MenuButton("fullscreen", "Fullscreen", width/4 * 3, (height/6)*2);
+		
         MenuButton moveUP = new MenuButton("moveUP", "Key up", width/4, (height/6)*3);
         MenuButton moveDOWN = new MenuButton("moveDOWN", "Key down", (width/4) * 2, (height/6)*3);
         MenuButton moveJUMP = new MenuButton("moveJUMP", "Key jump", (width/4) * 3, (height/6)*3);
@@ -42,6 +45,8 @@ class SettingsMenu extends Menu {
         buttonList.add(resol3);
         buttonList.add(resol4);
         buttonList.add(resol5);
+		
+		buttonList.add(fullscreen);
         
         buttonList.add(moveUP);
         buttonList.add(moveDOWN);
@@ -55,7 +60,8 @@ class SettingsMenu extends Menu {
     @Override
     public void buttonPressed(String id) {
         switch(id){
-            case("resol1"): y = 0; CaveWars.setFullscreenMode(); saveAndClose(); break;//CaveWars.setScreenSize(500, 250); 
+			case("fullscreen"): CaveWars.setFullscreenMode(); CaveWars.caveWars.enterState(CaveWars.MAIN_MENU_STATE); break;
+            case("resol1"): y = 0; CaveWars.setScreenSize(400, 200); saveAndClose(); break;//CaveWars.setScreenSize(500, 250); 
             case("resol2"): y = 1; CaveWars.setScreenSize(600, 300); saveAndClose(); break;
             case("resol3"): y = 2; CaveWars.setScreenSize(800, 400); saveAndClose(); break;
             case("resol4"): y = 3; CaveWars.setScreenSize(1000, 500); saveAndClose(); break;
