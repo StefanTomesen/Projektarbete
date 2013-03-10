@@ -1,5 +1,6 @@
 package cavewars;
 
+import java.awt.*;
 import java.io.*;
 import java.util.Scanner;
 import javax.swing.JOptionPane;
@@ -15,6 +16,7 @@ import org.newdawn.slick.state.*;
  */
 public class CaveWars extends StateBasedGame
 {
+	public static AppGameContainer game;
 	public static CaveWars caveWars;
 	public static Server server = null;
 	
@@ -65,12 +67,16 @@ public class CaveWars extends StateBasedGame
 			setS.next();
 		}
                 
-		AppGameContainer app = new AppGameContainer(new ScalableGame(new CaveWars(), windowWidth, windowHeight));
-
-		app.setDisplayMode(windowWidth, windowHeight, false);
+		game = new AppGameContainer(new CaveWars());
+		CaveWars.setScreenSize(windowWidth, windowHeight);
+		
+		// Original utan fullscreen
+		//AppGameContainer game = new AppGameContainer(new ScalableGame(new CaveWars(), windowWidth, windowHeight));
+		//game.setDisplayMode(windowWidth, windowHeight, false);
+		
 		try
 		{
-			app.start();
+			game.start();
 		}
 		catch(Exception e)
 		{
@@ -78,4 +84,37 @@ public class CaveWars extends StateBasedGame
 			System.exit(0);
 		}
     }
+	
+	public static void setScreenSize(int width, int height)
+	{
+		windowWidth = width;
+		windowHeight = height;
+		
+		try
+		{
+			CaveWars.game.setDisplayMode(windowWidth, windowHeight, false);
+		}
+		catch (SlickException ex)
+		{
+			ex.printStackTrace();
+		}
+	}
+	
+	public static void setFullscreenMode()
+	{
+		Toolkit toolkit = Toolkit.getDefaultToolkit();
+		Dimension screensize = toolkit.getScreenSize();
+		
+		windowWidth = screensize.width;
+		windowHeight = screensize.height;
+		
+		try
+		{
+			CaveWars.game.setDisplayMode(windowWidth, windowHeight, true);
+		}
+		catch (SlickException ex)
+		{
+			ex.printStackTrace();
+		}
+	}
 }

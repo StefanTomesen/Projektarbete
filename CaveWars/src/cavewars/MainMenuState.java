@@ -23,9 +23,21 @@ public class MainMenuState implements GameState
 	}
 
 	@Override
-	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException 
+	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException {}
+
+	@Override
+	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException 
 	{
-            switch(stateID){
+		menu.render(gc, sbg, grphcs);
+	}
+
+	@Override
+	public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {}
+
+	@Override
+	public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException 
+	{
+		switch(stateID){
                 case 0: try {
                             menu = new MainMenu();
                         } catch (FileNotFoundException ex) {
@@ -47,18 +59,6 @@ public class MainMenuState implements GameState
                         menu = new SettingsMenu(); break;
             }
 	}
-
-	@Override
-	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException 
-	{
-		menu.render(gc, sbg, grphcs);
-	}
-
-	@Override
-	public void update(GameContainer gc, StateBasedGame sbg, int i) throws SlickException {}
-
-	@Override
-	public void enter(GameContainer gc, StateBasedGame sbg) throws SlickException {}
 
 	@Override
 	public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {}
