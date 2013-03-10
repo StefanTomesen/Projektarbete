@@ -25,10 +25,27 @@ public class MainMenuState implements GameState
 	@Override
 	public void init(GameContainer gc, StateBasedGame sbg) throws SlickException 
 	{
-		try
-		{
-			menu = new MainMenu();
-		} catch (FileNotFoundException ex) {}
+            switch(stateID){
+                case 0: try {
+                            menu = new MainMenu();
+                        } catch (FileNotFoundException ex) {
+                            Logger.getLogger(MainMenuState.class.getName()).log(Level.SEVERE, null, ex);
+                        } break;
+                case 2: try {
+                            menu = new MapMenu();
+                        } catch (FileNotFoundException ex) {
+                            Logger.getLogger(MainMenuState.class.getName()).log(Level.SEVERE, null, ex);
+                        } break;
+                case 3: 
+                        menu = new ColMenu(); break;
+                case 4: try {
+                            menu = new IPMenu();
+                        } catch (FileNotFoundException ex) {
+                            Logger.getLogger(MainMenuState.class.getName()).log(Level.SEVERE, null, ex);
+                        } break;
+                case 5: 
+                        menu = new SettingsMenu(); break;
+            }
 	}
 
 	@Override
@@ -85,10 +102,17 @@ public class MainMenuState implements GameState
 	@Override
 	public void keyPressed(int key, char c) 
 	{
-		if(key == Input.KEY_ESCAPE)
+	    if(stateID == 0){
+                if(key == Input.KEY_ESCAPE)
 		{
-			System.exit(0);
+                    System.exit(0);
 		}
+            }else{
+                if(key == Input.KEY_ESCAPE){
+                    CaveWars.caveWars.enterState(CaveWars.MAIN_MENU_STATE);
+                }                
+            }
+                
 	}
 
 	@Override

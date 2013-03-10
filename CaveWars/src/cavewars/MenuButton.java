@@ -25,7 +25,7 @@ public class MenuButton {
 	}
 
 	public MenuButton(String id, String label, int xPos, int yPos) {
-		this(id, label, xPos, yPos, 180, 30);
+		this(id, label, xPos, yPos, 120, 30);
 	}
 
 	public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics) throws SlickException {

@@ -41,34 +41,31 @@ class MainMenu extends Menu {
                 System.exit(0);
                 break;
             case "runServer":
-                    if(CaveWars.server == null)
-                    {
-					try
-					{
-                            CaveWars.server = new Server(CaveWars.serverPort);
-                            CaveWars.server.start();
-                    }
-					catch (SlickException ex)
-					{
-						System.out.println("Failed to start server!");
-						ex.printStackTrace();
-					}
-				}
-                    break;
+                if(CaveWars.server == null)
+                {
+                                    try
+                                    {
+                        CaveWars.server = new Server(CaveWars.serverPort);
+                        CaveWars.server.start();
+                }
+                                    catch (SlickException ex)
+                                    {
+                                            System.out.println("Failed to start server!");
+                                            ex.printStackTrace();
+                                    }
+                            }
+                break;
             case "stopServer":
-                    if(CaveWars.server != null)
-                    {
-                            CaveWars.server.stop();
-                    }
-                    break;
+                if(CaveWars.server != null)
+                {
+                        CaveWars.server.stop();
+                }
+                break;
             case "setLevel":
-                    CaveWars.caveWars.enterState(CaveWars.MAP_MENU_STATE);
-                    break;
+                CaveWars.caveWars.enterState(CaveWars.MAP_MENU_STATE);
+                break;
             case "options":
-                Settings meny = new Settings();
-                meny.Menu();
-                meny.setSize(170, 100);
-                meny.setVisible(true);
+                CaveWars.caveWars.enterState(CaveWars.SET_MENU_STATE);
                 break;
             case "start":
                 CaveWars.caveWars.enterState(CaveWars.COL_MENU_STATE);
