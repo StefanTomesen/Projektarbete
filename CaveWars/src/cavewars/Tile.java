@@ -26,7 +26,7 @@ public class Tile extends Renderable
 	
 	public Tile(EntityTile tile)
 	{
-		super((int)Math.ceil(tile.xPosition), (int)Math.ceil(tile.yPosition), 1.0F, "Tiles/Brevid.png", numberOfTileColumns, numberOfTileRows);
+		super((int)tile.xPosition, (int)tile.yPosition, 1.0F, "Tiles/Brevid.png", numberOfTileColumns, numberOfTileRows);
 		
 		this.id = tile.tileID;
 	}

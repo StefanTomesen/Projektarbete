@@ -32,13 +32,14 @@ public class GamePlayState implements GameState
 	}
 
 	@Override
-	public void render(GameContainer gc, StateBasedGame sbg, Graphics grphcs) throws SlickException {
-		if(client == null || client.world == null)
+	public void render(GameContainer gc, StateBasedGame sbg, Graphics graphics) throws SlickException {
+		if(client == null || client.world == null || client.world.tileGrid == null)
 		{
 			return;
 		}
 		
-		client.world.render(gc, sbg, grphcs);
+		client.world.render(gc, sbg, graphics);
+		//graphics.drawString("Entities: "+ client.world.entityList.size(), 10, 50);
 	}
 
 	@Override
@@ -48,8 +49,11 @@ public class GamePlayState implements GameState
 			return;
 		}
 		
-		// Perform physics
-		client.world.update(delta);
+		if(client.world.tileGrid != null)
+		{
+			// Perform physics
+			client.world.update(delta);
+		}
 		// Recieve and send packets
 		client.update();
 	}
@@ -71,13 +75,17 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void leave(GameContainer gc, StateBasedGame sbg) throws SlickException {
+		if(client == null)
+		{
+			return;
+		}
 		client.stop();
 	}
 
 	
 	@Override
 	public void mouseWheelMoved(int steps) {
-		if(client == null || client.world == null)
+		if(client == null || client.world == null || client.world.tileGrid == null)
 		{
 			return;
 		}
@@ -95,7 +103,7 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void mousePressed(int button, int x, int y) {
-		if(client == null || client.world == null)
+		if(client == null || client.world == null || client.world.tileGrid == null)
 		{
 			return;
 		}
@@ -145,7 +153,7 @@ public class GamePlayState implements GameState
 	@Override
 	public void keyPressed(int key, char character) 
 	{
-		if(client == null || client.world == null)
+		if(client == null || client.world == null || client.world.tileGrid == null)
 		{
 			return;
 		}
@@ -160,7 +168,7 @@ public class GamePlayState implements GameState
 
 	@Override
 	public void keyReleased(int key, char character) {
-		if(client == null || client.world == null)
+		if(client == null || client.world == null || client.world.tileGrid == null)
 		{
 			return;
 		}
