@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="200" height="300" tilewidth="128" tileheight="128">
+ <tileset firstgid="1" name="Brevid" tilewidth="128" tileheight="128">
+  <image source="Tiles/Brevid.png" width="512" height="384"/>
+ </tileset>
+ <layer name="Tile Layer 1" width="200" height="300">
+  <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAC+3TwY1gNwwFwd38k3YC36fhuJ+MaqDuIkH9/fPnz18AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAB+xXX1PHDpunoeuHRdPQ9cuq6eh43bqN++sIOv6nnYuI367Qs7+Kqeh43bqN++sIOv6nnYuI367Qs7+Kqeh43bqN++sAPp36rv2v/QcvVd+x9arr7r1f9Rz8PGbdRvX9jBV/U8bNxG/faFHXxVz8PGbdRvX9jBV/U8bNxG/faFHXxVz8PGbdRvX9jBV/U8bNxG/faFHXxVz8PGbdRvh9/2k+q3w2/7SfXbAQAAAAAAAAAAAAAAAAAAAAAAAAAAfmK5ejewXL2bF11Uz7BkuXo3L7qonmHJcvVuXnRRPcOS5erdvOiieoYly9W7edFF9QxLlqt386KL6hmWLFfv5kUX1TMsWa7ezYsuqmdYsly9mxddVM+wZLl6Ny+6qJ5hifRfVt+7/6Hl6nv3P7Rcfe/+h5ar793/0HL1vfsfWq6+d/9Dy9X37n9oufre/Q8tV9+7/6Hl6nv3P7Rcfe/+h5ar793/0HL1vfsfWq6+d/9Dy9X3/n/6H/VuXnRRPcOS5erdvOiieoYly9W7edFF9QxLlqt386KL6hmWLFfv5kUX1TMsWa7ezYsuqmdYsly9mxddVM+wZLl6Ny+6qJ5hyXL1bl50UT3DkuXq3bzoonqGJcvVu3nRRfUM8FsuqmcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYN8/NFnduICpAwA=
+  </data>
+ </layer>
+</map>
