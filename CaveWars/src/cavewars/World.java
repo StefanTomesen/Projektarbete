@@ -6,6 +6,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import static cavewars.CaveWars.windowHeight;
 import static cavewars.CaveWars.windowWidth;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * @author Stefan Tomesen, 3B Portalens Gymnasium
@@ -24,8 +25,8 @@ public class World
 	
 	public Camera camera;
 	
-	public ArrayList<Entity> entityList = new ArrayList();
-	public ArrayList<EntityPlayer> playerList = new ArrayList();
+	public CopyOnWriteArrayList<Entity> entityList = new CopyOnWriteArrayList();
+	public CopyOnWriteArrayList<EntityPlayer> playerList = new CopyOnWriteArrayList();
 	
 	public EntityPlayer localPlayer;
 	public Image background;

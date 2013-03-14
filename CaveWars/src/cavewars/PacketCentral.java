@@ -75,7 +75,9 @@ public class PacketCentral implements Runnable
 		if(action.equals("packet"))
 		{
 			int packetID = instream.readInt();
-			/* System.out.println("Recieved packet: " + packetID); */
+			if(packetID == Packet5RemoveTile.packetID || packetID == Packet4AddTile.packetID)
+			{	//System.out.println("Recieved packet: " + packetID);
+			}
 			Packet packet = Packet.createEmptyPacket(packetID);
 			packet.read(instream);
 			/* System.out.println("Finished reading packet");*/

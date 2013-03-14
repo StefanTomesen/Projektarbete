@@ -17,7 +17,7 @@ public class TileLoader
 		switch(mapChosen){
 			case 0: karta = new TiledMap("resources/karta_2_1.tmx"); break;
 			case 1: karta = new TiledMap("resources/karta_2_1.tmx"); break;
-			case 2: karta = new TiledMap("resources/karta_2_1.tmx"); break;
+			case 2: karta = new TiledMap("resources/karta_2_2.tmx"); break;
 		}
 		
 		// Loopa igenom alla tiles och skapa nya Tile objekt om det finns en tile på den specifika

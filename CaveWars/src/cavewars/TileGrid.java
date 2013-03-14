@@ -42,9 +42,9 @@ public class TileGrid
 	 * 
 	 * @param tile The existing tile entity we're adding to the grid.
 	 */
-	public void add(EntityTile tile)
+	public void add(Tile tile)
 	{
-		add((int)tile.xPosition, (int)tile.yPosition, new Tile(tile));
+		add((int)tile.xPosition, (int)tile.yPosition, tile);
 	}
 	
 	/**

@@ -8,8 +8,9 @@ public class Tile extends Renderable
 	public static int numberOfTileColumns;
 	public static int numberOfTileRows;
 	
-	public static final int NUMBER_OF_ACTIVE_TILES = 7;
+	public static final int NUMBER_OF_ACTIVE_TILES = 8;
 	
+	public static int STONE_ID = 1;
 	public static int LADDER_ID = 2;
 	public static int WATER_ID1 = 3;
 	public static int WATER_ID2 = 4;
@@ -26,7 +27,7 @@ public class Tile extends Renderable
 	
 	public Tile(EntityTile tile)
 	{
-		super((int)tile.xPosition, (int)tile.yPosition, 1.0F, "Tiles/Brevid.png", numberOfTileColumns, numberOfTileRows);
+		super((int)Math.round(tile.xPosition), (int)Math.round(tile.yPosition), 1.0F, "Tiles/Brevid.png", numberOfTileColumns, numberOfTileRows);
 		
 		this.id = tile.tileID;
 	}
@@ -62,6 +63,9 @@ public class Tile extends Renderable
 	public boolean doesFall()
 	{
 		if(id == SAND_ID) return true;
+		if(id == WATER_ID1) return true;
+		if(id == WATER_ID2) return true;
+		if(id == STONE_ID) return true; // Uncomment for MADNESS! >:D
 		
 		return false;
 	}

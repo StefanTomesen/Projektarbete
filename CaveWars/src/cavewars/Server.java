@@ -104,35 +104,17 @@ public class Server implements Runnable
 					if(entity.outsideWorld)
 					{
 						packetCentral.sendPacket(new Packet10RemoveEntity(entity.entityID));
-					}
-					if(entity instanceof EntityTile)
-					{
-						EntityTile tile = (EntityTile)entity;
-						if(tile.hasLanded)
-						{
-							packetCentral.sendPacket(new Packet10RemoveEntity(tile.entityID));
-							packetCentral.sendPacket(new Packet4AddTile(new Tile(tile)));
-						}
-					}
-				}
-			}
-			// Finish up what's left to be done.
-
-			if(false)// !world.entityList.isEmpty())
-			{
-				List<Entity> entities = world.entityList.subList(0, world.entityList.size() - 1); // Required when the list is being modified
-				for(Entity entity : entities)
-				{
-					if(entity.outsideWorld)
-					{
 						world.removeEntity(entity);
 					}
 					if(entity instanceof EntityTile)
 					{
-						EntityTile tile = (EntityTile)entity;
-						if(tile.hasLanded)
+						EntityTile entityTile = (EntityTile)entity;
+						Tile tile = new Tile(entityTile);
+						if(entityTile.hasLanded)
 						{
-							world.removeEntity(tile);
+							packetCentral.sendPacket(new Packet10RemoveEntity(entityTile.entityID));
+							packetCentral.sendPacket(new Packet4AddTile(tile));
+							world.removeEntity(entityTile);
 							world.tileGrid.add(tile);
 						}
 					}
@@ -214,10 +196,11 @@ public class Server implements Runnable
 	 */
 	public void updateBlocksFalling(int x, int y)
 	{
-		Tile tile = world.tileGrid.get(x, y);
-		if(tile != null && tile.doesFall())
+		Tile topTile = world.tileGrid.get(x, y);
+		Tile bottomTile = world.tileGrid.get(x, y + 1);
+		if(bottomTile == null && topTile != null && topTile.doesFall())
 		{
-			EntityTile tileEntity = new EntityTile(getNextEntityID(), x, y, tile.id);
+			EntityTile tileEntity = new EntityTile(getNextEntityID(), x, y, topTile.id);
 			world.tileGrid.remove(x, y);
 			world.entityList.add(tileEntity);
 			for(PacketCentral pc : connections)
