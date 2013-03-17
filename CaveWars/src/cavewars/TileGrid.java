@@ -34,6 +34,10 @@ public class TileGrid
 	 */
 	public void add(int x, int y, Tile tile)
 	{
+		if(x < 0 || x > xSize || y < 0 || y > ySize)
+		{
+			return;
+		}
 		grid[x][y] = tile;
 	}
 	
