@@ -1,5 +1,6 @@
 package cavewars;
 
+import com.sun.org.apache.xpath.internal.axes.ChildIterator;
 import org.newdawn.slick.SlickException;
 
 /**
@@ -81,7 +82,7 @@ public class ClientPacketProcessor
 
 	private void processPacket2SpawnPlayer(PacketCentral packetCentral, Packet2SpawnPlayer packet2SpawnPlayer)
 	{
-		EntityPlayer player = new EntityPlayer(packet2SpawnPlayer.entityID, packet2SpawnPlayer.x, packet2SpawnPlayer.y, packet2SpawnPlayer.team);
+		EntityPlayer player = new EntityPlayer(world, packet2SpawnPlayer.entityID, packet2SpawnPlayer.childEntityID, packet2SpawnPlayer.x, packet2SpawnPlayer.y, packet2SpawnPlayer.team);
 		world.playerList.add(player);
 		world.entityList.add(player);
 	}
@@ -115,8 +116,11 @@ public class ClientPacketProcessor
 	{
 		EntityPlayer player = world.getPlayer(packet7UpdatePlayerData.entityID);
 		player.direction = packet7UpdatePlayerData.direction;
+		player.child.rotation = packet7UpdatePlayerData.armRotation;
 		player.xPosition = packet7UpdatePlayerData.xPosition;
 		player.yPosition = packet7UpdatePlayerData.yPosition;
+		player.child.xPosition = packet7UpdatePlayerData.xPosition + EntityArm.offsetX;
+		player.child.yPosition = packet7UpdatePlayerData.yPosition + EntityArm.offsetY;
 		player.velocityX = packet7UpdatePlayerData.xVelocity;
 		player.velocityY = packet7UpdatePlayerData.yVelocity;
 	}
@@ -129,7 +133,7 @@ public class ClientPacketProcessor
 	
 	private void processPacket9SpawnTileEntity(PacketCentral packetCentral, Packet9SpawnTileEntity packet9SpawnTileEntity)
 	{
-		EntityTile tileEntity = new EntityTile(packet9SpawnTileEntity.entityID, packet9SpawnTileEntity.x, packet9SpawnTileEntity.y, packet9SpawnTileEntity.tileID);
+		EntityTile tileEntity = new EntityTile(world, packet9SpawnTileEntity.entityID, packet9SpawnTileEntity.x, packet9SpawnTileEntity.y, packet9SpawnTileEntity.tileID);
 		world.entityList.add(tileEntity);
 	}
 	

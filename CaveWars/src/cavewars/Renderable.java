@@ -13,7 +13,7 @@ public abstract class Renderable
 	/** The position along the y axis in meters. */
 	public float yPosition;
 	/** The rotation of the entity in degrees. */
-	public float rotation;
+	public float rotation = 0F;
 
 	/** The height of this entity in blocks. */
 	public float height;
@@ -64,10 +64,31 @@ public abstract class Renderable
 		this(xPosition, yPosition, naturalHeight, fileName, xTiles, yTiles, true);
 	}
 	
-	public final void render(Camera camera, int windowWidth, int windowHeight)
+	public void render(Camera camera, int windowWidth, int windowHeight)
 	{
 		float blockSize = windowHeight / camera.scale;
 		float entityScale = height * blockSize / imageHeight;
+		
+		Position pixelPos = getPixelPos(camera, windowWidth, windowHeight);
+		
+		Image image;
+		if(tiledImage)
+		{
+			image = spritesheet.getSprite(getSpriteXIndex(), getSpriteYIndex());
+		}
+		else
+		{
+			image = this.image;
+		}
+		
+		image.setCenterOfRotation(blockSize * EntityArm.centerOffsetX, blockSize * EntityArm.centerOffsetY);
+		image.setRotation(rotation);
+		image.draw(pixelPos.x, pixelPos.y, entityScale);
+	}
+	
+	public Position getPixelPos(Camera camera, int windowWidth, int windowHeight)
+	{
+		float blockSize = windowHeight / camera.scale;
 		
 		float xPos = xPosition * blockSize;
 		float yPos = yPosition * blockSize;
@@ -81,18 +102,7 @@ public abstract class Renderable
 		float finalXPos = xPos + xLevelCenterOffset - xCameraOffset;
 		float finalYPos = yPos + yLevelCenterOffset - yCameraOffset;
 		
-		Image image;
-		if(tiledImage)
-		{
-			image = spritesheet.getSprite(getSpriteXIndex(), getSpriteYIndex());
-		}
-		else
-		{
-			image = this.image;
-		}
-		
-		image.setRotation(rotation);
-		image.draw(finalXPos, finalYPos, entityScale);
+		return new Position(finalXPos, finalYPos);
 	}
 	
 	public void loadImage(String fileName)

@@ -11,6 +11,7 @@ public class Packet7UpdatePlayerData extends Packet
 	
 	public int entityID;
 	public int direction;
+	public float armRotation;
 	
 	public float xPosition;
 	public float yPosition;
@@ -21,6 +22,7 @@ public class Packet7UpdatePlayerData extends Packet
 	{
 		this.entityID = player.entityID;
 		this.direction = player.direction;
+		this.armRotation = player.child.rotation;
 		this.xPosition = player.xPosition;
 		this.yPosition = player.yPosition;
 		this.xVelocity = player.velocityX;
@@ -37,6 +39,7 @@ public class Packet7UpdatePlayerData extends Packet
 	{
 		entityID = instream.readInt();
 		direction = instream.readInt();
+		armRotation = instream.readFloat();
 		xPosition = instream.readFloat();
 		yPosition = instream.readFloat();
 		xVelocity = instream.readFloat();
@@ -48,6 +51,7 @@ public class Packet7UpdatePlayerData extends Packet
 	{
 		outstream.writeInt(entityID);
 		outstream.writeInt(direction);
+		outstream.writeFloat(armRotation);
 		outstream.writeFloat(xPosition);
 		outstream.writeFloat(yPosition);
 		outstream.writeFloat(xVelocity);

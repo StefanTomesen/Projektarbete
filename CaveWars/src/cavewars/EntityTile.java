@@ -6,17 +6,14 @@ public class EntityTile extends Entity
 	
 	public boolean hasLanded = false;
 	
-	public EntityTile(int entityID, float xPosition, float yPosition, int tileID)
+	public EntityTile(World world, int entityID, float xPosition, float yPosition, int tileID)
 	{
-		super(entityID, xPosition, yPosition, 1.0F, ImageLoader.tiles, Tile.numberOfTileColumns, Tile.numberOfTileRows);
+		super(world, entityID, null, xPosition, yPosition, 1.0F, ImageLoader.tiles, Tile.numberOfTileColumns, Tile.numberOfTileRows);
 		this.tileID = tileID;
 	}
 
 	@Override
-	public float getRotation()
-	{
-		return 0;
-	}
+	public void updateRotation() {}
 
 	@Override
 	public float getVerticalAcceleration()

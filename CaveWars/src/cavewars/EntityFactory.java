@@ -15,7 +15,7 @@ public class EntityFactory
 		this.world = world;
 	}
 	
-	public EntityPlayer createPlayer(int id, int team) throws SlickException
+	public EntityPlayer createPlayer(int id, int id2, int team) throws SlickException
 	{
 		Position spawn;
 		if(team == EntityPlayer.RED_TEAM)
@@ -27,7 +27,7 @@ public class EntityFactory
 			spawn = world.YELLOW_SPAWN;
 		}
 		
-		EntityPlayer player = new EntityPlayer(id, spawn.x, spawn.y, team);
+		EntityPlayer player = new EntityPlayer(world, id, id2, spawn.x, spawn.y, team);
 		world.playerList.add(player);
 		world.entityList.add(player);
 		

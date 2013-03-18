@@ -18,6 +18,8 @@ public class Tile extends Renderable
 	
 	public int id;
 	
+	public static boolean fallingStone = false;
+	
 	public Tile(int id, int xPos, int yPos)
 	{
 		super(xPos, yPos, 1.0F, "Tiles/Brevid.png", numberOfTileColumns, numberOfTileRows);
@@ -65,7 +67,7 @@ public class Tile extends Renderable
 		if(id == SAND_ID) return true;
 		if(id == WATER_ID1) return true;
 		if(id == WATER_ID2) return true;
-		if(id == STONE_ID) return true; // Uncomment for MADNESS! >:D
+		if(id == STONE_ID && fallingStone) return true; // Uncomment for MADNESS! >:D
 		
 		return false;
 	}

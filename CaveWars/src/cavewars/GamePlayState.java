@@ -120,8 +120,14 @@ public class GamePlayState implements GameState
 	}
 
 	@Override
-	public void mouseMoved(int i, int i1, int i2, int i3) {
-		//throw new UnsupportedOperationException("Not supported yet.");
+	public void mouseMoved(int oldX, int oldY, int newX, int newY) {
+		if(client == null || client.world == null)
+		{
+			return;
+		}
+		
+		client.world.cursorPosition.x = newX;
+		client.world.cursorPosition.y = newY;
 	}
 
 	@Override
@@ -163,6 +169,14 @@ public class GamePlayState implements GameState
 		if(key == Input.KEY_ESCAPE)
 		{
 			CaveWars.caveWars.enterState(CaveWars.MAIN_MENU_STATE);
+		}
+		
+		if(key == Input.KEY_P)
+		{
+			if(client.world.isServer)
+			{
+				Tile.fallingStone = !Tile.fallingStone;
+			}
 		}
 	}
 

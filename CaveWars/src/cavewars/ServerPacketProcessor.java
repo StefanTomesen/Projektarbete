@@ -65,11 +65,12 @@ public class ServerPacketProcessor
 		{
 			packetCentral.sendPacket(new Packet2SpawnPlayer(player));
 		}
-		// TODO Send all entities 
+		// TODO Send all entities (nonexistent currently)
 
 		// Crete a new player
-		int id = server.getNextEntityID();
-		EntityPlayer player = world.entityFactory.createPlayer(id, packet0Login.team);
+		int id = server.getNextEntityID(); // The id for the player
+		int id2 = server.getNextEntityID(); // The id for the player's arm
+		EntityPlayer player = world.entityFactory.createPlayer(id, id2, packet0Login.team);
 
 		for(PacketCentral pc : server.connections)
 		{
@@ -108,6 +109,7 @@ public class ServerPacketProcessor
 	{
 		EntityPlayer player = world.getPlayer(packet7UpdatePlayerData.entityID);
 		player.direction = packet7UpdatePlayerData.direction;
+		player.child.rotation = packet7UpdatePlayerData.armRotation;
 		player.xPosition = packet7UpdatePlayerData.xPosition;
 		player.yPosition = packet7UpdatePlayerData.yPosition;
 		player.velocityX = packet7UpdatePlayerData.xVelocity;

@@ -200,7 +200,7 @@ public class Server implements Runnable
 		Tile bottomTile = world.tileGrid.get(x, y + 1);
 		if(bottomTile == null && topTile != null && topTile.doesFall())
 		{
-			EntityTile tileEntity = new EntityTile(getNextEntityID(), x, y, topTile.id);
+			EntityTile tileEntity = new EntityTile(world, getNextEntityID(), x, y, topTile.id);
 			world.tileGrid.remove(x, y);
 			world.entityList.add(tileEntity);
 			for(PacketCentral pc : connections)

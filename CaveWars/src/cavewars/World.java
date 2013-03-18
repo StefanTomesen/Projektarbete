@@ -38,6 +38,8 @@ public class World
 	public boolean isSpacePressed = false;
 	public boolean isUpPressed = false;
 	
+	public Position cursorPosition = new Position(0F,0F);
+	
 	public World(boolean isServer) throws SlickException
 	{	
 		this.isServer = isServer;
@@ -129,7 +131,7 @@ public class World
 		{
 			player.render(camera, gc.getWidth(), gc.getHeight());
 		}
-
+		grphcs.drawString("Entities: " + entityList.size(), 10, 30);
 	}
 	
 	public void update(int delta)

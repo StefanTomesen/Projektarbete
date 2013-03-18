@@ -29,17 +29,14 @@ public class EntityPlayer extends Entity
 	/** While climbing, the gravity is disabled. */
 	public boolean isClimbing = false;
 	
-	public EntityPlayer(int id, float x, float y, int team)
+	public EntityPlayer(World world, int id, int id2, float x, float y, int team)
 	{
-		super(id, x, y, 1.5F, ((team == RED_TEAM) ? ImageLoader.redTeam : ImageLoader.yellowTeam), 4, 2);
+		super(world, id, new EntityArm(world, id2, x, y, team), x, y, 1.5F, ((team == RED_TEAM) ? ImageLoader.redPlayer : ImageLoader.yellowPlayer), 4, 2);
 		this.team = team;
 	}
 	
 	@Override
-	public float getRotation()
-	{
-		return 0;
-	}
+	public void updateRotation(){}
 	
 	@Override
 	public void updateAnimation(long delta)

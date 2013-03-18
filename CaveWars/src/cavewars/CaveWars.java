@@ -71,6 +71,7 @@ public class CaveWars extends StateBasedGame
 		CaveWars.setScreenSize(windowWidth, windowHeight);
 		
 		game.setVSync(true);
+		//game.setAlwaysRender(true);
 		//game.setTargetFrameRate(60);
 		
 		try

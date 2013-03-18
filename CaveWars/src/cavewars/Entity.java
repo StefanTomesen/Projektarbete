@@ -10,6 +10,12 @@ public abstract class Entity extends Renderable
 {
 	public int entityID;
 	
+	public Entity parent;
+	public Entity child;
+	
+	/** The world the entity exists in. */
+	public World world;
+	
 	/** The horizontal velocity of the entity counting in m/s. */
 	public float velocityX = 0.0F;
 	/** The vertical velocity of the entity counting in m/s. */
@@ -20,18 +26,19 @@ public abstract class Entity extends Renderable
 	
 	public boolean outsideWorld = false;
 	
-	public Entity(int entityID, float xPosition, float yPosition, float naturalHeight, String fileName, int xTiles, int yTiles)
+	public Entity(World world, int entityID, Entity child, float xPosition, float yPosition, float naturalHeight, String fileName, int xTiles, int yTiles)
 	{
 		super(xPosition, yPosition, naturalHeight, fileName, xTiles, yTiles);
+		this.world = world;
 		this.entityID = entityID;
+		this.child = child;
+		if(child != null) child.parent = this;
 	}
-	
-	public abstract float getRotation();
 	
 	public void update(World world, int delta)
 	{		
 		float deltaSeconds = delta / 1000F;
-		if(deltaSeconds > 1.0f) deltaSeconds = 1.0f;
+		if(deltaSeconds > 0.3f) deltaSeconds = 0.3f;
 		
 		ArrayList<Tile> nearbyTiles = world.getNearbyTiles(this);
 		CollisionBox entityCollision = new CollisionBox(this);
@@ -64,6 +71,12 @@ public abstract class Entity extends Renderable
 		xPosition += movement.x;
 		yPosition += movement.y;
 		
+		if(child != null && this == world.localPlayer)
+		{
+			child.xPosition = xPosition + EntityArm.offsetX;
+			child.yPosition = yPosition + EntityArm.offsetY;
+		}
+		
 		/* If we haven't moved any distance frame, assume that we've been prevented by a collision.
 		 * This is not entirely correct as the acceleration also affects the distance moved during
 		 * the frame, but this will not cause any trouble, so it doesn't matter. */
@@ -76,6 +89,15 @@ public abstract class Entity extends Renderable
 			velocityY = 0;
 		}
 	}
+	
+	public final void render(Camera camera, int windowWidth, int windowHeight)
+	{
+		updateRotation();
+		super.render(camera, windowWidth, windowHeight);
+		if(child != null) child.render(camera, windowWidth, windowHeight);
+	}
+	
+	public abstract void updateRotation();
 	
 	public abstract float getVerticalAcceleration();
 	
