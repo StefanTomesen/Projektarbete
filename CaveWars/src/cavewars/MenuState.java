@@ -5,13 +5,13 @@ import java.util.logging.*;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.*;
 
-public class MainMenuState implements GameState
+public class MenuState implements GameState
 {
 	public int stateID;
 	
 	public Menu menu;
         
-	public MainMenuState(int stateID)
+	public MenuState(int stateID)
 	{
 		this.stateID = stateID;
 	}
@@ -41,22 +41,24 @@ public class MainMenuState implements GameState
                 case 0: try {
                             menu = new MainMenu();
                         } catch (FileNotFoundException ex) {
-                            Logger.getLogger(MainMenuState.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(MenuState.class.getName()).log(Level.SEVERE, null, ex);
                         } break;
                 case 2: try {
                             menu = new MapMenu();
                         } catch (FileNotFoundException ex) {
-                            Logger.getLogger(MainMenuState.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(MenuState.class.getName()).log(Level.SEVERE, null, ex);
                         } break;
                 case 3: 
                         menu = new ColMenu(); break;
                 case 4: try {
                             menu = new IPMenu();
                         } catch (FileNotFoundException ex) {
-                            Logger.getLogger(MainMenuState.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(MenuState.class.getName()).log(Level.SEVERE, null, ex);
                         } break;
                 case 5: 
                         menu = new SettingsMenu(); break;
+                case 6: 
+                        menu = new DeadMenu(); break;
             }
 	}
 

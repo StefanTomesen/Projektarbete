@@ -54,7 +54,7 @@ public class World
 		
 		RED_SPAWN = new Position(tileGrid.xSize/4, tileGrid.ySize * 2 / 3);
 		YELLOW_SPAWN = new Position(tileGrid.xSize*3/4, tileGrid.ySize * 2 / 3);
-                }
+    }
 	
 	public void clientInit(int tileWidth, int tileHeight)
 	{
@@ -159,7 +159,7 @@ public class World
 				{
 					if(entity == localPlayer)
 					{
-						CaveWars.caveWars.enterState(CaveWars.MAIN_MENU_STATE);
+						CaveWars.caveWars.enterState(CaveWars.DEAD_MENU_STATE);
 					}
 				}
 				else
