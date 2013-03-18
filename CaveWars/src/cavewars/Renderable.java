@@ -42,7 +42,7 @@ public abstract class Renderable
 		this.yPosition = yPosition;
 		
 		loadImage(fileName);
-		
+        
 		int tileWidth = image.getWidth() / xTiles;
 		int tileHeight = image.getHeight() / yTiles;
 		this.spritesheet = new SpriteSheet(image, tileWidth, tileHeight);

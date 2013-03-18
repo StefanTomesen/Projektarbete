@@ -80,7 +80,7 @@ class MainMenu extends Menu {
 		
 		if(CaveWars.server == null) serverStatus = "Offline";
 		else if(CaveWars.server.running) serverStatus = "Online";
-		else serverStatus = "Stängs Av";
+		else serverStatus = "Shutting down";
 		graphics.drawString("Server: " + serverStatus, 5, 25);
 	}
 }
