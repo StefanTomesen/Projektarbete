@@ -12,7 +12,6 @@ class EntityArm extends Entity
 	public EntityArm(World world, int id, float x, float y, int team)
 	{
 		super(world, id, null, x + offsetX, y + offsetY, 0.75F, ((team == EntityPlayer.RED_TEAM) ? ImageLoader.redArm : ImageLoader.yellowArm), 2, 1);
-		System.out.println("World Arm: " + world);
 		world2 = world;
 	}
 
