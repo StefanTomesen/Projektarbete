@@ -18,7 +18,7 @@ public class Tile extends Renderable
 	
 	public int id;
 	
-	public static boolean fallingStone = true;
+	public static boolean fallingStone = false;
 	
 	public Tile(int id, int xPos, int yPos)
 	{

@@ -73,7 +73,7 @@ public class Server implements Runnable
 			
 			world.update(delta);
 			
-			// Send updates
+			// Check connection statuses
 			for(PacketCentral packetCentral : connections)
 			{
 				if(packetCentral.done)
@@ -90,28 +90,40 @@ public class Server implements Runnable
 				{
 					continue;
 				}
-				
-				for(EntityPlayer player : world.playerList)
+			}
+			
+			// Send game updates
+			for(EntityPlayer player : world.playerList)
+			{
+				for(PacketCentral packetCentral : connections)
 				{
+					if(!packetCentral.ready) continue;
 					if(player != packetCentral.player)
 					{
 						packetCentral.sendPacket(new Packet7UpdatePlayerData(player));
 					}
 				}
-				
-				for(Entity entity : world.entityList)
+			}
+			for(Entity entity : world.entityList)
+			{
+				if(entity.outsideWorld)
 				{
-					if(entity.outsideWorld)
+					for(PacketCentral packetCentral : connections)
 					{
+						if(!packetCentral.ready) continue;
 						packetCentral.sendPacket(new Packet10RemoveEntity(entity.entityID));
-						world.removeEntity(entity);
 					}
-					if(entity instanceof EntityTile)
+					world.removeEntity(entity);
+				}
+				if(entity instanceof EntityTile)
+				{
+					EntityTile entityTile = (EntityTile)entity;
+					if(entityTile.hasLanded)
 					{
-						EntityTile entityTile = (EntityTile)entity;
 						Tile tile = new Tile(entityTile);
-						if(entityTile.hasLanded)
+						for(PacketCentral packetCentral : connections)
 						{
+							if(!packetCentral.ready) continue;
 							packetCentral.sendPacket(new Packet10RemoveEntity(entityTile.entityID));
 							packetCentral.sendPacket(new Packet4AddTile(tile));
 							world.removeEntity(entityTile);

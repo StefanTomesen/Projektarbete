@@ -173,10 +173,7 @@ public class GamePlayState implements GameState
 		
 		if(key == Input.KEY_P)
 		{
-			if(client.world.isServer)
-			{
-				Tile.fallingStone = !Tile.fallingStone;
-			}
+			Tile.fallingStone = !Tile.fallingStone;
 		}
 	}
 
